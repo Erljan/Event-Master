@@ -3,12 +3,12 @@
 ### First step:
 - Git clone
 ```
-https://github.com/Erljan/Event-Master.git
+git clone https://github.com/Erljan/Event-Master.git
 ```
 
 - Create your own branch by using 
 ```
-git clone git checkout -b <name of your branch>
+git checkout -b <name of your branch>
 ```
 
 ### Installations
