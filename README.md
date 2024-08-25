@@ -8,7 +8,7 @@ https://github.com/Erljan/Event-Master.git
 
 - Create your own branch by using 
 ```
-git checkout -b <name of your branch>
+git clone git checkout -b <name of your branch>
 ```
 
 ### Installations
