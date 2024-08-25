@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 
     # Added apps
     'corsheaders',
+    'rest_framework',
     'user_app',
 ]
 
