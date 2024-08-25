@@ -24,4 +24,7 @@ touch .gitignore
 # Install the requirements
 pip install requirements.txt
 ```
-
+- Create database
+```bash
+createdb event_db
+```
