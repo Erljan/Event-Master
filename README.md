@@ -14,6 +14,7 @@ git checkout -b <name of your branch>
 ### Installations
 - Create your own virtual environment
 ```bash
+# cd to backend
 # You can rename .venv
 python3 -m venv .venv
 
