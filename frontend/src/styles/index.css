@@ -35,8 +35,11 @@ ul li a {
 }
 
 .navbar{
-  background-color: black;
-  color: gold;
+  background-color: #000;
+  color: #f2bc58;
+}
+
+.navbar{
 }.background1 {
   margin: none;
   background-color: #2B2B2B;
