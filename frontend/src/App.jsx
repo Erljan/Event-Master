@@ -4,6 +4,9 @@ import { Home } from "./pages/Home"
 import { LoginForm } from "./pages/LoginForm"
 import { RegisterForm } from "./pages/RegisterForm"
 import { ProtectedRoute } from "./components/ProtectedRoute"
+import { NavBar } from "./components/NavBar"
+import { Profile } from "./pages/Profile"
+import { MyEvents } from "./pages/MyEvents"
 
 
 function Logout(){
@@ -20,7 +23,20 @@ function App() {
         <Routes>
           <Route path="/" element={
             <ProtectedRoute>
+              <NavBar/>
               <Home />
+            </ProtectedRoute>
+          }/>
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <NavBar/>
+              <Profile />
+            </ProtectedRoute>
+          }/>
+          <Route path="/myevents" element={
+            <ProtectedRoute>
+              <NavBar/>
+              <MyEvents />
             </ProtectedRoute>
           }/>
           <Route path="/login" element={ <LoginForm setUsername={setUsername} username={username}/>} />
