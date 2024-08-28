@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'user_app',
+    'add_event',
 ]
 
 MIDDLEWARE = [
