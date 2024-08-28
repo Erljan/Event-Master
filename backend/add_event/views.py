@@ -20,10 +20,19 @@ class CreateOrGetAllEvents(generics.ListCreateAPIView):
         return [AllowAny()]
 
     def get_queryset(self):
-        return CreateEvent.objects.all()
+        return CreateEvent.objects.all().order_by("-created")
 
     def perform_create(self, serializer):
         try:
             serializer.save(creator=self.request.user)
         except Exception as e:
             print(e)
+
+
+class GetMyEvents(generics.ListAPIView):
+    serializer_class = CreateEventSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return CreateEvent.objects.filter(creator=user)
