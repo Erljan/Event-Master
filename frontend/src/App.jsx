@@ -40,7 +40,7 @@ function App() {
             </ProtectedRoute>
           }/>
           <Route path="/login" element={ <LoginForm setUsername={setUsername} username={username}/>} />
-          <Route path="/register" element={ <RegisterForm/>} />
+          <Route path="/signup" element={ <RegisterForm/>} />
           <Route path="/logout" element={ <Logout/>} />
         </Routes>
       </BrowserRouter>

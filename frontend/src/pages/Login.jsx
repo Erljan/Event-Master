@@ -35,11 +35,11 @@ export const LoginForm = () => {
   return (
     <>
         <form action="" onSubmit={handleSubmit} className="forms-login-register">
-            <h1>Login</h1>
+            <div className="titletext">Login</div>
             <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" className="input-forms"/>
             <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="input-forms"/>
 
-            <button className="login-btn">Login</button>
+            <button className="button">Login</button>
         </form>
     </>
   )
