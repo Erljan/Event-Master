@@ -78,7 +78,6 @@ const router = createBrowserRouter([
         element: <GroupPage />,
       },
     ],
-    errorElement: <Error404Page />,
   },
 ]);
 export default router;
