@@ -2,8 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import Home from "./pages/Home.jsx";
 import LogIn from "./pages/LogIn.jsx";
-import ManageEvents from './pages/ManageEvents.jsx';
-import Profile from './pages/Profile.jsx';
+import ManageEvents from "./pages/ManageEvents.jsx";
+import Profile from "./pages/Profile.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import EventPage from "./pages/EventPage.jsx";
 import VenuePage from "./pages/VenuePage.jsx";
@@ -11,64 +11,74 @@ import CreateEvent from "./pages/CreateEvent.jsx";
 import VenueResults from "./pages/VenueResults.jsx";
 import EventResults from "./pages/EventResults.jsx";
 import CreateGroup from "./pages/CreateGroup.jsx";
-import GroupPage from "./pages/GroupPage.jsx"
-
+import GroupPage from "./pages/GroupPage.jsx";
+// added these 2 pages below that were missing
+import MyEvents from "./pages/MyEvents.jsx";
+import Results from "./pages/Results.jsx";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     children: [
       {
         index: true,
-        element: <Home />
+        element: <Home />,
       },
       {
-        path: 'login',
-        element: <LogIn />
+        path: "login",
+        element: <LogIn />,
       },
       {
-        path: 'manageevents',
-        element: <ManageEvents />
+        path: "manageevents",
+        element: <ManageEvents />,
       },
       {
-        path: 'profile',
-        element: <Profile />
+        path: "profile",
+        element: <Profile />,
       },
       {
-        path: 'signup',
-        element: <SignUp />
+        path: "signup",
+        element: <SignUp />,
       },
       {
-        path: 'events',
-        element: <EventPage />
+        path: "events/:id/",
+        element: <EventPage />,
       },
       {
-        path: 'venues',
-        element: <VenuePage />
+        path: "myevents",
+        element: <MyEvents />,
       },
       {
-        path: 'createevent',
-        element: <CreateEvent />
+        path: "venues",
+        element: <VenuePage />,
       },
       {
-        path: 'venueresults',
-        element: <VenueResults />
+        path: "createevent",
+        element: <CreateEvent />,
       },
       {
-        path: 'eventresults',
-        element: <EventResults />
+        path: "results",
+        element: <Results />,
       },
       {
-        path: 'creategroup',
-        element: <CreateGroup />
+        path: "venueresults",
+        element: <VenueResults />,
       },
       {
-        path: 'grouppage',
-        element: <GroupPage />
+        path: "eventresults",
+        element: <EventResults />,
+      },
+      {
+        path: "creategroup",
+        element: <CreateGroup />,
+      },
+      {
+        path: "grouppage",
+        element: <GroupPage />,
       },
     ],
-    errorElement: <Error404Page />
-  }
+    errorElement: <Error404Page />,
+  },
 ]);
 export default router;
