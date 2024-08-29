@@ -21,7 +21,7 @@ class CreateOrGetAllEvents(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return CreateEvent.objects.all().order_by("-created")
-
+    
     def perform_create(self, serializer):
         try:
             serializer.save(creator=self.request.user)
@@ -37,7 +37,15 @@ class GetMyEvents(generics.ListAPIView):
         user = self.request.user
         return CreateEvent.objects.filter(creator=user)
 
+<<<<<<< HEAD
 # class DeleteEvents(generics.DestroyAPIView):
 
 #     def destroy(self, request, *args, **kwargs):
 #         return 
+=======
+
+class GetAnEvent(generics.RetrieveAPIView):
+    queryset = CreateEvent.objects.all()
+    serializer_class = CreateEventSerializer
+    lookup_field = 'id'
+>>>>>>> 05a0306379bcad1f4037563c5c0cadc58143631f
