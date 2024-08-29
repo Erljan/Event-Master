@@ -60,7 +60,10 @@ function App() {
           <Route
             path="/login"
             element={
+              <div>
+              <NavBar />
               <LoginForm setUsername={setUsername} username={username} />
+              </div>
             }
           />
           <Route path="/signup" element={<RegisterForm />} />
