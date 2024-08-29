@@ -36,3 +36,8 @@ class GetMyEvents(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return CreateEvent.objects.filter(creator=user)
+
+# class DeleteEvents(generics.DestroyAPIView):
+
+#     def destroy(self, request, *args, **kwargs):
+#         return 

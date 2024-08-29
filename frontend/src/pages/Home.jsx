@@ -14,7 +14,7 @@ export const Home = () => {
     try {
       const response = await api.get('api/events/')
       setAllEvents(response.data)
-      console.log(response.data)
+      // console.log(response.data)
     } catch (error) {
       console.log(error)
     }
