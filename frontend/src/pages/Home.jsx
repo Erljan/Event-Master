@@ -13,6 +13,7 @@ export const Home = () => {
 
   const fetchAllEvents = async () => {
     try {
+
       const response = await api.get("api/events/");
       setAllEvents(response.data);
       console.log(response.data);
