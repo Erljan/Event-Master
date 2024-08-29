@@ -1,38 +1,51 @@
 // import { useNavigate} from "react-router-dom"
-import { useState, useEffect } from "react"
-import { api } from "../api"
-import "../styles/Home.css"
+import { useState, useEffect } from "react";
+import EventCard from "../components/EventCard";
+import { api } from "../api";
+import "../styles/Home.css";
 
 export const Home = () => {
-  const [allEvents, setAllEvents] = useState([])
+  const [allEvents, setAllEvents] = useState([]);
 
-  useEffect(()=>{
-    fetchAllEvents()
-  },[])
+  useEffect(() => {
+    fetchAllEvents();
+  }, []);
 
-
-  const fetchAllEvents = async()=>{
+  const fetchAllEvents = async () => {
     try {
-      const response = await api.get('api/events/')
-      setAllEvents(response.data)
-      console.log(response.data)
+      const response = await api.get("api/events/");
+      setAllEvents(response.data);
+      console.log(response.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+
+  // return (
+  //   <div>
+  //     {allEvents.map((ev, idx) => (
+  //       <div key={idx}>
+  //         <h3>{ev.event_name}</h3>
+  //         <p>Category: {ev.category}</p>
+  //         <p>Venue: {ev.venue}</p>
+  //         <p>City: {ev.city}</p>
+  //         <p>
+  //           <span>Time: {ev.time}</span>{" "}
+  //           <span>{ev.indoor ? "Indoor" : "Outdoor"}</span>
+  //         </p>
+  //         <a href="/">More Details</a>
+  //       </div>
+  //     ))}
+  //   </div>
+  // );
 
   return (
     <div>
-        {allEvents.map((ev, idx) => (
-          <div key={idx}>
-            <h3>{ev.event_name}</h3>
-            <p>Category: {ev.category}</p>
-            <p>Venue: {ev.venue}</p>
-            <p>City: {ev.city}</p>
-            <p><span>Time: {ev.time}</span> <span>{ev.indoor ? "Indoor" : "Outdoor"}</span></p>
-          </div>
-        ))}
-        
+      {allEvents.map((ev, idx) => (
+        <div key={idx}>
+          <EventCard ev={ev} />
+        </div>
+      ))}
     </div>
-  )
-}
+  );
+};
