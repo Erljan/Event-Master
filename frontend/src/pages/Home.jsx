@@ -22,6 +22,21 @@ export const Home = () => {
     }
   };
 
+//   const handleScroll = (e, category) => {
+//     if (e.target.scrollWidth - e.target.scrollLeft === e.target.clientWidth && !loading
+//         [category]) {
+//         setPage(prevPage => ({ ...prevPage, [category]: prevPage[category] + 1 }));
+//     }
+// };
+
+const scrollLeft = (ref) => {
+    ref.current.scrollBy({ left: -1000, behavior: 'smooth' });
+};
+
+const scrollRight = (ref) => {
+    ref.current.scrollBy({ left: 1000, behavior: 'smooth' });
+};
+
   // return (
   //   <div>
   //     {allEvents.map((ev, idx) => (
@@ -41,12 +56,38 @@ export const Home = () => {
   // );
 
   return (
-    <div>
+    <div className="background1">
+      <div className="container">
+      <form action="/" method="GET" className="form">
+        <input type="search" className="search-textbox" placeholder="Change Location" />
+        <button type="submit" className="search-button">
+          <img src="../src/images/search.png" />
+        </button>
+      </form>
+      <form action="/" method="GET" className="form">
+        <input type="search" className="search-textbox" placeholder="Search Venues" />
+        <button type="submit" className="search-button">
+          <img src="../src/images/search.png" />
+        </button>
+      </form>
+    </div>
+    <container>
+      <div className="category">Events Near You</div>
+      <button className="arrow arrow-left" onClick={() => scrollLeft(rowRef)}>&lt;</button>
       {allEvents.map((ev, idx) => (
         <div key={idx}>
           <EventCard ev={ev} />
         </div>
-      ))}
+      ))};
+      <button className="arrow arrow-right" onClick={() => scrollRight(rowRef)}>&gt;</button>
+    </container>
+    <container>
+      <div className="category">Suggested Events</div>
+    </container>
+    <container>
+      <div className="category">Recently Viewed</div>
+    </container>
+
     </div>
   );
 };

@@ -1,23 +1,54 @@
 .background1 {
   margin: none;
   background-color: #2B2B2B;
+  background-size: cover;
+  height: 2500px;
 }
 
 .textbox {
   background-color: rgb(245, 245, 220, 0.4);
-  border: #4b4b4b;
+  border-color: solid #4b4b4b 1px;
 }
+
+.search-textbox {
+  background-color: rgb(245, 245, 220, 0.7);
+  border-color: solid #4b4b4b 1px;
+  position: middle;
+  margin-left: 12%;
+  margin-top: 3%;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  width: 75%;
+}
+
+
 
 .button{
   text-align: center;
   color: #000;
-  border-radius: 8px;
+  border-radius: 6px;
   background-color: #f2bc58;
   border-color: solid #000 1px;
 }
 
+.search-button{
+  background-color: #f2bc58;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border: solid #4b4b4b 1px;
+
+}
+
+.search-button img {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+}
+
 .titletext{
-  background-image: linear-gradient(#000 20%, #f2bc58 80%);
+  font:xx-large;
+  font-weight: bolder;
+  color: #f2bc58;
   border: solid rgb(0, 0, 0, 0.5) 1px;
 }
 
