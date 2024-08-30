@@ -12,7 +12,7 @@ export const Profile = () => {
     // <div>Profile</div>
     <div>
       <button onClick={()=> setAddEventModalOpen(true)}>Add Event</button>
-      <AddEventModal isOpen={addEventModalOpen} cancelBtn={() => setAddEventModalOpen(false)}/>
+      <AddEventModal isOpen={addEventModalOpen} cancelBtn={() => setAddEventModalOpen(false)} />
     </div>
   )
 }
