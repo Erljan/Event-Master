@@ -36,6 +36,8 @@ export const AddEventModal = ({isOpen, cancelBtn}) => {
         } catch (error) {
             console.log(error)
         }
+
+        return null
     }
 
     // const handleRadioChange = (e) => {
@@ -44,23 +46,23 @@ export const AddEventModal = ({isOpen, cancelBtn}) => {
 
   return (
     <div>
-        <form action="" onSubmit={addEvent}>
-            <input type="text" value={eventName} onChange={(e)=> setEventName(e.target.value)} placeholder="Event Name" />
+        <form action="" onSubmit={addEvent} >
+            <input type="text" value={eventName} onChange={(e)=> setEventName(e.target.value)} placeholder="Event Name" required/>
             <br />
-            <input type="text" value={venue} onChange={(e)=> setVenue(e.target.value)} placeholder="Venue" />
+            <input type="text" value={venue} onChange={(e)=> setVenue(e.target.value)} placeholder="Venue" required/>
             <br />
-            <input type="text" value={city} onChange={(e)=> setCity(e.target.value)} placeholder="City" />
+            <input type="text" value={city} onChange={(e)=> setCity(e.target.value)} placeholder="City" required/>
             <br />
-            <input type="text" value={category} onChange={(e)=> setCategory(e.target.value)} placeholder="Category" />
+            <input type="text" value={category} onChange={(e)=> setCategory(e.target.value)} placeholder="Category" required/>
             <br />
 
-            <input type="time" value={time} onChange={(e)=> setTime(e.target.value)} placeholder="Time" />
-            <select name="" id="" value={amPm} onChange={(e) => setAmPm(e.target.value)}>
+            <input type="time" value={time} onChange={(e)=> setTime(e.target.value)} placeholder="Time" required/>
+            <select name="" id="" value={amPm} onChange={(e) => setAmPm(e.target.value)} required>
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
             </select>
 
-            <select name="" id="" value={timezone} onChange={(e) => setTimezone(e.target.value)}>
+            <select name="" id="" value={timezone} onChange={(e) => setTimezone(e.target.value)} required>
                 <option value="EST">EST</option>
                 <option value="CST">CST</option>
                 <option value="MST">MST</option>
@@ -69,9 +71,9 @@ export const AddEventModal = ({isOpen, cancelBtn}) => {
 
             <br />
             <label htmlFor="indoor">Indoor</label>
-            <input type="radio" name="indoor" id="" value={true} onChange={()=> setIndoor(true)}/>
+            <input type="radio" name="indoor" id="" value={true} onChange={()=> setIndoor(true)} required/>
             <label htmlFor="outdoor">Outdoor</label>
-            <input type="radio" name="indoor" id="" value={false} onChange={()=> setIndoor(false)} />
+            <input type="radio" name="indoor" id="" value={false} onChange={()=> setIndoor(false)} required/>
 
             <br />
             <input type="submit" name="Submit" id="" />

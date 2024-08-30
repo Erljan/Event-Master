@@ -22,12 +22,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route
-            path="/"
+            path="/home"
             element={
-              <ProtectedRoute>
+              <div>
                 <NavBar />
                 <Home />
-              </ProtectedRoute>
+              </div>
             }
           />
           <Route
@@ -60,7 +60,10 @@ function App() {
           <Route
             path="/login"
             element={
+              <div>
+              <NavBar />
               <LoginForm setUsername={setUsername} username={username} />
+              </div>
             }
           />
           <Route path="/signup" element={<RegisterForm />} />
