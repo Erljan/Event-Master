@@ -22,12 +22,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route
-            path="/home"
+            path="/"
             element={
-              <div>
-                <NavBar />
-                <Home />
-              </div>
+              <>
+              <NavBar />
+              <Home />
+              </>
             }
           />
           <Route
