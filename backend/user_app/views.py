@@ -31,11 +31,5 @@ class GetUserInfo(generics.RetrieveAPIView):
 
         profile, created = UserProfile.objects.get_or_create(user=user)
         return profile
-        # try:
-        #     return UserProfile.objects.get(user=self.request.user)
-        # except UserProfile.DoesNotExist:
-        #     raise NotFound("UserProfile does not exist for this user.")
-        # return UserProfile.objects.get(user=self.request.user)
-
 
     
