@@ -32,4 +32,11 @@ class GetUserInfo(generics.RetrieveAPIView):
         profile, created = UserProfile.objects.get_or_create(user=user)
         return profile
 
-    
+
+class UpdateProfileInfo(generics.UpdateAPIView):
+    serializer_class = UserProfileSerializer
+    queryset = UserProfile.objects.all()
+
+    def perform_update(self, serializer):
+        
+        serializer.save(user=self.request.user)
