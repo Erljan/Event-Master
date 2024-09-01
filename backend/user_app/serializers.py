@@ -18,3 +18,14 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ['user', 'bio']
+
+# {
+#   "user": {
+#     "id": 3,
+#     "username": "erljan",
+#     "first_name": "Erljan",
+#     "last_name": "Rodrigo",
+#     "email": "erl@erl.com"
+#   },
+#   "bio": null
+# }
