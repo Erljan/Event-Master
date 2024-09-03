@@ -1,7 +1,7 @@
 .category {
   margin-bottom: .2%;
   margin-right: 3%;
-  margin-left:3%;
+  margin-left: 3%;
   margin-top: 2%;
   background-color: rgba(153, 153, 153, 0.05);
   position:relative;
@@ -70,9 +70,9 @@
   border: solid #444;
   cursor:pointer;
   padding: 5px 10px 5px 10px;
-  margin: 2px;
+  margin: 2%;
   z-index: 1;
-  border-radius: 25%;
+  border-radius: 8px;
 }
 
 .arrow-left {

@@ -43,8 +43,8 @@
   object-fit: cover;
 }
 
-.titletext{
-  font:xx-large;
+.titletext navbar-brand{
+  font: xx-large;
   font-weight: bolder;
   color: #f2bc58;
   border: solid rgb(0, 0, 0, 0.5) 1px;
