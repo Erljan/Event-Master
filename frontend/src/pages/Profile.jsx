@@ -3,6 +3,7 @@ import { api } from "../api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Profile.css"
+import { UpdateProfileModal } from "../components/UpdateProfileModal";
 
 
 export const Profile = () => {
@@ -11,6 +12,15 @@ export const Profile = () => {
   const [lname, setLname] = useState("")
   const [email, setEmail] = useState("")
   const [bio, setBio] = useState("")
+
+
+  const [newFname, setNewFname] = useState("")
+  const [newLname, setNewLname] = useState("")
+  const [newEmail, setNewEmail] = useState("")
+  const [newBio, setNewBio] = useState("")
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     fetchProfileInfo()
@@ -31,12 +41,56 @@ export const Profile = () => {
   }
 
 
+  const updateProfile = async() => {
+
+    try {
+      await api.put("api/profile/update/", {
+        user: {
+
+          first_name: newFname ? newFname : fname,
+          last_name: newLname ? newLname : lname ,
+          email: newEmail ? newEmail : email,
+        },
+        bio: newBio ? newBio : bio,
+      })
+
+      fetchProfileInfo()
+    } catch (error) {
+      console.log(error)
+      
+    }
+  }
+
+  // fetchProfileInfo()
+
   return (
-    <div>
-      <h5>@{username}</h5>
-      <p><span>{fname}</span> <span>{lname}</span></p>
-      <p>{email}</p>
-      <p>{bio ? bio : "No Bio"}</p>
+    <div className="profile-container">
+      <div className="profile">
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="" />
+        <h5>@{username}</h5>
+        <p className="profile-info"><span>{fname}</span> <span>{lname}</span></p>
+        <p className="profile-info">{email}</p>
+        <p className="profile-info">{bio ? bio : "No Bio"}</p>
+        <button onClick={() => setIsModalOpen(true)}>Update Profile</button>
+      </div>
+
+      <div className="profile-modal">
+
+        <UpdateProfileModal
+        onSubmit={updateProfile}
+        onClose={() => setIsModalOpen(false)}
+        isOpen={isModalOpen}
+        newLname={newLname}
+        newFname={newFname}
+        newEmail={newEmail}
+        newBio={newBio}
+        setNewBio={setNewBio}
+        setNewEmail={setNewEmail}
+        setNewFname={setNewFname}
+        setNewLname={setNewLname}
+        />
+      </div>
     </div>
   )
 }
