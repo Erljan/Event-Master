@@ -1,4 +1,4 @@
-import { Container } from 'react-bootstrap/Container';
+import { Container } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -31,11 +31,21 @@ export function NavBar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/myevents">My events</Nav.Link>
+
+            {
+              username ? 
             <NavDropdown title={`@${username}`} id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/logout">Logout</NavDropdown.Item>
               
+            </NavDropdown> :
+            <NavDropdown title={`Guest`} id="basic-nav-dropdown">
+              <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/signup">Register</NavDropdown.Item>
+              
             </NavDropdown>
+
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>      
