@@ -1,6 +1,6 @@
 // import { useNavigate} from "react-router-dom"
-import { useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import FoundEventCard from "../components/EventCard";
 import { api } from "../api";
 import "../styles/Home.css";
@@ -8,7 +8,7 @@ import "../styles/Home.css";
 export const Home = () => {
   const [allEvents, setAllEvents] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
   const rowRef = useRef(null);
   const defaultZipCode = "60601"; // Downtown Chicago zip code
 
@@ -47,9 +47,9 @@ const fetchUpcomingEvents = async (zipCode) => {
     e.preventDefault();
     const zipCode = e.target.elements.search.value;
     if (type === "events") {
-      history.push(`/eventresults?zip=${zipCode}`);
+      navigate.push(`/eventresults?zip=${zipCode}`);
     } else if (type === "venues") {
-      history.push(`/venueresults?zip=${zipCode}`);
+      navigate.push(`/venueresults?zip=${zipCode}`);
     }
   };
 
