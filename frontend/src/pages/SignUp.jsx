@@ -105,36 +105,95 @@ export const RegisterForm = () => {
         }
     
 
-  return (
-    <>
-      <div className="textbox">
-            <form action="" onSubmit={handleSubmit} className="forms-login-register">
-            <div className="titletext">Create Your Account</div>
-            <h2>First Name</h2>
-            <input type="text" name="first_name" value={fname} onChange={(e) => setFname(e.target.value)} className="input-forms"/>
-            <h2>Last Name</h2>
-            <input type="text" name="last_name" value={lname} onChange={(e) => setLname(e.target.value)} className="input-forms"/>
-            <h2>Location(Zip Code)</h2>
-            <input type="text" name="location" value={location} onChange={(e) => setLocation(e.target.value)} className="input-forms"/>
-            <h2>Email</h2>
-            <input type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)} className="input-forms"/>
-            <h2>Username</h2>
-            <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} className="input-forms"/>
-            <h2>Password</h2>
-            <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input-forms"/>
-                <button id="togglePW" className="button" type="button" style="cursor:pointer;" onChange={checkPassword} onClick={togglePassword()}>
-                </button>
-                <ul className="lead list-group" id="requirements">
-                    <li id="length" className="list-group-item">At least 8 characters</li>
-                    <li id="lowercase" className="list-group-item">At least 1 lowercase letter</li>
-                    <li id="uppercase" className="list-group-item">At least 1 uppercase letter</li>
-                    <li id="number" className="list-group-item">At least 1 numerical number</li>
-                    <li id="special" className="list-group-item">At least 1 special character</li>
-                </ul>
-                <h2>You will be redirected to the login page after sign up to log in.</h2>
-            <button onClick={handleSubmit} className="button">Register</button>
-        </form>
-      </div>
-    </>
-  )
-}
+        return (
+            <>
+              <div className="textbox">
+                <form onSubmit={handleSubmit} className="forms-login-register">
+                  <div className="titletext">Create Your Account</div>
+                  <h2>First Name</h2>
+                  <input
+                    type="text"
+                    name="first_name"
+                    value={fname}
+                    onChange={(e) => setFname(e.target.value)}
+                    className="input-forms"
+                  />
+                  <h2>Last Name</h2>
+                  <input
+                    type="text"
+                    name="last_name"
+                    value={lname}
+                    onChange={(e) => setLname(e.target.value)}
+                    className="input-forms"
+                  />
+                  <h2>Location (Zip Code)</h2>
+                  <input
+                    type="text"
+                    name="location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    className="input-forms"
+                  />
+                  <h2>Email</h2>
+                  <input
+                    type="text"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="input-forms"
+                  />
+                  <h2>Username</h2>
+                  <input
+                    type="text"
+                    name="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="input-forms"
+                  />
+                  <h2>Password</h2>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      checkPassword();
+                    }}
+                    className="input-forms"
+                  />
+                  <button
+                    id="togglePW"
+                    className="button"
+                    type="button"
+                    style={{ cursor: "pointer" }}
+                    onClick={togglePassword}
+                  >
+                    Show Password
+                  </button>
+                  <ul className="lead list-group" id="requirements">
+                    <li id="length" className="list-group-item">
+                      At least 8 characters
+                    </li>
+                    <li id="lowercase" className="list-group-item">
+                      At least 1 lowercase letter
+                    </li>
+                    <li id="uppercase" className="list-group-item">
+                      At least 1 uppercase letter
+                    </li>
+                    <li id="number" className="list-group-item">
+                      At least 1 numerical number
+                    </li>
+                    <li id="special" className="list-group-item">
+                      At least 1 special character
+                    </li>
+                  </ul>
+                  <h2>You will be redirected to the login page after sign up to log in.</h2>
+                  <button type="submit" className="button">
+                    Register
+                  </button>
+                </form>
+              </div>
+            </>
+          );
+        };
