@@ -1,24 +1,55 @@
 // import { useNavigate} from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import EventCard from "../components/EventCard";
+import FoundEventCard from "../components/EventCard";
 import { api } from "../api";
 import "../styles/Home.css";
 
 export const Home = () => {
   const [allEvents, setAllEvents] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const history = useHistory();
+  const rowRef = useRef(null);
+  const defaultZipCode = "60601"; // Downtown Chicago zip code
+
 
   useEffect(() => {
-    fetchAllEvents();
-  }, []);
+    const userZipCode = "userSavedZipCode"; // Replace with actual user saved zip code
+    const defaultZipCode = "60601"; // Downtown Chicago zip code
+    fetchEventsByLocation(userZipCode || defaultZipCode);
+    fetchUpcomingEvents(userZipCode || defaultZipCode);
+  }, 
+ []
+);
 
-  const fetchAllEvents = async () => {
-    try {
 
-      const response = await api.get("api/events/");
-      setAllEvents(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
+const fetchEventsByLocation = async (zipCode) => {
+  try {
+    const response = await api.get(`api/events/?zip=${zipCode}`);
+    setAllEvents(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchUpcomingEvents = async (zipCode) => {
+  try {
+    const response = await api.get(`api/events/upcoming/?zip=${zipCode}`);
+    const sortedEvents = response.data.sort((a, b) => new Date(a.date) - new Date(b.date));
+    setUpcomingEvents(sortedEvents);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+  const handleSearch = (e, type) => {
+    e.preventDefault();
+    const zipCode = e.target.elements.search.value;
+    if (type === "events") {
+      history.push(`/eventresults?zip=${zipCode}`);
+    } else if (type === "venues") {
+      history.push(`/venueresults?zip=${zipCode}`);
     }
   };
 
@@ -37,57 +68,45 @@ const scrollRight = (ref) => {
     ref.current.scrollBy({ left: 1000, behavior: 'smooth' });
 };
 
-  // return (
-  //   <div>
-  //     {allEvents.map((ev, idx) => (
-  //       <div key={idx}>
-  //         <h3>{ev.event_name}</h3>
-  //         <p>Category: {ev.category}</p>
-  //         <p>Venue: {ev.venue}</p>
-  //         <p>City: {ev.city}</p>
-  //         <p>
-  //           <span>Time: {ev.time}</span>{" "}
-  //           <span>{ev.indoor ? "Indoor" : "Outdoor"}</span>
-  //         </p>
-  //         <a href="/">More Details</a>
-  //       </div>
-  //     ))}
-  //   </div>
-  // );
 
   return (
     <div className="background1">
       <div className="container">
-      <form action="/" method="GET" className="form">
-        <input type="search" className="search-textbox" placeholder="Change Location" />
-        <button type="submit" className="search-button">
-          <img src="../src/images/search.png" />
-        </button>
-      </form>
-      <form action="/" method="GET" className="form">
-        <input type="search" className="search-textbox" placeholder="Search Venues" />
-        <button type="submit" className="search-button">
-          <img src="../src/images/search.png" />
-        </button>
-      </form>
+      <form onSubmit={(e) => handleSearch(e, "events")} className="form">
+          <input type="search" name="search" className="search-textbox" placeholder="Change Location" />
+          <button type="submit" className="search-button">
+            <img src="../src/images/search.png" alt="Search" />
+          </button>
+        </form>
+        <form onSubmit={(e) => handleSearch(e, "venues")} className="form">
+          <input type="search" name="search" className="search-textbox" placeholder="Search Venues" />
+          <button type="submit" className="search-button">
+            <img src="../src/images/search.png" alt="Search" />
+          </button>
+        </form>
     </div>
-    <container>
-      <div className="category">Events Near You</div>
-      <button className="arrow arrow-left" onClick={() => scrollLeft(rowRef)}>&lt;</button>
-      {allEvents.map((ev, idx) => (
-        <div key={idx}>
-          <EventCard ev={ev} />
+    <div className="container">
+        <div className="category">Events Near You</div>
+        <button className="arrow arrow-left" onClick={() => scrollLeft(rowRef)}>&lt;</button>
+        <div ref={rowRef} className="events-row">
+          {allEvents.map((ev, idx) => (
+            <div key={idx}>
+              <FoundEventCard ev={ev} />
+            </div>
+          ))}
         </div>
-      ))};
-      <button className="arrow arrow-right" onClick={() => scrollRight(rowRef)}>&gt;</button>
-    </container>
-    <container>
-      <div className="category">Suggested Events</div>
-    </container>
-    <container>
-      <div className="category">Recently Viewed</div>
-    </container>
-
+        <button className="arrow arrow-right" onClick={() => scrollRight(rowRef)}>&gt;</button>
+      </div>
+      <div className="container">
+        <div className="category">Upcoming Events</div>
+        <div className="events-row">
+          {upcomingEvents.map((ev, idx) => (
+            <div key={idx}>
+              <FoundEventCard ev={ev} />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

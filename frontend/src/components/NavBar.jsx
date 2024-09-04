@@ -1,4 +1,4 @@
-import Container from 'react-bootstrap/Container';
+import { Container } from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -24,6 +24,7 @@ export function NavBar() {
 
   return (
     <Navbar expand="lg" className="navbar" data-bs-theme="dark">
+      <Container>
           <Navbar.Brand className="titletext" as={Link} to="/">Event Master</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -36,7 +37,8 @@ export function NavBar() {
               
             </NavDropdown>
           </Nav>
-        </Navbar.Collapse>      
+        </Navbar.Collapse>
+      </Container>      
     </Navbar>
   );
 }
