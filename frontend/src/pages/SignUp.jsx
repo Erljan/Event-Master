@@ -1,7 +1,9 @@
-import React from "react";
+// import React from "react";
+import { Container } from 'react-bootstrap';
 import { api } from "../api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import "../styles/SignUp.css"
 
 // import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
@@ -106,8 +108,8 @@ export const RegisterForm = () => {
     
 
         return (
-            <>
-              <div className="textbox">
+            <div className="background2">
+              <container className="container">
                 <form onSubmit={handleSubmit} className="forms-login-register">
                   <div className="titletext">Create Your Account</div>
                   <h2>First Name</h2>
@@ -193,7 +195,7 @@ export const RegisterForm = () => {
                     Register
                   </button>
                 </form>
+                </container>
               </div>
-            </>
           );
         };
