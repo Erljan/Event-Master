@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import FoundEventCard from "../components/EventCard";
 import { api } from "../api";
+import axios from "axios";
 import "../styles/Home.css";
 
 export const Home = () => {
@@ -16,17 +17,31 @@ export const Home = () => {
   useEffect(() => {
     const userZipCode = "userSavedZipCode"; // Replace with actual user saved zip code
     const defaultZipCode = "60601"; // Downtown Chicago zip code
-    fetchEventsByLocation(userZipCode || defaultZipCode);
+    // fetchEventsByLocation(userZipCode || defaultZipCode);
     fetchUpcomingEvents(userZipCode || defaultZipCode);
+    fetchAllEvents()
   }, 
  []
 );
 
 
-const fetchEventsByLocation = async (zipCode) => {
+// const fetchEventsByLocation = async (zipCode) => {
+//   try {
+//     const response = await api.get(`api/events/?zip=${zipCode}/`);
+//     setAllEvents(response.data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+const apikey = import.meta.env.VITE_API_KEY
+
+
+const fetchAllEvents = async () => {
   try {
-    const response = await api.get(`api/events/?zip=${zipCode}`);
+    const response = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=${apikey}`);
     setAllEvents(response.data);
+    console.log(response.data)
   } catch (error) {
     console.log(error);
   }
@@ -34,7 +49,7 @@ const fetchEventsByLocation = async (zipCode) => {
 
 const fetchUpcomingEvents = async (zipCode) => {
   try {
-    const response = await api.get(`api/events/upcoming/?zip=${zipCode}`);
+    const response = await api.get(`api/events/upcoming/?zip=${zipCode}/`);
     const sortedEvents = response.data.sort((a, b) => new Date(a.date) - new Date(b.date));
     setUpcomingEvents(sortedEvents);
   } catch (error) {
@@ -89,11 +104,11 @@ const scrollRight = (ref) => {
         <div className="category">Events Near You</div>
         <button className="arrow arrow-left" onClick={() => scrollLeft(rowRef)}>&lt;</button>
         <div ref={rowRef} className="events-row">
-          {allEvents.map((ev, idx) => (
+          {/* {allEvents.map((ev, idx) => (
             <div key={idx}>
               <FoundEventCard ev={ev} />
             </div>
-          ))}
+          ))} */}
         </div>
         <button className="arrow arrow-right" onClick={() => scrollRight(rowRef)}>&gt;</button>
       </div>
