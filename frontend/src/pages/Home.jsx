@@ -36,7 +36,7 @@ export const Home = () => {
 // };
 
 const apikey = import.meta.env.VITE_API_KEY
-
+console.log(import.meta.env.VITE_API_KEY);
 
 const fetchAllEvents = async () => {
   setLoading(true)
