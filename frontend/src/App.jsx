@@ -66,7 +66,12 @@ function App() {
               </div>
             }
           />
-          <Route path="/signup" element={<RegisterForm />} />
+          <Route path="/signup" element={
+            <>
+              <NavBar />
+              <RegisterForm />
+            </>
+            } />
           <Route path="/logout" element={<Logout />} />
         </Routes>
       </BrowserRouter>

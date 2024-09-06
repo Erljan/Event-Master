@@ -1,14 +1,17 @@
-.background1 {
-  margin: none;
+*{
+  /* margin: none;
   background-color: #2B2B2B;
   background-size: cover;
-  height: 2500px;
+  height: 2500px; */
+  background-color: #4b4b4b;
+  color: white;
+  /* position: relative; */
 }
 
-.textbox {
+/* .textbox {
   background-color: rgb(245, 245, 220, 0.4);
   border-color: solid #4b4b4b 1px;
-}
+} */
 
 .search-textbox {
   background-color: rgb(245, 245, 220, 0.7);
@@ -63,7 +66,144 @@ ul li a {
   color:#000;
 }
 
+
+/* ========NAVBAR======= */
 .navbar{
-  background-color: #000;
-  color: #f2bc58;
+
+  box-shadow: 1px 1px 10px rgb(228, 189, 89);
+  background-color: black;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.me-auto{
+  /* border: 1px solid white; */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+}
+
+.titletext{
+  background-color: black;
+}
+
+.nav-options{
+  display: flex;
+  background-color: black;
+}
+
+.navbar-container{
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-dropdown{
+  background-color: black;
+  border: 1px solid black; 
+  border-radius: 5px;
+}
+
+
+/* ======LOGIN FORM======= */
+
+.login{
+  /* border: 1px solid white; */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* position: relative; */
+  /* background-color: rgb(247, 247, 247, .4); */
+}
+
+.welcome{
+  /* margin-bottom: 5%; */
+  position: absolute;
+  top: 20%;
+  font-size: 5em;
+}
+
+.forms-login-register{
+  /* border: 1px solid white; */
+  height: 350px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  padding: 20px;
+  box-shadow: 1px 1px 10px rgb(228, 189, 89);
+  border-radius: 5px;
+  background-color: rgba(247, 247, 247, .4);
+
+}
+
+.forms-login-register h1, p, Link{
+  background-color: transparent;
+}
+
+.input-forms{
+  width: 100%;
+  margin: 12px;
+  height: 50px;
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+
+}
+
+.to-reg{
+  background-color: rgba(247, 247, 247, .4);
+  color: blue;
+}
+
+.login-btn{
+  width: 40%;
+  height: 50px;
+  border-radius: 5px;
+  background-color: #f2bc58;
+  border: none;
+  font-size: x-large;
+  margin: 10px;
+  
+}
+
+
+/* ======SignUp====== */
+
+.signup-page{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.signup{
+  height: 600px;
+  width: 450px;
+  margin-top: 0;
+}
+
+.input-forms-signup{
+  width: 100%;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 10px;
+  color: black;
+  outline: none;
+}
+
+.show-pass{
+  background-color: #f2bc58;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }

@@ -24,28 +24,28 @@ export function NavBar() {
 
   return (
     <Navbar expand="lg" className="navbar" data-bs-theme="dark">
-      <Container>
+      <Container className='navbar-container'>
           <Navbar.Brand className="titletext" as={Link} to="/">Event Master</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+       <div className='nav-options'>
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/myevents">My events</Nav.Link>
+       </div>
 
+       <div className='navbar-dropdown'> 
             {
               username ? 
-            <NavDropdown title={`@${username}`} id="basic-nav-dropdown">
+              <NavDropdown title={`@${username}`} id="basic-nav-dropdown" className='navbar-dropdown'>
               <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/logout">Logout</NavDropdown.Item>
               
             </NavDropdown> :
-            <NavDropdown title={`Guest`} id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/signup">Register</NavDropdown.Item>
-              
-            </NavDropdown>
+            <Nav.Link as={Link} to="/login">Login/Register</Nav.Link>
 
-            }
+}
+        </div>
           </Nav>
         </Navbar.Collapse>
       </Container>      
