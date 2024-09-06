@@ -1,4 +1,9 @@
 .forms-login-register{
-  padding-top: 3%;
+  background-color: rgb(245, 245, 220, .4);
+  border-color: solid #4b4b4b 1px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 75%;
+  height: 90%;
   align-items: center;
 }

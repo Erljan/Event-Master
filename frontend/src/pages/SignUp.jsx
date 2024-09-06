@@ -109,7 +109,7 @@ export const RegisterForm = () => {
 
         return (
             <div className="background2">
-              <container className="container">
+              <Container className="container">
                 <form onSubmit={handleSubmit} className="forms-login-register">
                   <div className="titletext">Create Your Account</div>
                   <h2>First Name</h2>
@@ -195,7 +195,7 @@ export const RegisterForm = () => {
                     Register
                   </button>
                 </form>
-                </container>
+                </Container>
               </div>
           );
         };
