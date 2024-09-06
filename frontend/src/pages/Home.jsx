@@ -41,7 +41,7 @@ const apikey = import.meta.env.VITE_API_KEY
 const fetchAllEvents = async () => {
   setLoading(true)
   try {
-    const response = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apikey}&keyword=sport`);
+    const response = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=${apikey}`);
     setAllEvents(response.data._embedded.events);
     console.log(response.data._embedded.events)
   } catch (error) {

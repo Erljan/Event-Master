@@ -36,7 +36,7 @@ export const LoginForm = () => {
 
   return (
     <div className="login">
-        <h1 className="welcome">Welcome Back!</h1>
+        {/* <h1 className="welcome">Welcome Back!</h1> */}
         <form action="" onSubmit={handleSubmit} className="forms-login-register">
             <h1>Login</h1>
             <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" className="input-forms"/>

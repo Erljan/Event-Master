@@ -25,7 +25,7 @@ export function NavBar() {
   return (
     <Navbar expand="lg" className="navbar" data-bs-theme="dark">
       <Container className='navbar-container'>
-          <Navbar.Brand className="titletext" as={Link} to="/">Event Master</Navbar.Brand>
+          <Navbar.Brand className="titletext" as={Link} to="/"><img src="src/images/logo.png" alt="" /></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -33,13 +33,14 @@ export function NavBar() {
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/sports">Sports</Nav.Link>
             <Nav.Link as={Link} to="/music">Music</Nav.Link>
-            <Nav.Link as={Link} to="/myevents">My events</Nav.Link>
+
        </div>
 
        <div className='navbar-dropdown'> 
             {
               username ? 
               <NavDropdown title={`@${username}`} id="basic-nav-dropdown" className='navbar-dropdown'>
+              <NavDropdown.Item as={Link} to="/myevents">My events</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/logout">Logout</NavDropdown.Item>
               
