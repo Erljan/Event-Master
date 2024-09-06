@@ -28,16 +28,15 @@
   text-align: center;
   color: #000;
   border-radius: 6px;
-  background-color: #f2bc58;
+  background-color:  rgb(212, 172, 91);
   border-color: solid #000 1px;
 }
 
 .search-button{
-  background-color: #f2bc58;
+  background-color:  rgb(212, 172, 91);
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   border: solid #4b4b4b 1px;
-
 }
 
 .search-button img {
@@ -92,7 +91,15 @@ ul li a {
 }
 
 .titletext{
-  background-color: rgb(106, 106, 106);
+  color: rgb(212, 172, 91, 2);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-text-stroke-width: 1; 
+  -webkit-text-stroke-color: #000;
+  /* font-family: "Krona One"; */
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .nav-options{
@@ -229,7 +236,6 @@ ul li a {
   outline: none;
   box-shadow: inset 1px 1px 10px rgb(126, 124, 124);
   height: 50px;
-
 }
 
 .input-forms-signup::placeholder{
@@ -237,7 +243,7 @@ ul li a {
 }
 
 .show-pass{
-  background-color: #f2bc58;
+  background-color:  rgb(212, 172, 91);
   border: none;
   border-radius: 5px;
   margin-bottom: 20px;
