@@ -2,9 +2,9 @@
 import { Container } from 'react-bootstrap';
 import { api } from "../api";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-import "../styles/SignUp.css"
+// import "../styles/SignUp.css"
 
 // import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
@@ -108,51 +108,56 @@ export const RegisterForm = () => {
     
 
         return (
-            <div className="background2">
-              <container className="container">
-                <form onSubmit={handleSubmit} className="forms-login-register">
-                  <div className="titletext">Create Your Account</div>
-                  <h2>First Name</h2>
+            <div className="signup-page">
+              {/* <container className="signup-container"> */}
+                <form onSubmit={handleSubmit} className="forms-login-register signup">
+                  <h1 className="titletext">Create Your Account</h1>
+                  {/* <p>First Name</p> */}
                   <input
                     type="text"
                     name="first_name"
                     value={fname}
                     onChange={(e) => setFname(e.target.value)}
-                    className="input-forms"
+                    className="input-forms-signup"
+                    placeholder='First Name'
                   />
-                  <h2>Last Name</h2>
+                  {/* <p>Last Name</p> */}
                   <input
                     type="text"
                     name="last_name"
                     value={lname}
                     onChange={(e) => setLname(e.target.value)}
-                    className="input-forms"
+                    className="input-forms-signup"
+                    placeholder='Last Name'
                   />
-                  <h2>Location (Zip Code)</h2>
+                  {/* <p>Location (Zip Code)</p> */}
                   <input
                     type="text"
                     name="location"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="input-forms"
+                    className="input-forms-signup"
+                    placeholder='Location (Zip Code)'
                   />
-                  <h2>Email</h2>
+                  {/* <p>Email</p> */}
                   <input
                     type="text"
                     name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="input-forms"
+                    className="input-forms-signup"
+                    placeholder='Email'
                   />
-                  <h2>Username</h2>
+                  {/* <p>Username</p> */}
                   <input
                     type="text"
-                    name="username"
+                    // name="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="input-forms"
+                    className="input-forms-signup"
+                    placeholder='Username'
                   />
-                  <h2>Password</h2>
+                  {/* <p>Password</p> */}
                   <input
                     type="password"
                     id="password"
@@ -162,18 +167,19 @@ export const RegisterForm = () => {
                       setPassword(e.target.value);
                       checkPassword();
                     }}
-                    className="input-forms"
+                    className="input-forms-signup"
+                    placeholder='Password'
                   />
                   <button
                     id="togglePW"
-                    className="button"
+                    className="show-pass"
                     type="button"
                     style={{ cursor: "pointer" }}
                     onClick={togglePassword}
                   >
                     Show Password
                   </button>
-                  <ul className="lead list-group" id="requirements">
+                  {/* <ul className="lead list-group" id="requirements">
                     <li id="length" className="list-group-item">
                       At least 8 characters
                     </li>
@@ -189,13 +195,13 @@ export const RegisterForm = () => {
                     <li id="special" className="list-group-item">
                       At least 1 special character
                     </li>
-                  </ul>
-                  <h2>You will be redirected to the login page after sign up to log in.</h2>
-                  <button type="submit" className="button">
+                  </ul> */}
+                  <p >Already have an account? <span><Link to="/login" className='to-reg'>Login</Link></span></p>
+                  <button type="submit" className="login-btn">
                     Register
                   </button>
                 </form>
-                </container>
+                {/* </container> */}
               </div>
           );
         };

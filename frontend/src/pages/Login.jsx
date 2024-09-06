@@ -1,6 +1,6 @@
 import { api } from "../api";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import "../styles/Login.css"
 import "../styles/index.css"
@@ -35,12 +35,14 @@ export const LoginForm = () => {
     }
 
   return (
-    <div className="background1">
+    <div className="login">
+        <h1 className="welcome">Welcome Back!</h1>
         <form action="" onSubmit={handleSubmit} className="forms-login-register">
-            <div className="titletext">Login</div>
+            <h1>Login</h1>
             <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" className="input-forms"/>
             <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="input-forms"/>
-            <button className="button">Login</button>
+            <button className="login-btn">Login</button>
+            <p>Don't have an account? <span><Link to="/signup" className="to-reg">Register</Link></span></p>
         </form>
     </div>
   )
