@@ -31,6 +31,8 @@ export function NavBar() {
           <Nav className="me-auto">
        <div className='nav-options'>
             <Nav.Link as={Link} to="/">Home</Nav.Link>
+            <Nav.Link as={Link} to="/sports">Sports</Nav.Link>
+            <Nav.Link as={Link} to="/music">Music</Nav.Link>
             <Nav.Link as={Link} to="/myevents">My events</Nav.Link>
        </div>
 
