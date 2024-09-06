@@ -12,6 +12,7 @@ export const Home = () => {
   const navigate = useNavigate();
   const rowRef = useRef(null);
   const defaultZipCode = "60601"; // Downtown Chicago zip code
+  const [loading, setLoading] = useState(false)
 
 
   useEffect(() => {
@@ -38,12 +39,15 @@ const apikey = import.meta.env.VITE_API_KEY
 
 
 const fetchAllEvents = async () => {
+  setLoading(true)
   try {
     const response = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=${apikey}`);
-    setAllEvents(response.data);
-    console.log(response.data)
+    setAllEvents(response.data._embedded.events);
+    console.log(response.data._embedded.events)
   } catch (error) {
     console.log(error);
+  }finally{
+    setLoading(false)
   }
 };
 
@@ -85,8 +89,21 @@ const scrollRight = (ref) => {
 
 
   return (
-    <div className="background1">
-      <div className="container">
+    <div className="homepage">
+
+      {/* All current events */}
+
+      { loading ? 
+        (<div className="spinner"></div>) :
+        (allEvents.map((eve, idx) => (
+          <div key={idx} className="event-cards">
+            <h4>{eve.name}</h4>
+            <img src={eve.images[0].url} alt="" />
+          </div>
+        )))
+      }
+
+      {/* <div className="container">
       <form onSubmit={(e) => handleSearch(e, "events")} className="form">
           <input type="search" name="search" className="search-textbox" placeholder="Change Location" />
           <button type="submit" className="search-button">
@@ -104,11 +121,6 @@ const scrollRight = (ref) => {
         <div className="category">Events Near You</div>
         <button className="arrow arrow-left" onClick={() => scrollLeft(rowRef)}>&lt;</button>
         <div ref={rowRef} className="events-row">
-          {/* {allEvents.map((ev, idx) => (
-            <div key={idx}>
-              <FoundEventCard ev={ev} />
-            </div>
-          ))} */}
         </div>
         <button className="arrow arrow-right" onClick={() => scrollRight(rowRef)}>&gt;</button>
       </div>
@@ -121,7 +133,7 @@ const scrollRight = (ref) => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

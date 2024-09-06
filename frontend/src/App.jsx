@@ -8,6 +8,8 @@ import { NavBar } from "./components/NavBar";
 import { Profile } from "./pages/Profile";
 import { MyEvents } from "./pages/MyEvents";
 import EventPage from "./pages/EventPage";
+import { Sports } from "./pages/Sports";
+import { Music } from "./pages/Music";
 
 function Logout() {
   localStorage.clear();
@@ -57,6 +59,20 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/sports"
+          element={
+            <>
+            <NavBar />
+            <Sports />
+            </>
+          }/>
+          <Route path="/music"
+          element={
+            <>
+            <NavBar />
+            <Music />
+            </>
+          }/>
           <Route
             path="/login"
             element={
