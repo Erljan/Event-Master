@@ -183,14 +183,14 @@ export const Home = () => {
 
       {/* 10 current NEAR events */}
 
-        <h1>Events near you</h1>
+      <h1>Events near you</h1>
       <div className="each-slide">
         {
           loading ? (
             <div className="spinner"></div>
           ) : (
             nearEvents.map((eve, idx) => (
-              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"}/>
+              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} navigate={()=>navigate(`/event/${eve.id}`)}/>
             ))
           )
         }
@@ -207,7 +207,7 @@ export const Home = () => {
             <div className="spinner"></div>
           ) : (
             sportsEvents.map((eve, idx) => (
-              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"}/>
+              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} navigate={()=>navigate(`/event/${eve.id}`)}/>
             ))
           )
         }
@@ -223,7 +223,7 @@ export const Home = () => {
           <div className="spinner"></div>
         ) : (
           musicEvents.map((eve, idx) => (
-            <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"}/>
+            <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} navigate={()=>navigate(`/event/${eve.id}`)}/>
           ))
         )}
 

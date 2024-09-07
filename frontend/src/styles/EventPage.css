@@ -1,0 +1,38 @@
+.event-container {
+    padding: 20px;
+    /* Avoid global resets here */
+    /* border: 2px solid rgb(0, 0, 226); */
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+  }
+
+  .info{
+    /* border: 1px solid black; */
+    box-shadow: 1px 1px 10px rgb(122, 121, 121);
+    padding: 20px 15px;
+    margin: 45px 0;
+  }
+
+  
+  .event-container img {
+    max-width: 100%;
+    width: 900px;
+    height: 500px;
+    border-radius: 5px;
+    /* border: 10px solid rgb(0, 0, 226); */
+  }
+
+  .add-btn{
+    background-color: rgb(100, 182, 250);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: 150px;
+    margin: 10px;
+  }
+
+
+
+

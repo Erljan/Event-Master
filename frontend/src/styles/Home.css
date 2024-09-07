@@ -114,4 +114,12 @@
 .event-card img{
   height: 200px;
   width: 300px;
+  border-radius: 5px;
 }
+
+.event-card h5{
+  /* border: 1px solid black; */
+  height: 50px;
+  overflow: hidden;
+}
+
