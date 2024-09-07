@@ -7,21 +7,23 @@ import axios from "axios";
 import "../styles/Home.css";
 
 export const Home = () => {
-  const [allEvents, setAllEvents] = useState([]);
+  // const [allEvents, setAllEvents] = useState([]);
   // const [upcomingEvents, setUpcomingEvents] = useState([]);
   // const defaultZipCode = "60601"; // Downtown Chicago zip code
-  const rowRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const [zipCode, setZipCode] = useState(60601)
+  const [nearEvents, setNearEvents] = useState([])
+  const rowRef = useRef(null);
   const navigate = useNavigate();
 
   const [musicEvents, setMusicEvents] = useState([]);
   const [sportsEvents, setSportsEvents] = useState([])
 
   useEffect(() => {
-    const userZipCode = "userSavedZipCode"; // Replace with actual user saved zip code
-    const defaultZipCode = "60601"; // Downtown Chicago zip code
+    // const userZipCode = "userSavedZipCode"; // Replace with actual user saved zip code
     // fetchEventsByLocation(userZipCode || defaultZipCode);
-    fetchUpcomingEvents(userZipCode || defaultZipCode);
+    // fetchUpcomingEvents(userZipCode || defaultZipCode);
+    getCoordinateFromZip(13602)
     fetchAllEvents();
   }, []);
 
@@ -35,10 +37,41 @@ export const Home = () => {
   // };
 
   const apikey = import.meta.env.VITE_API_KEY;
+  
+  
+  const getCoordinateFromZip = async(zipCode) => {
+    const geocodeKey = import.meta.env.VITE_LOCATION_KEY
+    const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${zipCode}&key=${geocodeKey}`)
+    const results = response.data.results[0]
+    return results ? results.geometry : null
+  }
 
   const fetchAllEvents = async () => {
     setLoading(true);
     try {
+
+      // The code below grabs the event by zipcode
+      const coordinates = await getCoordinateFromZip(zipCode)
+      if(!coordinates){
+        console.log("Coordinates not found")
+        return
+      }
+
+      const { lat, lng } = coordinates
+
+      const eventsResponse = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apikey}&latlong=${lat},${lng}&size=50`)
+      const eventData = eventsResponse.data._embedded.events
+
+      const nearUniqueEvents = []
+      const seenNearEvents = new Set()
+
+      eventData.forEach((event) => {
+        if (!seenNearEvents.has(event.name) && nearUniqueEvents.length < 10){
+          seenNearEvents.add(event.name)
+          nearUniqueEvents.push(event)
+        }
+      })
+
       // This code below calls for the MUSIC events
       const musicResponse = await axios.get(
         `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&classificationName=music&apikey=${apikey}&size=100`
@@ -89,8 +122,9 @@ export const Home = () => {
 
       setMusicEvents(musicUniqueEvents);
       setSportsEvents(sportsUniqueEvents)
+      setNearEvents(nearUniqueEvents)
       // console.log(musicUniqueEvents);
-      console.log(sportsUniqueEvents);
+      console.log(nearUniqueEvents);
     } catch (error) {
       console.log(error);
     } finally {
@@ -146,9 +180,53 @@ export const Home = () => {
   return (
     <div className="homepage">
 
+      {/* 10 current NEAR events */}
+
+      <div>
+        <h1>Events near you</h1>
+        {
+          loading ? (
+            <div className="spinner"></div>
+          ) : (
+            nearEvents.map((eve, idx) => (
+              <div key={idx} className="event-cards">
+                <h5>{eve.name}</h5>
+                <img src={eve.images[1].url} alt="" />
+                <p>
+                {eve._embedded && eve._embedded.venues ? (
+                  <span>
+                    {eve._embedded.venues[0].name}, {eve._embedded.venues[0].city.name}
+                  </span>
+                ) : (
+                  "Venue information not available"
+                )}
+              </p>
+              <p>
+                {formatDate(eve.dates.start.localDate)}
+              </p>
+              
+                {eve.priceRanges ? (
+                  <p>
+                    Price: ${Math.floor(eve.priceRanges[0].min)}-
+                    {Math.floor(eve.priceRanges[0].max)}
+                  </p>
+                ) : (
+                  null
+                )}
+                {eve.priceRanges ? <a href={eve.url} target="_blank">Get tickets</a> : "Sold out"}
+              
+              </div>
+            ))
+          )
+        }
+        <hr />
+      </div>
+
+
       {/* 10 current SPORTS events */}
 
       <div>
+        <h1>Sports events</h1>
         {
           loading ? (
             <div className="spinner"></div>
@@ -166,16 +244,32 @@ export const Home = () => {
                   "Venue information not available"
                 )}
               </p>
+              <p>
+                {formatDate(eve.dates.start.localDate)}
+              </p>
+              
+                {eve.priceRanges ? (
+                  <p>
+                    Price: ${Math.floor(eve.priceRanges[0].min)}-
+                    {Math.floor(eve.priceRanges[0].max)}
+                  </p>
+                ) : (
+                  null
+                )}
+                {eve.priceRanges ? <a href={eve.url} target="_blank">Get tickets</a> : "Sold out"}
+
               </div>
             ))
           )
         }
+        <hr />
       </div>
 
 
       {/* 10 current MUSIC events */}
 
       <div>
+        <h1>Music events</h1>
         {loading ? (
           <div className="spinner"></div>
         ) : (
@@ -195,7 +289,7 @@ export const Home = () => {
               <p>
                 {formatDate(eve.dates.start.localDate)}
               </p>
-              <p>
+
                 {eve.priceRanges ? (
                   <p>
                     Price: ${Math.floor(eve.priceRanges[0].min)}-
@@ -205,11 +299,11 @@ export const Home = () => {
                   null
                 )}
                 {eve.priceRanges ? <a href={eve.url} target="_blank">Get tickets</a> : "Sold out"}
-              </p>
+
             </div>
           ))
         )}
-
+        <hr />
       </div>
 
       {/* <div className="container">
