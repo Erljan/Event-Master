@@ -8,59 +8,105 @@ import "../styles/Home.css";
 
 export const Home = () => {
   const [allEvents, setAllEvents] = useState([]);
-  const [upcomingEvents, setUpcomingEvents] = useState([]);
-  const navigate = useNavigate();
+  // const [upcomingEvents, setUpcomingEvents] = useState([]);
+  // const defaultZipCode = "60601"; // Downtown Chicago zip code
   const rowRef = useRef(null);
-  const defaultZipCode = "60601"; // Downtown Chicago zip code
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
+  const [musicEvents, setMusicEvents] = useState([]);
+  const [sportsEvents, setSportsEvents] = useState([])
 
   useEffect(() => {
     const userZipCode = "userSavedZipCode"; // Replace with actual user saved zip code
     const defaultZipCode = "60601"; // Downtown Chicago zip code
     // fetchEventsByLocation(userZipCode || defaultZipCode);
     fetchUpcomingEvents(userZipCode || defaultZipCode);
-    fetchAllEvents()
-  }, 
- []
-);
+    fetchAllEvents();
+  }, []);
+
+  // const fetchEventsByLocation = async (zipCode) => {
+  //   try {
+  //     const response = await api.get(`api/events/?zip=${zipCode}/`);
+  //     setAllEvents(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const apikey = import.meta.env.VITE_API_KEY;
+
+  const fetchAllEvents = async () => {
+    setLoading(true);
+    try {
+      // This code below calls for the MUSIC events
+      const musicResponse = await axios.get(
+        `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&classificationName=music&apikey=${apikey}&size=100`
+      );
+
+      const music = musicResponse.data._embedded.events;
+
+      // The code below grabs only 10 unique music events
+      const musicUniqueEvents = [];
+      const seenEvent = new Set();
+      music.forEach((event) => {
+        if (!seenEvent.has(event.name) && musicUniqueEvents.length < 10) {
+          seenEvent.add(event.name);
+          musicUniqueEvents.push(event);
+        }
+      });
 
 
-// const fetchEventsByLocation = async (zipCode) => {
-//   try {
-//     const response = await api.get(`api/events/?zip=${zipCode}/`);
-//     setAllEvents(response.data);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+      // This code below calls the SPORTS events
+      const sportsResponse = await axios.get(
+        `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apikey}&classificationName=sports&size=50`
+      );
 
-const apikey = import.meta.env.VITE_API_KEY
-console.log(import.meta.env.VITE_API_KEY);
+      const sports = sportsResponse.data._embedded.events
 
-const fetchAllEvents = async () => {
-  setLoading(true)
-  try {
-    const response = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=${apikey}`);
-    setAllEvents(response.data._embedded.events);
-    console.log(response.data._embedded.events)
-  } catch (error) {
-    console.log(error);
-  }finally{
-    setLoading(false)
-  }
-};
+      const sportsUniqueEvents = []
+      const seenMatchup = new Set()
 
-const fetchUpcomingEvents = async (zipCode) => {
-  try {
-    const response = await api.get(`api/events/upcoming/?zip=${zipCode}/`);
-    const sortedEvents = response.data.sort((a, b) => new Date(a.date) - new Date(b.date));
-    setUpcomingEvents(sortedEvents);
-  } catch (error) {
-    console.log(error);
-  }
-};
+      const normalizeTeams = (team1, team2) => {
+        const teams = [team1, team2].sort()
+        return `${teams[0]} vs ${teams[1]}`
+      }
 
+      sports.forEach(event => {
+        if (event.name.includes("vs") && sportsUniqueEvents.length < 10){
+          const [team1, team2] = event.name.split(" vs ")
+          const normalizedMatchup = normalizeTeams(team1, team2)
+
+          if(!seenMatchup.has(normalizedMatchup)) {
+            seenMatchup.add(normalizedMatchup)
+            sportsUniqueEvents.push(event)
+          }
+        }
+      })
+
+
+      setMusicEvents(musicUniqueEvents);
+      setSportsEvents(sportsUniqueEvents)
+      // console.log(musicUniqueEvents);
+      console.log(sportsUniqueEvents);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchUpcomingEvents = async (zipCode) => {
+    try {
+      const response = await api.get(`api/events/upcoming/?zip=${zipCode}/`);
+      const sortedEvents = response.data.sort(
+        (a, b) => new Date(a.date) - new Date(b.date)
+      );
+      setUpcomingEvents(sortedEvents);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSearch = (e, type) => {
     e.preventDefault();
@@ -72,36 +118,89 @@ const fetchUpcomingEvents = async (zipCode) => {
     }
   };
 
-//   const handleScroll = (e, category) => {
-//     if (e.target.scrollWidth - e.target.scrollLeft === e.target.clientWidth && !loading
-//         [category]) {
-//         setPage(prevPage => ({ ...prevPage, [category]: prevPage[category] + 1 }));
-//     }
-// };
+  //   const handleScroll = (e, category) => {
+  //     if (e.target.scrollWidth - e.target.scrollLeft === e.target.clientWidth && !loading
+  //         [category]) {
+  //         setPage(prevPage => ({ ...prevPage, [category]: prevPage[category] + 1 }));
+  //     }
+  // };
 
-const scrollLeft = (ref) => {
-    ref.current.scrollBy({ left: -1000, behavior: 'smooth' });
-};
+  const scrollLeft = (ref) => {
+    ref.current.scrollBy({ left: -1000, behavior: "smooth" });
+  };
 
-const scrollRight = (ref) => {
-    ref.current.scrollBy({ left: 1000, behavior: 'smooth' });
-};
+  const scrollRight = (ref) => {
+    ref.current.scrollBy({ left: 1000, behavior: "smooth" });
+  };
 
+
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric'}
+    const date = new Date(dateString)
+    return date.toLocaleDateString(undefined, options)
+  }
 
   return (
     <div className="homepage">
 
-      {/* All current events */}
+      {/* 10 current SPORTS events */}
 
-      { loading ? 
-        (<div className="spinner"></div>) :
-        (allEvents.map((eve, idx) => (
-          <div key={idx} className="event-cards">
-            <h4>{eve.name}</h4>
-            <img src={eve.images[0].url} alt="" />
-          </div>
-        )))
-      }
+      <div>
+        {
+          loading ? (
+            <div className="spinner"></div>
+          ) : (
+            sportsEvents.map((eve, idx) => (
+              <div key={idx} className="event-cards">
+                <h6>{eve.name}</h6>
+                <img src={eve.images[0].url} alt="" />
+
+              </div>
+            ))
+          )
+        }
+      </div>
+
+
+      {/* 10 current MUSIC events */}
+
+      <div>
+        {loading ? (
+          <div className="spinner"></div>
+        ) : (
+          musicEvents.map((eve, idx) => (
+            <div key={idx} className="event-cards">
+              <h6>{eve.name}</h6>
+              <img src={eve.images[0].url} alt="" />
+              <p>
+                {eve._embedded && eve._embedded.venues ? (
+                  <span>
+                    {eve._embedded.venues[0].name}, {eve._embedded.venues[0].city.name}
+                  </span>
+                ) : (
+                  "Venue information not available"
+                )}
+              </p>
+              <p>
+                {formatDate(eve.dates.start.localDate)}
+              </p>
+              <p>
+                {eve.priceRanges ? (
+                  <p>
+                    Price: ${Math.floor(eve.priceRanges[0].min)}-
+                    {Math.floor(eve.priceRanges[0].max)}
+                  </p>
+                ) : (
+                  null
+                )}
+                {eve.priceRanges ? <a href={eve.url} target="_blank">Get tickets</a> : "Sold out"}
+              </p>
+            </div>
+          ))
+        )}
+
+      </div>
 
       {/* <div className="container">
       <form onSubmit={(e) => handleSearch(e, "events")} className="form">
