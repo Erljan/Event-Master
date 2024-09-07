@@ -20,12 +20,12 @@ export default function EventCard({ eve, key, formatDate, className, navigate })
 
 
       {eve.priceRanges ? (
-        <button className="buy-ticket-btn" >
+
          
-          <a href={eve.url} target="_blank">
+          <a href={eve.url} target="_blank" className="buy-ticket-btn">
           Buy ticket
         </a>
-          </button>
+
       ) : (
         "Sold out"
       )}

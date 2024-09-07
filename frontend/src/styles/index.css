@@ -304,32 +304,20 @@ ul li a {
   color: white;
 }
 
-.buy-ticket-btn a{
+.buy-ticket-btn{
   /* margin: 0 10px; */
   border: none;
   border-radius: 5px;
   background-color: transparent;
-  padding: 10px 10px;
+  padding: 7.5px 10px;
   color: rgb(241, 178, 82);
   text-decoration: none;
-  
-}
-
-.buy-ticket-btn{
   border: 1px solid rgb(241, 178, 82);
-  background-color: white;
-  margin: 0 10px;
-  border-radius: 5px;
-  height: 40px;
-  /* font-size: large; */
-  /* font-weight: bold; */
+  
 }
 
 .buy-ticket-btn:hover{
   /* transform: scale(1.05); */
   background-color: rgb(241, 178, 82);
-  color: white;
-}
-.buy-ticket-btn a:hover{
   color: white;
 }

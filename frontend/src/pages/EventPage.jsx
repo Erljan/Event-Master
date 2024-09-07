@@ -77,10 +77,10 @@ export default function EventPage() {
               {aEvent.dates.timezone || "N/A"}
             </p>
             <p>Accessibility: {aEvent.accessibility.info}</p>
-            <button className="buy-ticket-btn">
 
-            <a href={aEvent.url} target="_blank">Buy Ticket</a>
-            </button>
+
+            <a href={aEvent.url} target="_blank" className="buy-ticket-btn">Buy Ticket</a>
+
             <button className="add-btn">Add to my events</button>
           </div>
         ) : (
