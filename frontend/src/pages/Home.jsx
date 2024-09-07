@@ -5,6 +5,7 @@ import FoundEventCard from "../components/EventCard";
 import { api } from "../api";
 import axios from "axios";
 import "../styles/Home.css";
+import EventCard from "../components/EventCard";
 
 export const Home = () => {
   // const [allEvents, setAllEvents] = useState([]);
@@ -182,128 +183,50 @@ export const Home = () => {
 
       {/* 10 current NEAR events */}
 
-      <div>
         <h1>Events near you</h1>
+      <div className="each-slide">
         {
           loading ? (
             <div className="spinner"></div>
           ) : (
             nearEvents.map((eve, idx) => (
-              <div key={idx} className="event-cards">
-                <h5>{eve.name}</h5>
-                <img src={eve.images[1].url} alt="" />
-                <p>
-                {eve._embedded && eve._embedded.venues ? (
-                  <span>
-                    {eve._embedded.venues[0].name}, {eve._embedded.venues[0].city.name}
-                  </span>
-                ) : (
-                  "Venue information not available"
-                )}
-              </p>
-              <p>
-                {formatDate(eve.dates.start.localDate)}
-              </p>
-              
-                {eve.priceRanges ? (
-                  <p>
-                    Price: ${Math.floor(eve.priceRanges[0].min)}-
-                    {Math.floor(eve.priceRanges[0].max)}
-                  </p>
-                ) : (
-                  null
-                )}
-                {eve.priceRanges ? <a href={eve.url} target="_blank">Get tickets</a> : "Sold out"}
-              
-              </div>
+              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"}/>
             ))
           )
         }
-        <hr />
+
       </div>
 
 
       {/* 10 current SPORTS events */}
 
-      <div>
         <h1>Sports events</h1>
+      <div className="each-slide">
         {
           loading ? (
             <div className="spinner"></div>
           ) : (
             sportsEvents.map((eve, idx) => (
-              <div key={idx} className="event-cards">
-                <h5>{eve.name}</h5>
-                <img src={eve.images[1].url} alt="" />
-                <p>
-                {eve._embedded && eve._embedded.venues ? (
-                  <span>
-                    {eve._embedded.venues[0].name}, {eve._embedded.venues[0].city.name}
-                  </span>
-                ) : (
-                  "Venue information not available"
-                )}
-              </p>
-              <p>
-                {formatDate(eve.dates.start.localDate)}
-              </p>
-              
-                {eve.priceRanges ? (
-                  <p>
-                    Price: ${Math.floor(eve.priceRanges[0].min)}-
-                    {Math.floor(eve.priceRanges[0].max)}
-                  </p>
-                ) : (
-                  null
-                )}
-                {eve.priceRanges ? <a href={eve.url} target="_blank">Get tickets</a> : "Sold out"}
-
-              </div>
+              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"}/>
             ))
           )
         }
-        <hr />
+
       </div>
 
 
       {/* 10 current MUSIC events */}
 
-      <div>
         <h1>Music events</h1>
+      <div className="each-slide">
         {loading ? (
           <div className="spinner"></div>
         ) : (
           musicEvents.map((eve, idx) => (
-            <div key={idx} className="event-cards">
-              <h5>{eve.name}</h5>
-              <img src={eve.images[0].url} alt="" />
-              <p>
-                {eve._embedded && eve._embedded.venues ? (
-                  <span>
-                    {eve._embedded.venues[0].name}, {eve._embedded.venues[0].city.name}
-                  </span>
-                ) : (
-                  "Venue information not available"
-                )}
-              </p>
-              <p>
-                {formatDate(eve.dates.start.localDate)}
-              </p>
-
-                {eve.priceRanges ? (
-                  <p>
-                    Price: ${Math.floor(eve.priceRanges[0].min)}-
-                    {Math.floor(eve.priceRanges[0].max)}
-                  </p>
-                ) : (
-                  null
-                )}
-                {eve.priceRanges ? <a href={eve.url} target="_blank">Get tickets</a> : "Sold out"}
-
-            </div>
+            <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"}/>
           ))
         )}
-        <hr />
+
       </div>
 
       {/* <div className="container">
