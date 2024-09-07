@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import "../styles/index.css"
 import { useState, useEffect } from "react";
 import { api } from "../api";
+import logo from '../images/logo.png';
 
 
 export function NavBar() {
@@ -25,7 +26,7 @@ export function NavBar() {
   return (
     <Navbar expand="lg" className="navbar" data-bs-theme="dark">
       <Container className='navbar-container'>
-          <Navbar.Brand className="titletext" as={Link} to="/"><img src="src/images/logo.png" alt="" /></Navbar.Brand>
+          <Navbar.Brand className="titletext" as={Link} to="/"><img src={logo} alt="logo" style={{ width: '100px', height: 'auto' }}/></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

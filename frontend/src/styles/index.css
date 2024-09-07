@@ -34,7 +34,7 @@
 }
 
 .search-button{
-  background-color:  rgb(212, 172, 91);
+  background-color:  rgb(241, 178, 82);
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   border: solid #4b4b4b 1px;
@@ -81,7 +81,8 @@ ul li a {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 1000;
+
 }
 
 .me-auto{
@@ -97,15 +98,16 @@ ul li a {
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   -webkit-text-stroke-width: 1; 
   -webkit-text-stroke-color: #000;
-  /* font-family: "Krona One"; */
-  /* font-size: 35px;
+  font-family: "Krona One";
+  font-size: 35px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 } */
 
-.titletext.navbar-brand{
+.navbar-brand{
   background-color: rgb(106, 106, 106);
+  /* visibility: ; */
 }
 
 .nav-options{
@@ -121,7 +123,7 @@ ul li a {
 }
 
 .navbar-dropdown{
-  background-color: rgb(212, 172, 91);
+  background-color: rgb(241, 178, 82);
   /* border: 1px solid black;  */
   border-radius: 5px;
   color: black;
@@ -247,7 +249,7 @@ ul li a {
 }
 
 .show-pass{
-  background-color:  rgb(212, 172, 91);
+  background-color:  rgb(241, 178, 82);
   border: none;
   border-radius: 5px;
   margin-bottom: 20px;
@@ -278,4 +280,56 @@ ul li a {
 /* =======Hompage======= */
 .event-cards img{
   height: 100px;
+}
+
+.see-more{
+  margin: 0 10px;
+  height: 40px;
+  padding: 5px 15px;
+  border: none;
+  /* background-color: #06c1e6; */
+  background-color: none;
+
+  border-radius: 5px;
+  color: #06c1e6;
+  /* font-weight: bold; */
+  /* font-size: large; */
+  /* box-shadow: 1px 1px 10px #06c1e6; */
+  border: 1px solid #06c1e6;
+}
+
+.see-more:hover{
+  /* transform: scale(1.05); */
+  background-color: #06c1e6;
+  color: white;
+}
+
+.buy-ticket-btn a{
+  /* margin: 0 10px; */
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 10px 10px;
+  color: rgb(241, 178, 82);
+  text-decoration: none;
+  
+}
+
+.buy-ticket-btn{
+  border: 1px solid rgb(241, 178, 82);
+  background-color: white;
+  margin: 0 10px;
+  border-radius: 5px;
+  height: 40px;
+  /* font-size: large; */
+  /* font-weight: bold; */
+}
+
+.buy-ticket-btn:hover{
+  /* transform: scale(1.05); */
+  background-color: rgb(241, 178, 82);
+  color: white;
+}
+.buy-ticket-btn a:hover{
+  color: white;
 }
