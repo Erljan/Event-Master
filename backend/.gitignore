@@ -1,3 +1,4 @@
 .venv
 .eventbackend
 __pycache__/
+.env

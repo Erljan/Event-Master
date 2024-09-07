@@ -28,16 +28,15 @@
   text-align: center;
   color: #000;
   border-radius: 6px;
-  background-color: #f2bc58;
+  background-color:  rgb(212, 172, 91);
   border-color: solid #000 1px;
 }
 
 .search-button{
-  background-color: #f2bc58;
+  background-color:  rgb(212, 172, 91);
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   border: solid #4b4b4b 1px;
-
 }
 
 .search-button img {
@@ -53,7 +52,8 @@
   font-weight: bolder;
   color: #f2bc58;
   border: solid rgb(0, 0, 0, 0.5) 1px; */
-  height: 40px;
+  height: 50px;
+  padding: 0;
   background-color: rgb(106, 106, 106);
 }
 
@@ -76,7 +76,7 @@ ul li a {
 .navbar{
 
   /* box-shadow: 1px 1px 10px rgb(163, 162, 159); */
-  background-color: rgb(106, 106, 106);
+  background-color: #6a6a6a;
   position: fixed;
   top: 0;
   width: 100%;
@@ -91,9 +91,17 @@ ul li a {
   background-color: rgb(106, 106, 106);
 }
 
-.titletext{
-  background-color: rgb(106, 106, 106);
-}
+/* .titletext{
+  color: rgb(212, 172, 91, 2);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-text-stroke-width: 1; 
+  -webkit-text-stroke-color: #000;
+  /* font-family: "Krona One"; */
+  /* font-size: 35px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+} */
 
 .nav-options{
   display: flex;
@@ -206,8 +214,6 @@ ul li a {
   background-position: center;
   background-size: 100%;
   background-repeat: no-repeat;
-
-
 }
 
 .signup{
@@ -216,7 +222,6 @@ ul li a {
   margin-top: 0;
   color: white;
 }
-
 
 .input-forms-signup{
   width: 100%;
@@ -229,7 +234,6 @@ ul li a {
   outline: none;
   box-shadow: inset 1px 1px 10px rgb(126, 124, 124);
   height: 50px;
-
 }
 
 .input-forms-signup::placeholder{
@@ -237,7 +241,7 @@ ul li a {
 }
 
 .show-pass{
-  background-color: #f2bc58;
+  background-color:  rgb(212, 172, 91);
   border: none;
   border-radius: 5px;
   margin-bottom: 20px;
