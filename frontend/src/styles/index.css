@@ -5,6 +5,7 @@
   height: 2500px; */
   background-color: white;
   color: rgb(0, 0, 0);
+  font-family: 'Manrope';
   /* position: relative; */
 }
 
@@ -103,6 +104,10 @@ ul li a {
   line-height: normal;
 } */
 
+.titletext.navbar-brand{
+  background-color: rgb(106, 106, 106);
+}
+
 .nav-options{
   display: flex;
   background-color: rgb(106, 106, 106);
@@ -128,6 +133,7 @@ ul li a {
 
 .navbar .nav-link {
   color: #ffffff; /* Yellow font color */
+  font-size: large;
 }
 
 
