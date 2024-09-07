@@ -59,30 +59,32 @@ export const Home = () => {
 
       // This code below calls the SPORTS events
       const sportsResponse = await axios.get(
-        `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apikey}&classificationName=sports&size=50`
+        `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&classificationName=sports&apikey=${apikey}&size=50`
       );
-
-      const sports = sportsResponse.data._embedded.events
-
-      const sportsUniqueEvents = []
-      const seenMatchup = new Set()
-
-      const normalizeTeams = (team1, team2) => {
-        const teams = [team1, team2].sort()
-        return `${teams[0]} vs ${teams[1]}`
-      }
-
-      sports.forEach(event => {
-        if (event.name.includes("vs") && sportsUniqueEvents.length < 10){
-          const [team1, team2] = event.name.split(" vs ")
-          const normalizedMatchup = normalizeTeams(team1, team2)
-
-          if(!seenMatchup.has(normalizedMatchup)) {
-            seenMatchup.add(normalizedMatchup)
-            sportsUniqueEvents.push(event)
-          }
+  
+      const sports = sportsResponse.data._embedded.events;
+  
+      // Get 10 unique SPORTS events
+      const sportsUniqueEvents = [];
+      const seenMatchups = new Set();
+  
+      const normalizeMatchup = (eventName) => {
+        const parts = eventName.split(" vs ");
+        if (parts.length === 2) {
+          const [team1, team2] = parts;
+          return `${team1.trim()} vs ${team2.trim()}`;
         }
-      })
+        return eventName.trim();
+      };
+  
+      sports.forEach((event) => {
+        const normalizedName = normalizeMatchup(event.name);
+  
+        if (!seenMatchups.has(normalizedName) && sportsUniqueEvents.length < 10) {
+          seenMatchups.add(normalizedName);
+          sportsUniqueEvents.push(event);
+        }
+      });
 
 
       setMusicEvents(musicUniqueEvents);
@@ -153,9 +155,17 @@ export const Home = () => {
           ) : (
             sportsEvents.map((eve, idx) => (
               <div key={idx} className="event-cards">
-                <h6>{eve.name}</h6>
-                <img src={eve.images[0].url} alt="" />
-
+                <h5>{eve.name}</h5>
+                <img src={eve.images[1].url} alt="" />
+                <p>
+                {eve._embedded && eve._embedded.venues ? (
+                  <span>
+                    {eve._embedded.venues[0].name}, {eve._embedded.venues[0].city.name}
+                  </span>
+                ) : (
+                  "Venue information not available"
+                )}
+              </p>
               </div>
             ))
           )
@@ -171,7 +181,7 @@ export const Home = () => {
         ) : (
           musicEvents.map((eve, idx) => (
             <div key={idx} className="event-cards">
-              <h6>{eve.name}</h6>
+              <h5>{eve.name}</h5>
               <img src={eve.images[0].url} alt="" />
               <p>
                 {eve._embedded && eve._embedded.venues ? (
