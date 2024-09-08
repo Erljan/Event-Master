@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <NavBar />
+        <NavBar username={username} setUsername={setUsername}/>
         <Routes>
           <Route
             path="/"
@@ -70,7 +70,7 @@ function App() {
           <Route
             path="/login"
             element={
-              <LoginForm setUsername={setUsername} username={username} />
+              <LoginForm setUsername={setUsername}/>
             }
           />
           <Route path="/signup" element={

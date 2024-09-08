@@ -12,6 +12,8 @@ export const UpdateProfileModal = ({
   setNewEmail,
   newBio,
   setNewBio,
+  newZipcode,
+  setNewZipcode
 }) => {
   if (!isOpen) return null;
 
@@ -37,6 +39,13 @@ export const UpdateProfileModal = ({
           value={newEmail}
           onChange={(e) => setNewEmail(e.target.value)}
         />
+        <input
+          type="text"
+          placeholder="Zipcode"
+          value={newZipcode}
+          onChange={(e) => setNewZipcode(e.target.value)}
+        />
+
         <textarea
           name="bio"
           id=""
