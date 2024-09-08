@@ -84,18 +84,6 @@ export const Home = () => {
     }
   };
 
-  const apikey = import.meta.env.VITE_API_KEY;
-  
-  
-  const getCoordinateFromZip = async() => {
-    const geocodeKey = import.meta.env.VITE_LOCATION_KEY
-
-
-    const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${zipCode ? zipCode : 60601}&key=${geocodeKey}`)
-    const results = response.data.results[0]
-    return results ? results.geometry : null
-  }
-
   const fetchAllEvents = async () => {
     setLoading(true);
     try {
