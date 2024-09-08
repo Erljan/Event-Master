@@ -38,6 +38,8 @@ export const Profile = () => {
       setEmail(response.data.user.email)
       setBio(response.data.bio)
       setZipcode(response.data.location)
+
+      localStorage.setItem('zipCode', response.data.location)
     } catch (error) {
       console.log(error)
     }
@@ -58,6 +60,11 @@ export const Profile = () => {
         location: newZipcode ? newZipcode : zipcode,
       })
 
+      if(newZipcode){
+        localStorage.setItem('zipCode', newZipcode)
+        setNewZipcode(newZipcode)
+      }
+
       fetchProfileInfo()
     } catch (error) {
       console.log(error)
@@ -65,7 +72,6 @@ export const Profile = () => {
     }
   }
 
-  // fetchProfileInfo()
 
   return (
     <div className="profile-container">
