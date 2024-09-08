@@ -2,26 +2,40 @@ import { Container } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "../styles/index.css"
 import { useState, useEffect } from "react";
 import { api } from "../api";
 import logo from '../images/logo.png';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
 
-export function NavBar() {
-  const [username, setUsername] = useState("")
 
-  useEffect(() => {
-    const fetchUsername = async() => {
+export function NavBar({username, setUsername}) {
 
-      const response = await api.get("api/profile/")
-        setUsername(response.data.user.username)
-      
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    const storedUsername = localStorage.getItem("username")
+    if(storedUsername){
+      setUsername(storedUsername)
     }
 
-    fetchUsername()
-  }, [])
+  },[setUsername])
+
+  const handleLogout = () => {
+    // Clear tokens from localStorage
+    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(REFRESH_TOKEN);
+    localStorage.removeItem("username");
+
+    // Clear the username
+    setUsername("");
+
+    // Redirect to login page
+    navigate("/login");
+  };
+
 
   return (
     <Navbar expand="lg" className="navbar" data-bs-theme="dark">
@@ -43,7 +57,7 @@ export function NavBar() {
               <NavDropdown title={`@${username}`} id="basic-nav-dropdown" className='navbar-dropdown'>
               <NavDropdown.Item as={Link} to="/myevents">My events</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/logout">Logout</NavDropdown.Item>
+              <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               
             </NavDropdown> :
             <Nav.Link as={Link} to="/login">Login/Register</Nav.Link>

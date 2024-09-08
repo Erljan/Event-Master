@@ -131,14 +131,14 @@ export const RegisterForm = () => {
                     placeholder='Last Name'
                   />
                   {/* <p>Location (Zip Code)</p> */}
-                  <input
+                  {/* <input
                     type="text"
                     name="location"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     className="input-forms-signup"
                     placeholder='Location (Zip Code)'
-                  />
+                  /> */}
                   {/* <p>Email</p> */}
                   <input
                     type="text"

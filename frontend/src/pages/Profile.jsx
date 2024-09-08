@@ -12,12 +12,14 @@ export const Profile = () => {
   const [lname, setLname] = useState("")
   const [email, setEmail] = useState("")
   const [bio, setBio] = useState("")
+  const [zipcode, setZipcode] = useState("")
 
 
   const [newFname, setNewFname] = useState("")
   const [newLname, setNewLname] = useState("")
   const [newEmail, setNewEmail] = useState("")
   const [newBio, setNewBio] = useState("")
+  const [newZipcode, setNewZipcode] = useState("")
 
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -35,6 +37,9 @@ export const Profile = () => {
       setLname(response.data.user.last_name)
       setEmail(response.data.user.email)
       setBio(response.data.bio)
+      setZipcode(response.data.location)
+
+      localStorage.setItem('zipCode', response.data.location)
     } catch (error) {
       console.log(error)
     }
@@ -52,7 +57,13 @@ export const Profile = () => {
           email: newEmail ? newEmail : email,
         },
         bio: newBio ? newBio : bio,
+        location: newZipcode ? newZipcode : zipcode,
       })
+
+      if(newZipcode){
+        localStorage.setItem('zipCode', newZipcode)
+        setNewZipcode(newZipcode)
+      }
 
       fetchProfileInfo()
     } catch (error) {
@@ -61,7 +72,6 @@ export const Profile = () => {
     }
   }
 
-  // fetchProfileInfo()
 
   return (
     <div className="profile-container">
@@ -71,6 +81,7 @@ export const Profile = () => {
         <h5>@{username}</h5>
         <p className="profile-info"><span>{fname}</span> <span>{lname}</span></p>
         <p className="profile-info">{email}</p>
+        <p>{zipcode ? zipcode : "No current zipcode"}</p>
         <p className="profile-info">{bio ? bio : "No Bio"}</p>
         <button onClick={() => setIsModalOpen(true)}>Update Profile</button>
       </div>
@@ -84,11 +95,13 @@ export const Profile = () => {
         newLname={newLname}
         newFname={newFname}
         newEmail={newEmail}
+        zipcode={zipcode}
         newBio={newBio}
         setNewBio={setNewBio}
         setNewEmail={setNewEmail}
         setNewFname={setNewFname}
         setNewLname={setNewLname}
+        setNewZipcode={setNewZipcode}
         />
       </div>
     </div>

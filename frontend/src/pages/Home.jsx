@@ -9,7 +9,7 @@ import EventCard from "../components/EventCard";
 
 export const Home = () => {
   const [loading, setLoading] = useState(false);
-  const [zipCode, setZipCode] = useState(60601)
+  const [zipCode, setZipCode] = useState(localStorage.getItem('zipCode') || null)
   const [nearEvents, setNearEvents] = useState([])
   const nearRef = useRef(null);
   const sportsRef = useRef(null);
@@ -25,10 +25,27 @@ export const Home = () => {
   // const { eventsAttending, addToAttending, removeFropmAttending } = useAttending();
   // const { eventsOwned, removeFromOwned} = useOwned();
 
-  useEffect(() => {
-    getCoordinateFromZip(13602)
+  // useEffect(() => {
+  // }, []);
+  
+  
+  useEffect(()=> {
+    const fetchZipcode = async() => {
+      try {
+        const response = await api.get('api/profile/')
+        
+        setZipCode(Number(response.data.location))
+        // console.log(Number(response.data.location))
+        localStorage.setItem('zipCode', Number(response.data.location))
+        getCoordinateFromZip(zipCode)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    
+    fetchZipcode()
     fetchAllEvents();
-  }, []);
+  }, [])
 
   const apikey = import.meta.env.VITE_API_KEY;
   
@@ -67,32 +84,17 @@ export const Home = () => {
     }
   };
 
-              // // useCallback is a React hook that returns a memorized version of the callback function. 
-            // This means that the function will only be recreated if one of its dependencies changes. 
-            // In this case, the dependencies array is empty ([]), so the function will only be created once.
-            // // Function Parameters:
-            // // category: The category of data to fetch (e.g., music, sports, etc.).
-            // // setData: A function to update the state with the fetched data.
-            // // page: The page number to fetch.
-            // // Setting Loading State:
-            // // setLoading(prevLoading => ({ ...prevLoading, [category]: true })): This sets the loading 
-            // state for the specific category to true, indicating that data is being fetched.
-            // // Fetching Data:
-            // // const response = await axios.get(...): This makes an HTTP GET request to the specified URL 
-            // using Axios. The URL includes the category and page number as query parameters.
-            // // Updating State with Fetched Data:
-            // // setData(prevData => [...prevData, ...response.data.data]): This updates the state with the 
-            // fetched data by appending the new data to the existing data.
-            // // Resetting Loading State:
-            // // setLoading(prevLoading => ({ ...prevLoading, [category]: false })): This sets the loading 
-            // state for the specific category to false, indicating that data fetching is complete.
-            // // Error Handling:
-            // // If an error occurs during the data fetching process, it is caught in the catch block, and 
-            // an error message is logged to the console. The loading state is also reset to false for the 
-            // specific category.
-            // // In summary, this function fetches data from an API, updates the state with the fetched data, 
-            // and manages the loading state for the specific category. The useCallback hook ensures that the 
-            // function is only recreated if its dependencies change.
+  const apikey = import.meta.env.VITE_API_KEY;
+  
+  
+  const getCoordinateFromZip = async() => {
+    const geocodeKey = import.meta.env.VITE_LOCATION_KEY
+
+
+    const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${zipCode ? zipCode : 60601}&key=${geocodeKey}`)
+    const results = response.data.results[0]
+    return results ? results.geometry : null
+  }
 
   const fetchAllEvents = async () => {
     setLoading(true);
@@ -160,7 +162,7 @@ export const Home = () => {
       setSportsEvents(sportsUniqueEvents)
       setNearEvents(nearUniqueEvents)
       // console.log(musicUniqueEvents);
-      console.log(nearUniqueEvents);
+      // console.log(nearUniqueEvents);
     } catch (error) {
       console.log(error);
     } finally {
@@ -254,9 +256,20 @@ export const Home = () => {
   return (
     <div className="homepage">
       {/* 10 current NEAR events */}
-      <h1>Events near you</h1>
+
+      {zipCode ? 
+      <div>
+        <h1>Events near you</h1> 
+        <button onClick={()=> navigate("/profile")} className="add-location-btn">Change location</button>
+        </div>
+        :
+        <h1>Events near Chicago</h1>
+      
+      }
+
       <div className="each-slide" ref={nearRef}>
-        { loading ? (
+        {
+          loading ? (
             <div className="spinner"></div>
           ) : (
             nearEvents.map((eve, idx) => (

@@ -123,3 +123,14 @@
   overflow: hidden;
 }
 
+
+.add-location-btn{
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.add-location-btn:hover{
+  /* border: 1px solid black; */
+  color: white;
+  background-color: black;
+  border-radius: 5px;
+}
