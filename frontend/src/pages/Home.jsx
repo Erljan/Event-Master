@@ -23,29 +23,23 @@ export const Home = () => {
     music: 1
   });
   // const { eventsAttending, addToAttending, removeFropmAttending } = useAttending();
-  // const { eventsOwned, removeFromOwned} = useOwned();
-
-  // useEffect(() => {
-  // }, []);
-  
+  // const { eventsOwned, removeFromOwned} = useOwned();  
   
   useEffect(()=> {
-    const fetchZipcode = async() => {
-      try {
-        const response = await api.get('api/profile/')
-        
-        setZipCode(Number(response.data.location))
-        // console.log(Number(response.data.location))
-        localStorage.setItem('zipCode', Number(response.data.location))
-        getCoordinateFromZip(zipCode)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    
-    fetchZipcode()
+    // const fetchZipcode = async() => {
+    //   try {
+    //     const response = await api.get('api/profile/')
+    //     setZipCode(Number(response.data.location))
+    //     // console.log(Number(response.data.location))
+    //     localStorage.setItem('zipCode', Number(response.data.location))
+    //     getCoordinateFromZip(zipCode)
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
+    // fetchZipcode()
     fetchAllEvents();
-  }, [])
+  }, []);
 
   const apikey = import.meta.env.VITE_API_KEY;
   
@@ -95,56 +89,48 @@ export const Home = () => {
       }
       const { lat, lng } = coordinates
       const eventsResponse = await axios.get(
-        `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apikey}&latlong=${lat},${lng}&size10`)
-      const eventData = eventsResponse.data._embedded.events
-      const nearUniqueEvents = []
-      const seenNearEvents = new Set()
-      eventData.forEach((event) => {
-        if (!seenNearEvents.has(event.name) && nearUniqueEvents.length < 10){
-          seenNearEvents.add(event.name)
-          nearUniqueEvents.push(event)
-        }
-      });
+        `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apikey}&latlong=${lat},${lng}&size=10`)
+      const nearUniqueEvents = eventsResponse.data._embedded.events;
       // This code below calls for the MUSIC events
       const musicResponse = await axios.get(
         `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&classificationName=music&apikey=${apikey}&size=10`
       );
-      const music = musicResponse.data._embedded.events;
-      // The code below grabs only 10 unique music events
-      const musicUniqueEvents = [];
-      const seenEvent = new Set();
-      music.forEach((event) => {
-        if (!seenEvent.has(event.name) && musicUniqueEvents.length < 10) {
-          seenEvent.add(event.name);
-          musicUniqueEvents.push(event);
-        }
-      });
+      const musicUniqueEvents = musicResponse.data._embedded.events;
+      // // The code below grabs only 10 unique music events
+      // const musicUniqueEvents = [];
+      // const seenEvent = new Set();
+      // music.forEach((event) => {
+      //   if (!seenEvent.has(event.name) && musicUniqueEvents.length < 10) {
+      //     seenEvent.add(event.name);
+      //     musicUniqueEvents.push(event);
+      //   }
+      // });
       // This code below calls the SPORTS events
       const sportsResponse = await axios.get(
         `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&classificationName=sports&apikey=${apikey}&size=10`
       );
-      const sports = sportsResponse.data._embedded.events;
+      const sportsUniqueEvents = sportsResponse.data._embedded.events;
       // Get 10 unique SPORTS events
-      const sportsUniqueEvents = [];
-      const seenMatchups = new Set();
+      // const sportsUniqueEvents = [];
+      // const seenMatchups = new Set();
   
-      const normalizeMatchup = (eventName) => {
-        const parts = eventName.split(" vs ");
-        if (parts.length === 2) {
-          const [team1, team2] = parts;
-          return `${team1.trim()} vs ${team2.trim()}`;
-        }
-        return eventName.trim();
-      };
+      // const normalizeMatchup = (eventName) => {
+      //   const parts = eventName.split(" vs ");
+      //   if (parts.length === 2) {
+      //     const [team1, team2] = parts;
+      //     return `${team1.trim()} vs ${team2.trim()}`;
+      //   }
+      //   return eventName.trim();
+      // };
   
-      sports.forEach((event) => {
-        const normalizedName = normalizeMatchup(event.name);
+      // sports.forEach((event) => {
+      //   const normalizedName = normalizeMatchup(event.name);
   
-        if (!seenMatchups.has(normalizedName) && sportsUniqueEvents.length < 10) {
-          seenMatchups.add(normalizedName);
-          sportsUniqueEvents.push(event);
-        }
-      });
+      //   if (!seenMatchups.has(normalizedName) && sportsUniqueEvents.length < 10) {
+      //     seenMatchups.add(normalizedName);
+      //     sportsUniqueEvents.push(event);
+      //   }
+      // });
 
       setMusicEvents(musicUniqueEvents);
       setSportsEvents(sportsUniqueEvents)
@@ -158,17 +144,17 @@ export const Home = () => {
     }
   };
 
-  const fetchUpcomingEvents = async (zipCode) => {
-    try {
-      const response = await api.get(`api/events/upcoming/?zip=${zipCode}/`);
-      const sortedEvents = response.data.sort(
-        (a, b) => new Date(a.date) - new Date(b.date)
-      );
-      setUpcomingEvents(sortedEvents);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const fetchUpcomingEvents = async (zipCode) => {
+  //   try {
+  //     const response = await api.get(`api/events/upcoming/?zip=${zipCode}/`);
+  //     const sortedEvents = response.data.sort(
+  //       (a, b) => new Date(a.date) - new Date(b.date)
+  //     );
+  //     setUpcomingEvents(sortedEvents);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleSearch = (e, type) => {
     e.preventDefault();
@@ -196,6 +182,10 @@ export const Home = () => {
   };
 
   useEffect(() => {
+    const nearNode = nearRef.current;
+    const sportsNode = sportsRef.current;
+    const musicNode = musicRef.current;
+
     const nearObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -223,16 +213,16 @@ export const Home = () => {
       { threshold: 1.0 }
     );
 
-    if (nearRef.current) nearObserver.observe(nearRef.current);
-    if (sportsRef.current) sportsObserver.observe(sportsRef.current);
-    if (musicRef.current) musicObserver.observe(musicRef.current);
+    if (nearNode) nearObserver.observe(nearNode);
+    if (sportsNode) sportsObserver.observe(sportsNode);
+    if (musicNode) musicObserver.observe(musicNode);
 
     return () => {
-      if (nearRef.current) nearObserver.unobserve(nearRef.current);
-      if (sportsRef.current) sportsObserver.unobserve(sportsRef.current);
-      if (musicRef.current) musicObserver.unobserve(musicRef.current);
+      if (nearNode) nearObserver.unobserve(nearNode);
+      if (sportsNode) sportsObserver.unobserve(sportsNode);
+      if (musicNode) musicObserver.unobserve(musicNode);
     };
-  }, [nearRef, sportsRef, musicRef]);
+  }, [handleScroll]);
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'short', day: 'numeric'}
@@ -244,7 +234,6 @@ export const Home = () => {
   return (
     <div className="homepage">
       {/* 10 current NEAR events */}
-
       {zipCode ? 
       <div>
         <h1>Events near you</h1> 
@@ -252,9 +241,7 @@ export const Home = () => {
         </div>
         :
         <h1>Events near Chicago</h1>
-      
       }
-
       <div className="each-slide" ref={nearRef}>
         {
           loading ? (
@@ -287,7 +274,8 @@ export const Home = () => {
           <div className="spinner"></div>
         ) : (
           musicEvents.map((eve, idx) => (
-            <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} navigate={()=>navigate(`/event/${eve.id}`)}/>
+            <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} 
+              navigate={()=>navigate(`/event/${eve.id}`)}/>
           ))
         )}
         <button onClick={() => scrollRight(musicRef, "music")}>Load more</button>

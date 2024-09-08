@@ -1,10 +1,9 @@
 import React from "react";
 
 
-
-export default function EventCard({ eve, key, formatDate, className, navigate }) {
+export default function EventCard({ eve, formatDate, className, navigate }) {
   return (
-    <div className={className} key={key}>
+    <div className={className}>
       <h5>{eve.name}</h5>
       <img src={eve.images[0].url} alt="" />
       <p>
@@ -17,20 +16,13 @@ export default function EventCard({ eve, key, formatDate, className, navigate })
         )}
       </p>
       <p>{formatDate(eve.dates.start.localDate)}</p>
-
-
-      {eve.priceRanges ? (
-
-         
+      {eve.priceRanges ? (    
           <a href={eve.url} target="_blank" className="buy-ticket-btn">
           Buy ticket
-        </a>
-
+          </a>
       ) : (
         "Sold out"
       )}
-
-
       <button onClick={navigate} className="see-more">See more</button>
     </div>
   );
