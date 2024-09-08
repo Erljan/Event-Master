@@ -170,8 +170,12 @@ export const Home = () => {
     ref.current.scrollBy({ left: -1000, behavior: "smooth" });
   };
 
-  const scrollRight = (ref) => {
+  const scrollRight = (ref, category) => {
     ref.current.scrollBy({ left: 1000, behavior: "smooth" });
+    if (ref.current.scrollWidth - ref.current.scrollLeft === ref.current.clientWidth) {
+      setPage((prevPage) => ({ ...prevPage, [category]: prevPage[category] + 1 }));
+      fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? setMusicEvents : setSportsEvents, page[category] + 1, category);
+    }
   };
 
   const handleScroll = (ref, category) => {
@@ -180,6 +184,7 @@ export const Home = () => {
       fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? setMusicEvents : setSportsEvents, page[category] + 1, category);
     }
   };
+
 
   useEffect(() => {
     const nearNode = nearRef.current;
@@ -233,44 +238,39 @@ export const Home = () => {
 
   return (
     <div className="homepage">
-      {/* 10 current NEAR events */}
-      {zipCode ? 
-      <div>
-        <h1>Events near you</h1> 
-        <button onClick={()=> navigate("/profile")} className="add-location-btn">Change location</button>
-        </div>
-        :
-        <h1>Events near Chicago</h1>
-      }
-      <div className="each-slide" ref={nearRef}>
-        {
-          loading ? (
+      <h1>Events near you</h1>
+      <div className="each-slide-container">
+        <button className="scroll-arrow left" onClick={() => scrollLeft(nearRef)}>{"<"}</button>
+        <div className="each-slide" ref={nearRef}>
+          {loading ? (
             <div className="spinner"></div>
           ) : (
             nearEvents.map((eve, idx) => (
-              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} 
-                navigate={()=>navigate(`/event/${eve.id}`)}/>
+              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} navigate={() => navigate(`/event/${eve.id}`)} />
             ))
           )}
-          <button onClick={() => scrollRight(nearRef, "near")}>Load more</button>
+        </div>
+        <button className="scroll-arrow right" onClick={() => scrollRight(nearRef, "near")}>{">"}</button>
       </div>
-      {/* 10 current SPORTS events */}
-        <h1>Sports events</h1>
-      <div className="each-slide" ref={sportsRef}>
-        { loading ? (
-          <div className="spinner"></div>
-        ) : (
-          sportsEvents.map((eve, idx) => (
-            <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} 
-              navigate={()=>navigate(`/event/${eve.id}`)}/>
-          ))
-        )}
-        <button onClick={() => scrollRight(sportsRef, "sports")}>Load more</button>
+      <h1>Sports events</h1>
+      <div className="each-slide-container">
+        <button className="scroll-arrow left" onClick={() => scrollLeft(sportsRef)}>{"<"}</button>
+        <div className="each-slide" ref={sportsRef}>
+          {loading ? (
+            <div className="spinner"></div>
+          ) : (
+            sportsEvents.map((eve, idx) => (
+              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} navigate={() => navigate(`/event/${eve.id}`)} />
+            ))
+          )}
+        </div>
+        <button className="scroll-arrow right" onClick={() => scrollRight(sportsRef, "sports")}>{">"}</button>
       </div>
-      {/* 10 current MUSIC events */}
-        <h1>Music events</h1>
-      <div className="each-slide" ref={musicRef}>
-        { loading ? (
+      <h1>Music events</h1>
+      <div className="each-slide-container">
+        <button className="scroll-arrow left" onClick={() => scrollLeft(musicRef)}>{"<"}</button>
+        <div className="each-slide" ref={musicRef}>
+          {loading ? (
           <div className="spinner"></div>
         ) : (
           musicEvents.map((eve, idx) => (
@@ -278,8 +278,8 @@ export const Home = () => {
               navigate={()=>navigate(`/event/${eve.id}`)}/>
           ))
         )}
-        <button onClick={() => scrollRight(musicRef, "music")}>Load more</button>
       </div>
+    </div>
     </div>
   );
 };
