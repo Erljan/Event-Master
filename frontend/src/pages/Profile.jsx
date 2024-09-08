@@ -12,12 +12,14 @@ export const Profile = () => {
   const [lname, setLname] = useState("")
   const [email, setEmail] = useState("")
   const [bio, setBio] = useState("")
+  const [zipcode, setZipcode] = useState("")
 
 
   const [newFname, setNewFname] = useState("")
   const [newLname, setNewLname] = useState("")
   const [newEmail, setNewEmail] = useState("")
   const [newBio, setNewBio] = useState("")
+  const [newZipcode, setNewZipcode] = useState("")
 
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -35,6 +37,7 @@ export const Profile = () => {
       setLname(response.data.user.last_name)
       setEmail(response.data.user.email)
       setBio(response.data.bio)
+      setZipcode(response.data.location)
     } catch (error) {
       console.log(error)
     }
@@ -52,6 +55,7 @@ export const Profile = () => {
           email: newEmail ? newEmail : email,
         },
         bio: newBio ? newBio : bio,
+        location: newZipcode ? newZipcode : zipcode,
       })
 
       fetchProfileInfo()
@@ -71,6 +75,7 @@ export const Profile = () => {
         <h5>@{username}</h5>
         <p className="profile-info"><span>{fname}</span> <span>{lname}</span></p>
         <p className="profile-info">{email}</p>
+        <p>{zipcode ? zipcode : "No current zipcode"}</p>
         <p className="profile-info">{bio ? bio : "No Bio"}</p>
         <button onClick={() => setIsModalOpen(true)}>Update Profile</button>
       </div>
