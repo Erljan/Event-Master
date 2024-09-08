@@ -89,11 +89,13 @@ export const Profile = () => {
         newLname={newLname}
         newFname={newFname}
         newEmail={newEmail}
+        zipcode={zipcode}
         newBio={newBio}
         setNewBio={setNewBio}
         setNewEmail={setNewEmail}
         setNewFname={setNewFname}
         setNewLname={setNewLname}
+        setNewZipcode={setNewZipcode}
         />
       </div>
     </div>

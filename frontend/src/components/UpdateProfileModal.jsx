@@ -44,6 +44,7 @@ export const UpdateProfileModal = ({
           placeholder="Zipcode"
           value={newZipcode}
           onChange={(e) => setNewZipcode(e.target.value)}
+          maxLength={5}
         />
 
         <textarea
