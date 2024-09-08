@@ -8,11 +8,8 @@ import "../styles/Home.css";
 import EventCard from "../components/EventCard";
 
 export const Home = () => {
-  // const [allEvents, setAllEvents] = useState([]);
-  // const [upcomingEvents, setUpcomingEvents] = useState([]);
-  // const defaultZipCode = "60601"; // Downtown Chicago zip code
   const [loading, setLoading] = useState(false);
-  const [zipCode, setZipCode] = useState(60601)
+  const [zipCode, setZipCode] = useState(null)
   const [nearEvents, setNearEvents] = useState([])
   const rowRef = useRef(null);
   const navigate = useNavigate();
@@ -21,28 +18,33 @@ export const Home = () => {
   const [sportsEvents, setSportsEvents] = useState([])
 
   useEffect(() => {
-    // const userZipCode = "userSavedZipCode"; // Replace with actual user saved zip code
-    // fetchEventsByLocation(userZipCode || defaultZipCode);
-    // fetchUpcomingEvents(userZipCode || defaultZipCode);
     getCoordinateFromZip(13602)
     fetchAllEvents();
   }, []);
 
-  // const fetchEventsByLocation = async (zipCode) => {
-  //   try {
-  //     const response = await api.get(`api/events/?zip=${zipCode}/`);
-  //     setAllEvents(response.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+
+  useEffect(()=> {
+    const fetchZipcode = async() => {
+      try {
+        const response = await api.get('api/profile/')
+
+        setZipCode(Number(response.data.location))
+        console.log(Number(response.data.location))
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    fetchZipcode()
+  }, [])
+
 
   const apikey = import.meta.env.VITE_API_KEY;
   
   
   const getCoordinateFromZip = async(zipCode) => {
     const geocodeKey = import.meta.env.VITE_LOCATION_KEY
-    const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${zipCode}&key=${geocodeKey}`)
+    const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${zipCode ? zipCode : 60601}&key=${geocodeKey}`)
     const results = response.data.results[0]
     return results ? results.geometry : null
   }
@@ -183,7 +185,16 @@ export const Home = () => {
 
       {/* 10 current NEAR events */}
 
-      <h1>Events near you</h1>
+      {zipCode ? 
+      <div>
+        <h1>Events near you</h1> 
+        <button onClick={()=> navigate("/profile")}>Change location</button>
+        </div>
+        :
+        <h1>Events near Chicago</h1>
+      
+      }
+
       <div className="each-slide">
         {
           loading ? (

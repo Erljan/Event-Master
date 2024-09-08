@@ -15,10 +15,19 @@ export function NavBar({username, setUsername}) {
 
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    const storedUsername = localStorage.getItem("username")
+    if(storedUsername){
+      setUsername(storedUsername)
+    }
+
+  },[setUsername])
+
   const handleLogout = () => {
     // Clear tokens from localStorage
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem(REFRESH_TOKEN);
+    localStorage.removeItem("username");
 
     // Clear the username
     setUsername("");
