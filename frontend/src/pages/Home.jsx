@@ -9,7 +9,7 @@ import EventCard from "../components/EventCard";
 
 export const Home = () => {
   const [loading, setLoading] = useState(false);
-  const [zipCode, setZipCode] = useState(null)
+  const [zipCode, setZipCode] = useState(localStorage.getItem('zipCode') || null)
   const [nearEvents, setNearEvents] = useState([])
   const rowRef = useRef(null);
   const navigate = useNavigate();
@@ -17,33 +17,36 @@ export const Home = () => {
   const [musicEvents, setMusicEvents] = useState([]);
   const [sportsEvents, setSportsEvents] = useState([])
 
-  useEffect(() => {
-    getCoordinateFromZip(13602)
-    fetchAllEvents();
-  }, []);
-
-
+  // useEffect(() => {
+  // }, []);
+  
+  
   useEffect(()=> {
     const fetchZipcode = async() => {
       try {
         const response = await api.get('api/profile/')
-
+        
         setZipCode(Number(response.data.location))
-        console.log(Number(response.data.location))
+        // console.log(Number(response.data.location))
+        localStorage.setItem('zipCode', Number(response.data.location))
+        getCoordinateFromZip(zipCode)
       } catch (error) {
         console.log(error)
       }
     }
-
+    
     fetchZipcode()
+    fetchAllEvents();
   }, [])
 
 
   const apikey = import.meta.env.VITE_API_KEY;
   
   
-  const getCoordinateFromZip = async(zipCode) => {
+  const getCoordinateFromZip = async() => {
     const geocodeKey = import.meta.env.VITE_LOCATION_KEY
+
+
     const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${zipCode ? zipCode : 60601}&key=${geocodeKey}`)
     const results = response.data.results[0]
     return results ? results.geometry : null
@@ -127,7 +130,7 @@ export const Home = () => {
       setSportsEvents(sportsUniqueEvents)
       setNearEvents(nearUniqueEvents)
       // console.log(musicUniqueEvents);
-      console.log(nearUniqueEvents);
+      // console.log(nearUniqueEvents);
     } catch (error) {
       console.log(error);
     } finally {
@@ -188,7 +191,7 @@ export const Home = () => {
       {zipCode ? 
       <div>
         <h1>Events near you</h1> 
-        <button onClick={()=> navigate("/profile")}>Change location</button>
+        <button onClick={()=> navigate("/profile")} className="add-location-btn">Change location</button>
         </div>
         :
         <h1>Events near Chicago</h1>
