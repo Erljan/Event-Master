@@ -74,36 +74,52 @@ export const Profile = () => {
 
 
   return (
+    <div className="profile-page">
     <div className="profile-container">
       <div className="profile">
-
+        <p className="profile-info"><span>{fname}</span> <span>{lname}</span></p>
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="" />
         <h5>@{username}</h5>
-        <p className="profile-info"><span>{fname}</span> <span>{lname}</span></p>
         <p className="profile-info">{email}</p>
         <p>{zipcode ? zipcode : "No current zipcode"}</p>
+
+      </div>
+  
+      <div className="profile-bio">
         <p className="profile-info">{bio ? bio : "No Bio"}</p>
-        <button className="button" onClick={() => setIsModalOpen(true)}>Update Profile</button>
       </div>
-
-      <div className="profile-modal">
-
-        <UpdateProfileModal
-        onSubmit={updateProfile}
-        onClose={() => setIsModalOpen(false)}
-        isOpen={isModalOpen}
-        newLname={newLname}
-        newFname={newFname}
-        newEmail={newEmail}
-        zipcode={zipcode}
-        newBio={newBio}
-        setNewBio={setNewBio}
-        setNewEmail={setNewEmail}
-        setNewFname={setNewFname}
-        setNewLname={setNewLname}
-        setNewZipcode={setNewZipcode}
-        />
-      </div>
+  
+      {isModalOpen && (
+        <div className="profile-modal">
+          <UpdateProfileModal
+            onSubmit={updateProfile}
+            onClose={() => setIsModalOpen(false)}
+            isOpen={isModalOpen}
+            newLname={newLname}
+            newFname={newFname}
+            newEmail={newEmail}
+            zipcode={zipcode}
+            newBio={newBio}
+            setNewBio={setNewBio}
+            setNewEmail={setNewEmail}
+            setNewFname={setNewFname}
+            setNewLname={setNewLname}
+            setNewZipcode={setNewZipcode}
+          />
+        </div>
+      )}
     </div>
-  )
+    <div className="title">
+      <row>
+        <p>YourEvents</p>
+        <button className="button" onClick={() => setIsModalOpen(true)}>Update Profile</button>
+      </row>
+    </div>
+    <div className="">
+      <row>
+        <p>Interests</p>
+      </row>
+    </div>
+    </div>
+  );
 }
