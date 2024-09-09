@@ -29,7 +29,7 @@
   text-align: center;
   color: #000;
   border-radius: 6px;
-  background-color:  rgb(212, 172, 91);
+  background-color:  rgb(241, 178, 82);
   border-color: solid #000 1px;
 }
 
@@ -110,16 +110,19 @@ ul li a {
   background-color: rgb(241, 178, 82);
   /* border: 1px solid black;  */
   border-radius: 5px;
-  color: black;
+  color: #000;
+  font-weight: bold;
 }
 
 .navbar .dropdown-menu .dropdown-item {
-  color: #ffffff; /* Light blue font color */
+  color: #000; /* Light blue font color */
+  font-weight: bold;
 }
 
 .navbar .nav-link {
-  color: #ffffff; /* Yellow font color */
+  color: #000; /* Yellow font color */
   font-size: large;
+  font-weight: bold;
 }
 
 /* =====Loading Spinner===== */
