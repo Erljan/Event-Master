@@ -9,8 +9,9 @@ import EventCard from "../components/EventCard";
 
 export const Home = () => {
   const [loading, setLoading] = useState(false);
-  const [zipCode, setZipCode] = useState(localStorage.getItem('zipCode') || null)
-  const [nearEvents, setNearEvents] = useState([])
+  const [zipCode, setZipCode] = useState(66502);
+  // localStorage.getItem('zipCode') || 
+  const [nearEvents, setNearEvents] = useState([]);
   const nearRef = useRef(null);
   const sportsRef = useRef(null);
   const musicRef = useRef(null);
@@ -24,8 +25,7 @@ export const Home = () => {
   });
   // const { eventsAttending, addToAttending, removeFropmAttending } = useAttending();
   // const { eventsOwned, removeFromOwned} = useOwned();  
-  
-  useEffect(()=> {
+
     // const fetchZipcode = async() => {
     //   try {
     //     const response = await api.get('api/profile/')
@@ -38,8 +38,7 @@ export const Home = () => {
     //   }
     // }
     // fetchZipcode()
-    fetchAllEvents();
-  }, []);
+ 
 
   const apikey = import.meta.env.VITE_API_KEY;
   
@@ -78,7 +77,7 @@ export const Home = () => {
     }
   }, [apikey]);
 
-  const fetchAllEvents = async () => {
+  const fetchAllEvents = useCallback(async () => {
     setLoading(true);
     try {
       // The code below grabs the event by zipcode
@@ -142,7 +141,23 @@ export const Home = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [zipCode, apikey]);
+
+  useEffect(() => {
+    fetchAllEvents();
+    // const fetchZipcode = async() => {
+    //   try {
+    //     const response = await api.get('api/profile/')
+    //     setZipCode(Number(response.data.location))
+    //     // console.log(Number(response.data.location))
+    //     localStorage.setItem('zipCode', Number(response.data.location))
+    //     getCoordinateFromZip(zipCode)
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
+    // fetchZipcode()
+  }, [fetchAllEvents]);
 
   // const fetchUpcomingEvents = async (zipCode) => {
   //   try {
@@ -173,7 +188,8 @@ export const Home = () => {
   const scrollRight = (ref, category) => {
     ref.current.scrollBy({ left: 1000, behavior: "smooth" });
     if (ref.current.scrollWidth - ref.current.scrollLeft === ref.current.clientWidth) {
-      setPage((prevPage) => ({ ...prevPage, [category]: prevPage[category] + 1 }));
+      setPage((prevPage) => ({ ...prevPage, [category]: prevPage[category] + 1 
+      }));
       fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? 
         setMusicEvents : setSportsEvents, page[category] + 1, category);
     }
@@ -181,7 +197,8 @@ export const Home = () => {
 
   const handleScroll = useCallback((ref, category) => {
     if (ref.current.scrollWidth - ref.current.scrollLeft === ref.current.clientWidth) {
-      setPage((prevPage) => ({ ...prevPage, [category]: prevPage[category] + 1 }));
+      setPage((prevPage) => ({ ...prevPage, [category]: prevPage[category] + 1 
+      }));
       fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? 
         setMusicEvents : setSportsEvents, page[category] + 1, category);
     }
@@ -248,7 +265,8 @@ export const Home = () => {
             <div className="spinner"></div>
           ) : (
             nearEvents.map((eve, idx) => (
-              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} navigate={() => navigate(`/event/${eve.id}`)} />
+              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} 
+                navigate={() => navigate(`/event/${eve.id}`)} />
             ))
           )}
         </div>
