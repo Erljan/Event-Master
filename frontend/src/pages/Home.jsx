@@ -15,9 +15,8 @@ export const Home = () => {
     //added separate loading states for each category so they don't trigger 
     // loading of eachother all the time.
   });
-  const [zipCode, setZipCode] = useState(66502);
-  // localStorage.getItem('zipCode') || null
-  // had to comment out in order to get it to stop refreshing in order to try to pull the zip code
+  const [zipCode, setZipCode] = useState(localStorage.getItem('zipCode') || null);
+  // localStorage.getItem('zipCode') || 
   const [nearEvents, setNearEvents] = useState([]);
   const nearRef = useRef(null);
   const sportsRef = useRef(null);
@@ -45,16 +44,35 @@ export const Home = () => {
     //   }
     // }
     // fetchZipcode()
+
+    useEffect(() => {
+      const fetchZipcode = async() => {
+        try {
+          const response = await api.get('api/profile/')
+          setZipCode(Number(response.data.location))
+          console.log(Number(response.data.location))
+          localStorage.setItem('zipCode', Number(response.data.location))
+          getCoordinateFromZip(zipCode)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      fetchZipcode()
+      fetchAllEvents();
+    }, []);
  
 
   const apikey = import.meta.env.VITE_API_KEY;
   
-  const getCoordinateFromZip = async (zipCode) => {
+  const getCoordinateFromZip = async () => {
     const geocodeKey = import.meta.env.VITE_LOCATION_KEY;
     try {
       const response = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?q=${zipCode}&key=${geocodeKey}`
+        `https://api.opencagedata.com/geocode/v1/json?q=${zipCode ? zipCode : 60601}&key=${geocodeKey}`
+        
       );
+
+      console.log(zipCode)
       const { lat, lng } = response.data.results[0].geometry;
       return { lat, lng };
     } catch (error) {
@@ -63,10 +81,10 @@ export const Home = () => {
     }
   };
 
-  const fetchData = useCallback(async (zipCode, setData, page, category) => {
+  const fetchData = async (setData, page, category) => {
     try {
       setLoading(prevLoading => ({ ...prevLoading, [category]: true }));
-      const coordinates = await getCoordinateFromZip(zipCode);
+      const coordinates = getCoordinateFromZip();
       if (!coordinates) {
         console.log("Coordinates not found");
         return;
@@ -84,9 +102,9 @@ export const Home = () => {
       setLoading((prevLoading) => ({ ...prevLoading, [category]: true }));
       // same as above comment
     }
-  }, [apikey]);
+  };
 
-  const fetchAllEvents = useCallback(async () => {
+  const fetchAllEvents = async () => {
     setLoading(true);
     try {
       // The code below grabs the event by zipcode
@@ -101,44 +119,48 @@ export const Home = () => {
       const nearUniqueEvents = eventsResponse.data._embedded.events;
       // This code below calls for the MUSIC events
       const musicResponse = await axios.get(
-        `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&classificationName=music&apikey=${apikey}&size=10`
+        `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&classificationName=music&apikey=${apikey}&size=100`
       );
-      const musicUniqueEvents = musicResponse.data._embedded.events;
-      // // The code below grabs only 10 unique music events
-      // const musicUniqueEvents = [];
-      // const seenEvent = new Set();
-      // music.forEach((event) => {
-      //   if (!seenEvent.has(event.name) && musicUniqueEvents.length < 10) {
-      //     seenEvent.add(event.name);
-      //     musicUniqueEvents.push(event);
-      //   }
-      // });
+      const music = musicResponse.data._embedded.events;
+      // The code below grabs only 10 unique music events
+      const musicUniqueEvents = [];
+      const seenEvent = new Set();
+      music.forEach((event) => {
+        if (!seenEvent.has(event.name) && musicUniqueEvents.length < 10) {
+          seenEvent.add(event.name);
+          musicUniqueEvents.push(event);
+        }
+      });
+
+
       // This code below calls the SPORTS events
       const sportsResponse = await axios.get(
-        `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&classificationName=sports&apikey=${apikey}&size=10`
+        `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&classificationName=sports&apikey=${apikey}&size=100`
       );
-      const sportsUniqueEvents = sportsResponse.data._embedded.events;
+
+      
+      const sports = sportsResponse.data._embedded.events;
       // Get 10 unique SPORTS events
-      // const sportsUniqueEvents = [];
-      // const seenMatchups = new Set();
+      const sportsUniqueEvents = [];
+      const seenMatchups = new Set();
   
-      // const normalizeMatchup = (eventName) => {
-      //   const parts = eventName.split(" vs ");
-      //   if (parts.length === 2) {
-      //     const [team1, team2] = parts;
-      //     return `${team1.trim()} vs ${team2.trim()}`;
-      //   }
-      //   return eventName.trim();
-      // };
+      const normalizeMatchup = (eventName) => {
+        const parts = eventName.split(" vs ");
+        if (parts.length === 2) {
+          const [team1, team2] = parts;
+          return `${team1.trim()} vs ${team2.trim()}`;
+        }
+        return eventName.trim();
+      };
   
-      // sports.forEach((event) => {
-      //   const normalizedName = normalizeMatchup(event.name);
+      sports.forEach((event) => {
+        const normalizedName = normalizeMatchup(event.name);
   
-      //   if (!seenMatchups.has(normalizedName) && sportsUniqueEvents.length < 10) {
-      //     seenMatchups.add(normalizedName);
-      //     sportsUniqueEvents.push(event);
-      //   }
-      // });
+        if (!seenMatchups.has(normalizedName) && sportsUniqueEvents.length < 10) {
+          seenMatchups.add(normalizedName);
+          sportsUniqueEvents.push(event);
+        }
+      });
 
       setMusicEvents(musicUniqueEvents);
       setSportsEvents(sportsUniqueEvents)
@@ -150,23 +172,9 @@ export const Home = () => {
     } finally {
       setLoading(false);
     }
-  }, [zipCode, apikey]);
+  };
 
-  useEffect(() => {
-    fetchAllEvents();
-    // const fetchZipcode = async() => {
-    //   try {
-    //     const response = await api.get('api/profile/')
-    //     setZipCode(Number(response.data.location))
-    //     // console.log(Number(response.data.location))
-    //     localStorage.setItem('zipCode', Number(response.data.location))
-    //     getCoordinateFromZip(zipCode)
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
-    // fetchZipcode()
-  }, [fetchAllEvents]);
+
 
   // const fetchUpcomingEvents = async (zipCode) => {
   //   try {
@@ -196,29 +204,22 @@ export const Home = () => {
 
   const scrollRight = (ref, category) => {
     ref.current.scrollBy({ left: 1000, behavior: "smooth" });
-    // Check if the user has reached the end of the scroll container
-    if (ref.current.scrollWidth - ref.current.scrollLeft === ref.current.clientWidth) {
-      // Only fetch new data for the current category when the end is reached
-      setPage((prevPage) => {
-        const newPage= prevPage[category] + 1; 
-
-        // Fetch more data for the specific category based on the scroll
-        fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? 
-          setMusicEvents : setSportsEvents, newPage, category);
-
-        return { ...prevPage, [category]: newPage }; // Update page count for that category
-    });
-   }
-  };
-
-  const handleScroll = useCallback((ref, category) => {
     if (ref.current.scrollWidth - ref.current.scrollLeft === ref.current.clientWidth) {
       setPage((prevPage) => ({ ...prevPage, [category]: prevPage[category] + 1 
       }));
       fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? 
         setMusicEvents : setSportsEvents, page[category] + 1, category);
     }
-  }, [zipCode, page, fetchData]);
+  };
+
+  const handleScroll = (ref, category) => {
+    if (ref.current.scrollWidth - ref.current.scrollLeft === ref.current.clientWidth) {
+      setPage((prevPage) => ({ ...prevPage, [category]: prevPage[category] + 1 
+      }));
+      fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? 
+        setMusicEvents : setSportsEvents, page[category] + 1, category);
+    }
+  };
 
 
   useEffect(() => {
@@ -262,7 +263,7 @@ export const Home = () => {
       if (sportsNode) sportsObserver.unobserve(sportsNode);
       if (musicNode) musicObserver.unobserve(musicNode);
     };
-  }, [handleScroll]);
+  }, []);
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'short', day: 'numeric'}
