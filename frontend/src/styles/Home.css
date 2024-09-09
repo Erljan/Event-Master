@@ -17,7 +17,19 @@
   padding: .5vw;
 }
 
-.item {
+.search-container{
+  height: 3vw;
+  width: 95vw;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.search-container .img{
+  height: auto;
+  width: auto;
+}
+/* .item {
   padding: 1vw;
   margin: .5vw;
   text-align: center;
@@ -47,7 +59,7 @@
   width: 10vw;
   border: solid #ffc4003a 4px;
   border-radius: 4px;
-}
+} */
 
 .title {
   text-align: left;
@@ -70,7 +82,7 @@
  border-radius: 8px;
 }
 
-.scroll-arrow .left {
+/* .scroll-arrow .left {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -96,7 +108,7 @@
   margin: 2%;
   z-index: 1;
   border-radius: 8px;
-}
+} */
 
 .homepage{
   /* border: 1px solid black; */
@@ -123,6 +135,7 @@
 
 .event-card{
   /* border: 1px solid black; */
+  background-image: url("../images/flyer_background.jpg");
   box-shadow: 1px 1px 10px rgb(142, 142, 141);
   height: inherit;
   width: 400px;
