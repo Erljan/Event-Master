@@ -7,3 +7,74 @@
   height: 90%;
   align-items: center;
 }
+
+/* ======LOGIN FORM======= */
+
+.login{
+  /* border: 1px solid rgb(14, 13, 13); */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url("https://streetline-film.com/wp-content/uploads/2018/10/events-background-1.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  /* position: relative; */
+  /* background-color: rgb(247, 247, 247, .4); */
+}
+
+.welcome{
+  /* margin-bottom: 5%; */
+  position: absolute;
+  top: 20%;
+  font-size: 5em;
+}
+
+.forms-login-register{
+  /* border: 1px solid white; */
+  height: 350px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  padding: 20px;
+  box-shadow: 1px 1px 10px rgb(106, 106, 106);
+  border-radius: 5px;
+  background-color: rgba(247, 247, 247, .7);
+
+}
+
+.forms-login-register h1, p, Link{
+  background-color: transparent;
+}
+
+.input-forms{
+  width: 100%;
+  margin: 12px;
+  height: 50px;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 10px rgb(126, 124, 124);
+  border: none;
+  padding: 5px;
+  outline: none;
+  background-color: transparent;
+}
+
+.to-reg{
+  background-color: rgb(126, 124, 124, .5);
+  color: blue;
+}
+
+.login-btn{
+  width: 40%;
+  height: 50px;
+  border-radius: 5px;
+  background-color: #58a2f2;
+  border: none;
+  font-size: x-large;
+  margin: 10px;
+  color: white;
+  
+}

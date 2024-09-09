@@ -3,8 +3,7 @@ import { Container } from 'react-bootstrap';
 import { api } from "../api";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
-// import "../styles/SignUp.css"
+import "../styles/SignUp.css"
 
 // import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
