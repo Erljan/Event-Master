@@ -115,9 +115,24 @@ export const Profile = () => {
         <button className="button" onClick={() => setIsModalOpen(true)}>Update Profile</button>
       </row>
     </div>
-    <div className="">
+    <div className="events-box">
       <row>
         <p>Interests</p>
+        <div className="interests">
+          <p>Hiking</p>
+          <p>Biking</p>
+          <p>Classical Music</p> 
+        </div>
+      </row>
+      <row>
+        <p>Upcoming Events</p>
+          <div className="interests">
+          </div>
+      </row>
+      <row>
+        <p>Events You're Running</p>
+          <div className="interests">
+          </div>
       </row>
     </div>
     </div>
