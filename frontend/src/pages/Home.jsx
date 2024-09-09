@@ -17,6 +17,7 @@ export const Home = () => {
   });
   const [zipCode, setZipCode] = useState(66502);
   // localStorage.getItem('zipCode') || null
+  // had to comment out in order to get it to stop refreshing in order to try to pull the zip code
   const [nearEvents, setNearEvents] = useState([]);
   const nearRef = useRef(null);
   const sportsRef = useRef(null);
@@ -195,14 +196,17 @@ export const Home = () => {
 
   const scrollRight = (ref, category) => {
     ref.current.scrollBy({ left: 1000, behavior: "smooth" });
+    // Check if the user has reached the end of the scroll container
     if (ref.current.scrollWidth - ref.current.scrollLeft === ref.current.clientWidth) {
+      // Only fetch new data for the current category when the end is reached
       setPage((prevPage) => {
         const newPage= prevPage[category] + 1; 
 
+        // Fetch more data for the specific category based on the scroll
         fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? 
           setMusicEvents : setSportsEvents, newPage, category);
 
-        return { ...prevPage, [category]: newPage };
+        return { ...prevPage, [category]: newPage }; // Update page count for that category
     });
    }
   };
