@@ -11,6 +11,9 @@ import EventPage from "./pages/EventPage";
 import { Sports } from "./pages/Sports";
 import { Music } from "./pages/Music";
 import { GroupPage } from "./pages/GroupPage";
+import ArtsTheatre from "./pages/ArtsTheatre";
+import Film from "./pages/Film";
+import Misc from "./pages/Misc";
 
 function Logout() {
   localStorage.clear();
@@ -23,14 +26,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <NavBar username={username} setUsername={setUsername}/>
+        <NavBar username={username} setUsername={setUsername} />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Home />
-            }
-          />
+          <Route path="/" element={<Home />} />
           <Route
             path="/profile"
             element={
@@ -55,27 +53,17 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/sports"
-          element={
-            <Sports />
-          }/>
-          <Route path="/music"
-          element={
-            <Music />
-          }/>
-          <Route path="/event/:id"
-          element={
-            <EventPage/>
-          }/>
+          <Route path="/sports" element={<Sports />} />
+          <Route path="/music" element={<Music />} />
+          <Route path="/arts" element={<ArtsTheatre />} />
+          <Route path="/film" element={<Film />} />
+          <Route path="/misc" element={<Misc />} />
+          <Route path="/event/:id" element={<EventPage />} />
           <Route
             path="/login"
-            element={
-              <LoginForm setUsername={setUsername}/>
-            }
+            element={<LoginForm setUsername={setUsername} />}
           />
-          <Route path="/signup" element={
-              <RegisterForm />
-            } />
+          <Route path="/signup" element={<RegisterForm />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>
       </BrowserRouter>
