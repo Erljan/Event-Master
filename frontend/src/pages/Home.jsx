@@ -16,7 +16,7 @@ export const Home = () => {
     // loading of eachother all the time.
   });
   const [zipCode, setZipCode] = useState(66502);
-  // localStorage.getItem('zipCode') || 
+  // localStorage.getItem('zipCode') || null
   const [nearEvents, setNearEvents] = useState([]);
   const nearRef = useRef(null);
   const sportsRef = useRef(null);
@@ -196,11 +196,15 @@ export const Home = () => {
   const scrollRight = (ref, category) => {
     ref.current.scrollBy({ left: 1000, behavior: "smooth" });
     if (ref.current.scrollWidth - ref.current.scrollLeft === ref.current.clientWidth) {
-      setPage((prevPage) => ({ ...prevPage, [category]: prevPage[category] + 1 
-      }));
-      fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? 
-        setMusicEvents : setSportsEvents, page[category] + 1, category);
-    }
+      setPage((prevPage) => {
+        const newPage= prevPage[category] + 1; 
+
+        fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? 
+          setMusicEvents : setSportsEvents, newPage, category);
+
+        return { ...prevPage, [category]: newPage };
+    });
+   }
   };
 
   const handleScroll = useCallback((ref, category) => {
