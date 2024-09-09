@@ -212,14 +212,14 @@ export const Home = () => {
     }
   };
 
-  const handleScroll = useCallback((ref, category) => {
+  const handleScroll = (ref, category) => {
     if (ref.current.scrollWidth - ref.current.scrollLeft === ref.current.clientWidth) {
       setPage((prevPage) => ({ ...prevPage, [category]: prevPage[category] + 1 
       }));
       fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? 
         setMusicEvents : setSportsEvents, page[category] + 1, category);
     }
-  }, [zipCode, page]);
+  };
 
 
   useEffect(() => {
@@ -263,7 +263,7 @@ export const Home = () => {
       if (sportsNode) sportsObserver.unobserve(sportsNode);
       if (musicNode) musicObserver.unobserve(musicNode);
     };
-  }, [handleScroll]);
+  }, []);
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'short', day: 'numeric'}
