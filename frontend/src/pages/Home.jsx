@@ -57,7 +57,7 @@ export const Home = () => {
     }
   };
 
-  const fetchData = async (zipCode, setData, page, category) => {
+  const fetchData = useCallback(async (zipCode, setData, page, category) => {
     try {
       setLoading(prevLoading => ({ ...prevLoading, [category]: true }));
       const coordinates = await getCoordinateFromZip(zipCode);
@@ -76,7 +76,7 @@ export const Home = () => {
       console.error(`Error fetching ${category} data`, error);
       setLoading((prevLoading) => ({ ...prevLoading, [category]: false }));
     }
-  };
+  }, [apikey]);
 
   const fetchAllEvents = async () => {
     setLoading(true);
@@ -174,16 +174,18 @@ export const Home = () => {
     ref.current.scrollBy({ left: 1000, behavior: "smooth" });
     if (ref.current.scrollWidth - ref.current.scrollLeft === ref.current.clientWidth) {
       setPage((prevPage) => ({ ...prevPage, [category]: prevPage[category] + 1 }));
-      fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? setMusicEvents : setSportsEvents, page[category] + 1, category);
+      fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? 
+        setMusicEvents : setSportsEvents, page[category] + 1, category);
     }
   };
 
-  const handleScroll = (ref, category) => {
+  const handleScroll = useCallback((ref, category) => {
     if (ref.current.scrollWidth - ref.current.scrollLeft === ref.current.clientWidth) {
       setPage((prevPage) => ({ ...prevPage, [category]: prevPage[category] + 1 }));
-      fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? setMusicEvents : setSportsEvents, page[category] + 1, category);
+      fetchData(zipCode, category === "near" ? setNearEvents : category === "music" ? 
+        setMusicEvents : setSportsEvents, page[category] + 1, category);
     }
-  };
+  }, [zipCode, page, fetchData]);
 
 
   useEffect(() => {
@@ -278,8 +280,8 @@ export const Home = () => {
               navigate={()=>navigate(`/event/${eve.id}`)}/>
           ))
         )}
+        </div>
       </div>
-    </div>
     </div>
   );
 };
