@@ -77,7 +77,7 @@ export const Home = () => {
       return { lat, lng };
     } catch (error) {
       console.error("Error fetching coordinates", error);
-      return null;
+      return { lat: 41.8781, lng: -87.6298 };
     }
   };
 
@@ -274,7 +274,8 @@ export const Home = () => {
 
   return (
     <div className="homepage">
-      <h1>Events near you</h1>
+      {zipCode ? <h1>Events near you</h1> : <h1>Events near Chicago</h1>}
+      
       <div className="each-slide-container">
         <button className="scroll-arrow left" onClick={() => scrollLeft(nearRef)}>{"<"}</button>
         <div className="each-slide" ref={nearRef}>
