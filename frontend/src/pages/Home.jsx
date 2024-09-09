@@ -1,4 +1,4 @@
-/// import { useNavigate} from "react-router-dom"
+// import { useNavigate} from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef, useCallback } from "react";
 import FoundEventCard from "../components/EventCard";
@@ -72,12 +72,14 @@ export const Home = () => {
         
       );
 
+      
+
       console.log(zipCode)
       const { lat, lng } = response.data.results[0].geometry;
       return { lat, lng };
     } catch (error) {
       console.error("Error fetching coordinates", error);
-      return { lat: 41.8781, lng: -87.6298 };
+      return null;
     }
   };
 
