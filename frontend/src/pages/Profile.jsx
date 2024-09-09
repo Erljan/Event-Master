@@ -83,7 +83,7 @@ export const Profile = () => {
         <p className="profile-info">{email}</p>
         <p>{zipcode ? zipcode : "No current zipcode"}</p>
         <p className="profile-info">{bio ? bio : "No Bio"}</p>
-        <button onClick={() => setIsModalOpen(true)}>Update Profile</button>
+        <button className="button" onClick={() => setIsModalOpen(true)}>Update Profile</button>
       </div>
 
       <div className="profile-modal">
