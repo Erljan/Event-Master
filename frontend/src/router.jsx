@@ -15,6 +15,9 @@ import GroupPage from "./pages/GroupPage.jsx";
 // added these 2 pages below that were missing
 import MyEvents from "./pages/MyEvents.jsx";
 import Results from "./pages/Results.jsx";
+import ArtsTheatre from "./pages/ArtsTheatre.jsx";
+import Film from "./pages/Film.jsx";
+import Misc from "./pages/Misc.jsx";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +79,18 @@ const router = createBrowserRouter([
       {
         path: "grouppage",
         element: <GroupPage />,
+      },
+      {
+        path: "arts",
+        element: <ArtsTheatre />,
+      },
+      {
+        path: "film",
+        element: <Film />,
+      },
+      {
+        path: "misc",
+        element: <Misc />,
       },
     ],
   },
