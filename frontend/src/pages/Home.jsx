@@ -8,7 +8,13 @@ import "../styles/Home.css";
 import EventCard from "../components/EventCard";
 
 export const Home = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({
+    near: false,
+    sports: false,
+    music: false,
+    //added separate loading states for each category so they don't trigger 
+    // loading of eachother all the time.
+  });
   const [zipCode, setZipCode] = useState(66502);
   // localStorage.getItem('zipCode') || 
   const [nearEvents, setNearEvents] = useState([]);
@@ -70,10 +76,12 @@ export const Home = () => {
       );
       const newData = response.data._embedded.events;
       setData((prevData) => [...prevData, ...newData]);
-      setLoading((prevLoading) => ({ ...prevLoading, [category]: false }));
+      setLoading((prevLoading) => ({ ...prevLoading, [category]: true }));
+      // changed set loading to true to make sure each loading state does not affect the other loading states
     } catch (error) {
       console.error(`Error fetching ${category} data`, error);
-      setLoading((prevLoading) => ({ ...prevLoading, [category]: false }));
+      setLoading((prevLoading) => ({ ...prevLoading, [category]: true }));
+      // same as above comment
     }
   }, [apikey]);
 
