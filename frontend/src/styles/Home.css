@@ -15,9 +15,10 @@
   overflow-x: hidden;
   scroll-behavior: smooth;
   padding: .5vw;
+  background-color: transparent;
 }
 
-.title {
+/* .title {
   text-align: left;
   color: aliceblue;
   border-bottom: rgba(215, 217, 0, 0.137) 4px;
@@ -27,45 +28,19 @@
   margin-top: 0;
   margin-bottom: 0;
   padding-left:1%;
-}
+} */
 
 .scroll-arrow {
  height: 2vw;
  width: 2vw;
  position: center;
- cursor: pointer;
- border: solid #ccc 1px;
+ cursor:pointer;
+ border: solid rgba(0, 121, 138) 2px;
  border-radius: 8px;
  margin: .5vw;
+ background-color:rgba(0, 121, 138, .50);
+ margin-top: 9%;
 }
-
-/* .scroll-arrow .left {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #f2bc58;
-  color: #000;
-  border: solid #444;
-  cursor:pointer;
-  padding: 5px 10px 5px 10px;
-  margin: 2%;
-  z-index: 1;
-  border-radius: 8px;
-}
-
-.scroll-arrow .right {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #f2bc58;
-  color: #000;
-  border: solid #444;
-  cursor:pointer;
-  padding: 5px 10px 5px 10px;
-  margin: 2%;
-  z-index: 1;
-  border-radius: 8px;
-} */
 
 .homepage{
   /* border: 1px solid black; */
@@ -78,6 +53,8 @@
 .each-slide-container{
   display:flex;
   flex-direction: row;
+  border: solid ;
+  padding: .8vw;
 }
 
 .each-slide{
@@ -87,7 +64,6 @@
   width: 95%;
   /* width: 500px; */
   overflow: hidden;
-  margin-bottom: 20px;
 }
 
 .event-card{
@@ -111,6 +87,7 @@
   /* border: 1px solid black; */
   height: 50px;
   overflow: hidden;
+  background-color: transparent;
 }
 
 .add-location-btn{
