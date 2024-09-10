@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Profile.css"
 import { UpdateProfileModal } from "../components/UpdateProfileModal";
+import { AddEventModal } from "../components/AddEventModal";
 
 
 export const Profile = () => {
@@ -13,6 +14,8 @@ export const Profile = () => {
   const [email, setEmail] = useState("")
   const [bio, setBio] = useState("")
   const [zipcode, setZipcode] = useState("")
+  const [addEventModalOpen, setAddEventModalOpen] = useState(false)
+
 
 
   const [newFname, setNewFname] = useState("")
@@ -113,6 +116,8 @@ export const Profile = () => {
     <div className="header2">
         <p>YourEvents</p>
     </div>
+    <button onClick={()=> setAddEventModalOpen(true)}>Create Event</button>
+    <AddEventModal isOpen={addEventModalOpen} cancelBtn={() => setAddEventModalOpen(false)} />
     <div className="events-box">
 
         <p>Interests</p>

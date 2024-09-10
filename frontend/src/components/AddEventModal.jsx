@@ -2,7 +2,6 @@ import { useState } from "react";
 import { api } from "../api";
 
 
-
 export const AddEventModal = ({isOpen, cancelBtn}) => {
     
     const [eventName, setEventName] = useState("")
