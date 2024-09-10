@@ -43,7 +43,7 @@ const EventResults = () => {
   };
 
   return (
-    <div>
+    <div className="event-results">
       <div className="search-container">
         <input className="input"
           type="text"
