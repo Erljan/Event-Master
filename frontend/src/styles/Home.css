@@ -30,17 +30,23 @@
   padding-left:1%;
 } */
 
-.scroll-arrow {
- height: 2vw;
- width: 2vw;
- position: center;
- cursor:pointer;
- border: solid rgba(0, 121, 138) 2px;
- border-radius: 8px;
- margin: .5vw;
- background-color:rgba(0, 121, 138, .50);
- margin-top: 9%;
+.scroll-arrow-left {
+  height: 3vw;
+  width: 3.4vw;
+  position: center;
+  margin-top: 9%;
+  margin-right: .5vw;
+  border: none;
 }
+
+.scroll-arrow-right {
+  height: 3vw;
+  width: 3.4vw;
+  position: center;
+  margin-top: 9%;
+  margin-left: .5vw;
+  border: none;
+ }
 
 .homepage{
   /* border: 1px solid black; */
