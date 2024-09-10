@@ -51,6 +51,16 @@ export default function EventPage() {
     }
   }
 
+
+  const handleRemoveEvent = async () => {
+    try {
+      await api.delete(`api/my-events/${id}/`)
+      setAdded(false)
+    } catch (error) {
+      console.log("Error removing event", error)
+    }
+  }
+
   if (!aEvent) return <div>Loading</div>;
 
   return (
@@ -96,8 +106,8 @@ export default function EventPage() {
 
             {
               added ?
-              <button className="add-btn" onClick={handleAddToMyEvents}>Add to my events</button> :
-              <button className="add-btn" onClick={handleAddToMyEvents}>Remove from events</button>
+              <button className="add-btn" onClick={() => handleRemoveEvent()}>Remove from events</button>:
+              <button className="add-btn" onClick={handleAddToMyEvents}>Add to my events</button> 
 
             }
           </div>
