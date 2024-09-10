@@ -11,11 +11,13 @@ export const Home = () => {
     near: false,
     sports: false,
     music: false,
-    //added separate loading states for each category so they don't trigger 
+    //added separate loading states for each category so they don't trigger
     // loading of eachother all the time.
   });
-  const [zipCode, setZipCode] = useState(localStorage.getItem('zipCode') || null);
-  // localStorage.getItem('zipCode') || 
+  const [zipCode, setZipCode] = useState(
+    localStorage.getItem("zipCode") || null
+  );
+  // localStorage.getItem('zipCode') ||
   const [nearEvents, setNearEvents] = useState([]);
   const nearRef = useRef(null);
   const sportsRef = useRef(null);
@@ -26,36 +28,34 @@ export const Home = () => {
   const [searchText, setSearchText] = useState('');
   const [searchType, setSearchType] = useState('events');
 
-    useEffect(() => {
-      const fetchZipcode = async() => {
-        try {
-          const response = await api.get('api/profile/')
-          setZipCode(Number(response.data.location))
-          console.log(Number(response.data.location))
-          localStorage.setItem('zipCode', Number(response.data.location))
-          getCoordinateFromZip(zipCode)
-        } catch (error) {
-          console.log(error)
-        }
+  useEffect(() => {
+    const fetchZipcode = async () => {
+      try {
+        const response = await api.get("api/profile/");
+        setZipCode(Number(response.data.location));
+        console.log(Number(response.data.location));
+        localStorage.setItem("zipCode", Number(response.data.location));
+        getCoordinateFromZip(zipCode);
+      } catch (error) {
+        console.log(error);
       }
-      fetchZipcode()
-      fetchAllEvents();
-    }, []);
- 
+    };
+    fetchZipcode();
+    fetchAllEvents();
+  }, []);
 
   const apikey = import.meta.env.VITE_API_KEY;
-  
+
   const getCoordinateFromZip = async () => {
     const geocodeKey = import.meta.env.VITE_LOCATION_KEY;
     try {
       const response = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?q=${zipCode ? zipCode : 60601}&key=${geocodeKey}`
-        
+        `https://api.opencagedata.com/geocode/v1/json?q=${
+          zipCode ? zipCode : 60601
+        }&key=${geocodeKey}`
       );
 
-      
-
-      console.log(zipCode)
+      console.log(zipCode);
       const { lat, lng } = response.data.results[0].geometry;
       return { lat, lng };
     } catch (error) {
@@ -66,7 +66,7 @@ export const Home = () => {
 
   const fetchData = async (setData, page, category) => {
     try {
-      setLoading(prevLoading => ({ ...prevLoading, [category]: true }));
+      setLoading((prevLoading) => ({ ...prevLoading, [category]: true }));
       const coordinates = await getCoordinateFromZip();
       if (!coordinates) {
         console.log("Coordinates not found");
@@ -82,7 +82,7 @@ export const Home = () => {
       // changed set loading to true to make sure each loading state does not affect the other loading states
     } catch (error) {
       console.error(`Error fetching ${category} data`, error);
-      setLoading((prevLoading) => ({ ...prevLoading, [category]: false}));
+      setLoading((prevLoading) => ({ ...prevLoading, [category]: false }));
       // same as above comment
     }
   };
@@ -92,13 +92,14 @@ export const Home = () => {
     try {
       // The code below grabs the event by zipcode
       const coordinates = await getCoordinateFromZip(zipCode);
-      if(!coordinates){
+      if (!coordinates) {
         console.log("Coordinates not found");
         return;
       }
-      const { lat, lng } = coordinates
+      const { lat, lng } = coordinates;
       const eventsResponse = await axios.get(
-        `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apikey}&latlong=${lat},${lng}&size=10`)
+        `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apikey}&latlong=${lat},${lng}&size=10`
+      );
       const nearUniqueEvents = eventsResponse.data._embedded.events;
       // This code below calls for the MUSIC events
       const musicResponse = await axios.get(
@@ -122,7 +123,7 @@ export const Home = () => {
       // Get 10 unique SPORTS events
       const sportsUniqueEvents = [];
       const seenMatchups = new Set();
-  
+
       const normalizeMatchup = (eventName) => {
         const parts = eventName.split(" vs ");
         if (parts.length === 2) {
@@ -131,19 +132,22 @@ export const Home = () => {
         }
         return eventName.trim();
       };
-  
+
       sports.forEach((event) => {
         const normalizedName = normalizeMatchup(event.name);
-  
-        if (!seenMatchups.has(normalizedName) && sportsUniqueEvents.length < 10) {
+
+        if (
+          !seenMatchups.has(normalizedName) &&
+          sportsUniqueEvents.length < 10
+        ) {
           seenMatchups.add(normalizedName);
           sportsUniqueEvents.push(event);
         }
       });
 
       setMusicEvents(musicUniqueEvents);
-      setSportsEvents(sportsUniqueEvents)
-      setNearEvents(nearUniqueEvents)
+      setSportsEvents(sportsUniqueEvents);
+      setNearEvents(nearUniqueEvents);
       console.log(musicUniqueEvents);
       console.log(nearUniqueEvents);
       console.log(sportsUniqueEvents);
@@ -154,17 +158,20 @@ export const Home = () => {
     }
   };
 
-
   // const SearchBar = () => {
-  //   
+  //
   // }
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchType === "events") {
-      navigate(`https://app.ticketmaster.com/discovery/v2/events.json?keyword=${searchText}`);
+      navigate(
+        `https://app.ticketmaster.com/discovery/v2/events.json?keyword=${searchText}`
+      );
     } else if (searchType === "venues") {
-      navigate(`https://app.ticketmaster.com/discovery/v2/venues.json?keyword=${searchText}`);
+      navigate(
+        `https://app.ticketmaster.com/discovery/v2/venues.json?keyword=${searchText}`
+      );
     }
   };
 
@@ -174,73 +181,125 @@ export const Home = () => {
 
   const scrollRight = (ref) => {
     ref.current.scrollBy({ left: 1000, behavior: "smooth" });
-    };
+  };
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'short', day: 'numeric'}
-    const date = new Date(dateString)
-    return date.toLocaleDateString(undefined, options)
-  }
-
+    const options = { year: "numeric", month: "short", day: "numeric" };
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, options);
+  };
 
   return (
     <div className="homepage">
       <div className="search-container">
-        <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+        <select
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+        >
           <option value="events">Search Events</option>
           <option value="venues">Search Venues</option>
         </select>
-        <input type="text" value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-        placeholder="Enter search text..."/>
-        <button onClick={handleSearch}><img src="./src/images/search.png"/>
+        <input
+          type="text"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          placeholder="Enter search text..."
+        />
+        <button onClick={handleSearch}>
+          <img src="./src/images/search.png" />
         </button>
       </div>
       {zipCode ? <h1>Events near you</h1> : <h1>Events near Chicago</h1>}
-      
+
       <div className="each-slide-container">
-        <button className="scroll-arrow left" onClick={() => scrollLeft(nearRef)}>{"<"}</button>
+        <button
+          className="scroll-arrow left"
+          onClick={() => scrollLeft(nearRef)}
+        >
+          {"<"}
+        </button>
         <div className="each-slide" ref={nearRef}>
           {loading ? (
             <div className="spinner"></div>
           ) : (
             nearEvents.map((eve, idx) => (
-              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} 
-                navigate={() => navigate(`/event/${eve.id}`)} />
+              <EventCard
+                key={idx}
+                eve={eve}
+                formatDate={formatDate}
+                className={"event-card"}
+                navigate={() => navigate(`/event/${eve.id}`)}
+              />
             ))
           )}
         </div>
-        <button className="scroll-arrow right" onClick={() => scrollRight(nearRef)}>{">"}</button>
+        <button
+          className="scroll-arrow right"
+          onClick={() => scrollRight(nearRef)}
+        >
+          {">"}
+        </button>
       </div>
       <h1>Sports events</h1>
       <div className="each-slide-container">
-        <button className="scroll-arrow left" onClick={() => scrollLeft(sportsRef)}>{"<"}</button>
+        <button
+          className="scroll-arrow left"
+          onClick={() => scrollLeft(sportsRef)}
+        >
+          {"<"}
+        </button>
         <div className="each-slide" ref={sportsRef}>
           {loading ? (
             <div className="spinner"></div>
           ) : (
             sportsEvents.map((eve, idx) => (
-              <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} navigate={() => navigate(`/event/${eve.id}`)} />
+              <EventCard
+                key={idx}
+                eve={eve}
+                formatDate={formatDate}
+                className={"event-card"}
+                navigate={() => navigate(`/event/${eve.id}`)}
+              />
             ))
           )}
         </div>
-        <button className="scroll-arrow right" onClick={() => scrollRight(sportsRef)}>{">"}</button>
+        <button
+          className="scroll-arrow right"
+          onClick={() => scrollRight(sportsRef)}
+        >
+          {">"}
+        </button>
       </div>
       <h1>Music events</h1>
       <div className="each-slide-container">
-        <button className="scroll-arrow left" onClick={() => scrollLeft(musicRef)}>{"<"}</button>
+        <button
+          className="scroll-arrow left"
+          onClick={() => scrollLeft(musicRef)}
+        >
+          {"<"}
+        </button>
         <div className="each-slide" ref={musicRef}>
           {loading ? (
-          <div className="spinner"></div>
-        ) : (
-          musicEvents.map((eve, idx) => (
-            <EventCard key={idx} eve={eve} formatDate={formatDate} className={"event-card"} 
-              navigate={()=>navigate(`/event/${eve.id}`)}/>
-          ))
-        )}
+            <div className="spinner"></div>
+          ) : (
+            musicEvents.map((eve, idx) => (
+              <EventCard
+                key={idx}
+                eve={eve}
+                formatDate={formatDate}
+                className={"event-card"}
+                navigate={() => navigate(`/event/${eve.id}`)}
+              />
+            ))
+          )}
         </div>
-        <button className="scroll-arrow right" onClick={() => scrollRight(sportsRef)}>{">"}</button>
+        <button
+          className="scroll-arrow right"
+          onClick={() => scrollRight(sportsRef)}
+        >
+          {">"}
+        </button>
       </div>
     </div>
   );
-}
+};
