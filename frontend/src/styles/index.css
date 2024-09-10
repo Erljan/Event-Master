@@ -134,6 +134,7 @@ ul li a {
   border-bottom-left-radius: 4px;
   border: solid black 2px;
   font-size: large;
+  background-color: rgb(255, 255, 255, .8)
   }
 
 .search-container button {
