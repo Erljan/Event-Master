@@ -218,7 +218,7 @@ export const Home = () => {
           className="scroll-arrow-left"
           onClick={() => scrollLeft(nearRef)}
         >
-          <img src="./src/images/left_arrow.png" alt="Search"/>
+          <img src="./src/images/gold_left_arrow.png" alt="Search"/>
         </button>
         <div className="each-slide" ref={nearRef}>
           {loading ? (
@@ -239,7 +239,7 @@ export const Home = () => {
           className="scroll-arrow-right"
           onClick={() => scrollRight(nearRef)}
         >
-          <img src="./src/images/right_arrow.png" alt="Search"/>
+          <img src="./src/images/gold_right_arrow.png" alt="Search"/>
         </button>
       </div>
       <h1>Sports events</h1>
@@ -248,7 +248,7 @@ export const Home = () => {
           className="scroll-arrow-left"
           onClick={() => scrollLeft(sportsRef)}
         >
-          <img src="./src/images/left_arrow.png" alt="Search"/>
+          <img src="./src/images/gold_left_arrow.png" alt="Search"/>
         </button>
         <div className="each-slide" ref={sportsRef}>
           {loading ? (
@@ -269,7 +269,7 @@ export const Home = () => {
           className="scroll-arrow-right"
           onClick={() => scrollRight(sportsRef)}
         >
-          <img src="./src/images/right_arrow.png" alt="Search"/>
+          <img src="./src/images/gold_right_arrow.png" alt="Search"/>
         </button>
       </div>
       <h1>Music events</h1>
@@ -278,7 +278,7 @@ export const Home = () => {
           className="scroll-arrow-left"
           onClick={() => scrollLeft(musicRef)}
         >
-          <img src="./src/images/left_arrow.png" alt="Search"/>
+          <img src="./src/images/gold_left_arrow.png" alt="Search"/>
         </button>
         <div className="each-slide" ref={musicRef}>
           {loading ? (
@@ -299,7 +299,7 @@ export const Home = () => {
           className="scroll-arrow-right"
           onClick={() => scrollRight(sportsRef)}
         >
-          <img src="./src/images/right_arrow.png" alt="Search"/>
+          <img src="./src/images/gold_right_arrow.png" alt="Search"/>
         </button>
       </div>
     </div>
