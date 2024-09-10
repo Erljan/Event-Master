@@ -116,10 +116,10 @@ export const Profile = () => {
     <div className="header2">
         <p>YourEvents</p>
     </div>
-    <button onClick={()=> setAddEventModalOpen(true)}>Create Event</button>
+    
     <AddEventModal isOpen={addEventModalOpen} cancelBtn={() => setAddEventModalOpen(false)} />
     <div className="events-box">
-
+      <button className="button" onClick={()=> setAddEventModalOpen(true)}>Create Event</button>
         <p>Interests</p>
         <div className="interests">
           <p>Hiking</p>
