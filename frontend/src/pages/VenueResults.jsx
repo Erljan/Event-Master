@@ -50,19 +50,19 @@ const VenueResults = () => {
 
   return (
     <div>
-      <h1>Venue Results</h1>
       <div className="search-container">
-        <input
+        <input className="input"
           type="text"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           onKeyDown={handleKeyPress}
           placeholder="Enter search text..."
         />
-        <button onClick={handleSearch}>
-          <img src="path/to/your/search-icon.png" alt="Search" />
+        <button className="button" onClick={handleSearch}>
+          <img className="img" src="./src/images/search.png" alt="Search" />
         </button>
       </div>
+      <h1>Venue Results</h1>
       <div className="results-container">
         {results.length ? results.map((venue)=> (
           <VenueCard key={venue.id} venue={venue} apikey={apikey}/>

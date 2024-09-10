@@ -4,6 +4,8 @@ export default function EventCard({ eve, formatDate, className, navigate }) {
   // Check if the event is sold out by looking at the status code
   const isSoldOut = eve.dates?.status?.code === "soldout";
 
+
+
   return (
     <div className={className}>
       <h5>{eve.name}</h5>
