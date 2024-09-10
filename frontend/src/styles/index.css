@@ -168,7 +168,8 @@ ul li a {
 
 .event-card{
   /* border: 1px solid black; */
-  background-image: url("../images/flyer_background.jpg");
+  /* background-image: url("../images/paper.jpg"); */
+  background-color: rgb(153, 153, 153, .20);
   box-shadow: 1px 1px 10px rgb(142, 142, 141);
   height: inherit;
   width: 400px;
@@ -201,10 +202,20 @@ ul li a {
 
 .event-card .see-more{
   margin-left: .9vw;
+  height: 1.5vw;
   border-radius: 4px;
   background-color: rgb(255, 255, 255, .50);
   border: 1px solid #888;
 }
+
+.event-card .buy-ticket-btn {
+  padding: 2px 6px;
+  height: 1.5vw;
+  border-radius: 4px;
+  background-color: rgb(255, 255, 255, .50);
+  border: 1px solid #888;
+}
+
 
 .add-location-btn{
   border: 1px solid black;
