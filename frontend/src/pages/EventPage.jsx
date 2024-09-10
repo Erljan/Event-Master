@@ -5,10 +5,12 @@ import "../styles/EventPage.css";
 import React from "react";
 import axios from "axios";
 
+
 export default function EventPage() {
   const { id } = useParams();
   const [aEvent, setAEvent] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [added, setAdded] = useState(false)
 
   const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -37,6 +39,17 @@ export default function EventPage() {
     const date = new Date(dateString);
     return date.toLocaleDateString(undefined, options);
   };
+
+
+  const handleAddToMyEvents = async () => {
+    try {
+      await api.post("api/my-events/", {eventId: id})
+
+      setAdded(true)
+    } catch (error) {
+      console.log("Error adding event", error)
+    }
+  }
 
   if (!aEvent) return <div>Loading</div>;
 
@@ -81,7 +94,12 @@ export default function EventPage() {
 
             <a href={aEvent.url} target="_blank" className="buy-ticket-btn">Buy Ticket</a>
 
-            <button className="add-btn">Add to my events</button>
+            {
+              added ?
+              <button className="add-btn" onClick={handleAddToMyEvents}>Add to my events</button> :
+              <button className="add-btn" onClick={handleAddToMyEvents}>Remove from events</button>
+
+            }
           </div>
         ) : (
           "Sold out"
