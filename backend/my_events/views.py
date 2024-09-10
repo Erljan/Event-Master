@@ -14,7 +14,7 @@ class AddToMyEvents(generics.ListCreateAPIView):
     serializer_class = MyEventSerializer
 
     def get_queryset(self):
-        return MyEvents.objects.filter(owner=self.request.user).order_by("added_at")
+        return MyEvents.objects.filter(owner=self.request.user).order_by("-added_at")
     
     def perform_create(self, serializer):
         event_id = self.request.data.get('eventId')
@@ -31,14 +31,6 @@ class AddToMyEvents(generics.ListCreateAPIView):
             return Response({"error": "Event ID is required"}, status=HTTP_400_BAD_REQUEST)
         
         return self.create(request, *args, **kwargs)
-    
-class MyEventList(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = MyEventSerializer
-
-    def get_queryset(self):
-        # Return the events saved by the authenticated user
-        return MyEvents.objects.filter(owner=self.request.user)
     
 
 class RemoveEvent(generics.DestroyAPIView):

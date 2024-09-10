@@ -14,6 +14,7 @@ import { GroupPage } from "./pages/GroupPage";
 import ArtsTheatre from "./pages/ArtsTheatre";
 import Film from "./pages/Film";
 import Misc from "./pages/Misc";
+import { add, set } from "lodash";
 
 function Logout() {
   localStorage.clear();
@@ -22,6 +23,7 @@ function Logout() {
 
 function App() {
   const [username, setUsername] = useState("");
+  const [added, setAdded] = useState(false)
 
   return (
     <>
@@ -41,7 +43,7 @@ function App() {
             path="/myevents"
             element={
               <ProtectedRoute>
-                <MyEvents />
+                <MyEvents setAdded={setAdded}/>
               </ProtectedRoute>
             }
           />
@@ -58,7 +60,7 @@ function App() {
           <Route path="/arts" element={<ArtsTheatre />} />
           <Route path="/film" element={<Film />} />
           <Route path="/misc" element={<Misc />} />
-          <Route path="/event/:id" element={<EventPage />} />
+          <Route path="/event/:id" element={<EventPage added={added} setAdded={setAdded}/>} />
           <Route
             path="/login"
             element={<LoginForm setUsername={setUsername} />}
