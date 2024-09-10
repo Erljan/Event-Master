@@ -6,7 +6,6 @@ import axios from "axios";
 import "../styles/Home.css";
 import EventCard from "../components/EventCard";
 
-
 export const Home = () => {
   const [loading, setLoading] = useState({
     near: false,
@@ -26,9 +25,8 @@ export const Home = () => {
   const navigate = useNavigate();
   const [musicEvents, setMusicEvents] = useState([]);
   const [sportsEvents, setSportsEvents] = useState([]);
-  const [searchText, setSearchText] = useState('');
-  const [searchType, setSearchType] = useState('events');
-
+  const [searchText, setSearchText] = useState("");
+  const [searchType, setSearchType] = useState("events");
 
   useEffect(() => {
     const fetchZipcode = async () => {
@@ -160,12 +158,10 @@ export const Home = () => {
     }
   };
 
-
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchType === "events") {
       navigate(`/eventresults?query=${searchText}`);
-
     } else if (searchType === "venues") {
       navigate(`/venueresults?query=${searchText}`);
     }
@@ -180,7 +176,7 @@ export const Home = () => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch(e);
     }
   };
@@ -194,13 +190,20 @@ export const Home = () => {
   return (
     <div className="homepage">
       <div className="search-container">
-        <select className="select"
+        <select
+          className="select"
           value={searchType}
-          onChange={(e) => setSearchType(e.target.value)}>
-          <option className="option" value="events">Search Events</option>
-          <option className="option" value="venues">Search Venues</option>
+          onChange={(e) => setSearchType(e.target.value)}
+        >
+          <option className="option" value="events">
+            Search Events
+          </option>
+          <option className="option" value="venues">
+            Search Venues
+          </option>
         </select>
-        <input className="input"
+        <input
+          className="input"
           type="text"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
@@ -208,7 +211,7 @@ export const Home = () => {
           placeholder="Enter search text..."
         />
         <button className="button" onClick={handleSearch}>
-          <img src="./src/images/search.png" alt="Search"/>
+          <img src="./src/images/search.png" alt="Search" />
         </button>
       </div>
       {zipCode ? <h1>Events near you</h1> : <h1>Events near Chicago</h1>}
@@ -218,7 +221,7 @@ export const Home = () => {
           className="scroll-arrow-left"
           onClick={() => scrollLeft(nearRef)}
         >
-          <img src="./src/images/gold_left_arrow.png" alt="Search"/>
+          <img src="./src/images/gold_left_arrow.png" alt="Search" />
         </button>
         <div className="each-slide" ref={nearRef}>
           {loading ? (
@@ -239,7 +242,7 @@ export const Home = () => {
           className="scroll-arrow-right"
           onClick={() => scrollRight(nearRef)}
         >
-          <img src="./src/images/gold_right_arrow.png" alt="Search"/>
+          <img src="./src/images/gold_right_arrow.png" alt="Search" />
         </button>
       </div>
       <h1>Sports events</h1>
@@ -248,7 +251,7 @@ export const Home = () => {
           className="scroll-arrow-left"
           onClick={() => scrollLeft(sportsRef)}
         >
-          <img src="./src/images/gold_left_arrow.png" alt="Search"/>
+          <img src="./src/images/gold_left_arrow.png" alt="Search" />
         </button>
         <div className="each-slide" ref={sportsRef}>
           {loading ? (
@@ -269,7 +272,7 @@ export const Home = () => {
           className="scroll-arrow-right"
           onClick={() => scrollRight(sportsRef)}
         >
-          <img src="./src/images/gold_right_arrow.png" alt="Search"/>
+          <img src="./src/images/gold_right_arrow.png" alt="Search" />
         </button>
       </div>
       <h1>Music events</h1>
@@ -278,7 +281,7 @@ export const Home = () => {
           className="scroll-arrow-left"
           onClick={() => scrollLeft(musicRef)}
         >
-          <img src="./src/images/gold_left_arrow.png" alt="Search"/>
+          <img src="./src/images/gold_left_arrow.png" alt="Search" />
         </button>
         <div className="each-slide" ref={musicRef}>
           {loading ? (
@@ -297,9 +300,9 @@ export const Home = () => {
         </div>
         <button
           className="scroll-arrow-right"
-          onClick={() => scrollRight(sportsRef)}
+          onClick={() => scrollRight(musicRef)}
         >
-          <img src="./src/images/gold_right_arrow.png" alt="Search"/>
+          <img src="./src/images/gold_right_arrow.png" alt="Search" />
         </button>
       </div>
     </div>

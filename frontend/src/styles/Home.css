@@ -1,10 +1,10 @@
 .category {
-  margin-bottom: .2%;
+  margin-bottom: 0.2%;
   margin-right: 3%;
   margin-left: 3%;
   margin-top: 2%;
   background-color: rgba(153, 153, 153, 0.05);
-  position:relative;
+  position: relative;
   width: 95vw;
   border: solid rgba(255, 217, 0, 0.05);
   border-radius: 8px;
@@ -14,7 +14,7 @@
   display: flex;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  padding: .5vw;
+  padding: 0.5vw;
   background-color: transparent;
 }
 
@@ -23,7 +23,7 @@
   width: 3.4vw;
   position: center;
   margin-top: 9%;
-  margin-right: .5vw;
+  margin-right: 0.5vw;
   border: none;
 }
 
@@ -32,11 +32,11 @@
   width: 3.4vw;
   position: center;
   margin-top: 9%;
-  margin-left: .5vw;
+  margin-left: 0.5vw;
   border: none;
- }
+}
 
-.homepage{
+.homepage {
   /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
@@ -44,14 +44,18 @@
   padding: 10px;
 }
 
-.each-slide-container{
-  display:flex;
+.each-slide-container {
+  display: flex;
   flex-direction: row;
   /* border: solid rgb(221, 221, 221, .20); */
-  padding: .8vw;
+  padding: 0.8vw;
 }
 
-.each-slide{
+.select {
+  border-radius: 0;
+}
+
+.each-slide {
   /* border: 1px solid black; */
   display: flex;
   height: 4%vw;
@@ -60,7 +64,7 @@
   overflow: hidden;
 }
 
-.event-card{
+.event-card {
   /* border: 1px solid black; */
   background-image: url("../images/flyer_background.jpg");
   box-shadow: 1px 1px 10px rgb(142, 142, 141);
@@ -71,13 +75,13 @@
   text-align: center;
 }
 
-.event-card img{
+.event-card img {
   height: 200px;
   width: 300px;
   border-radius: 5px;
 }
 
-.event-card h5{
+.event-card h5 {
   /* border: 1px solid black; */
   height: 50px;
   overflow: hidden;
@@ -86,23 +90,22 @@
 
 .event-card span {
   background: transparent;
-  
 }
 
 .event-card a {
   background: transparent;
 }
 
-.event-card .see-more{
-  margin-left: .9vw;
+.event-card .see-more {
+  margin-left: 0.9vw;
   border-radius: 4px;
 }
 
-.add-location-btn{
+.add-location-btn {
   border: 1px solid black;
   border-radius: 5px;
 }
-.add-location-btn:hover{
+.add-location-btn:hover {
   /* border: 1px solid black; */
   color: white;
   background-color: black;
