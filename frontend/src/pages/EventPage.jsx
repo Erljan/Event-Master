@@ -6,16 +6,18 @@ import React from "react";
 import axios from "axios";
 
 
-export default function EventPage() {
+export default function EventPage({added, setAdded}) {
   const { id } = useParams();
   const [aEvent, setAEvent] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [added, setAdded] = useState(false)
+  // const [added, setAdded] = useState(false)
 
   const apiKey = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     fetchEvent();
+    handleAddToMyEvents()
+    handleRemoveEvent()
   }, [id]);
 
   const fetchEvent = async () => {
