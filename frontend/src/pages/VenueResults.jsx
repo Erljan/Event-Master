@@ -2,26 +2,55 @@ import "../styles/VenueResults.css"
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import VenueCard from "../components/VenueCard";
-import { api } from "../api";
+import axios from 'axios';
 
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 const VenueResults = () => {
   const [results, setResults] = useState([]);
+  const [searchText, setSearchText] = useState('');
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('query');
+  const apikey = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
-    // Fetch venue results based on the query
-    fetch(`/api/venues?query=${query}`)
-      .then(response => response.json())
-      .then(data => setResults(data));
+    fetchVenues(query);
   }, [query]);
+
+  const fetchVenues = async (keyword) => {
+    try {
+      const response = await axios.get(`https://app.ticketmaster.com/discovery/v2/venues.json?apikey=${apikey}&keyword=${keyword}&size=50`);
+      setResults(response.data._embedded.venues);
+    } catch (error) {
+      console.error("Error fetching venues", error);
+    }
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    fetchVenues(searchText);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(e);
+    }
+  };
 
   return (
     <div>
       <h1>Venue Results</h1>
+      <div className="search-container">
+        <input
+          type="text"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          onKeyDown={handleKeyPress}
+          placeholder="Enter search text..."
+        />
+        <button onClick={handleSearch}>
+          <img src="path/to/your/search-icon.png" alt="Search" />
+        </button>
+      </div>
       <div className="results-container">
         {results.map(venue => (
           <VenueCard key={venue.id} venue={venue} />
@@ -32,31 +61,3 @@ const VenueResults = () => {
 };
 
 export default VenueResults;
-
-// export const EventsPage = () => {
-//   const [venues, setVenues] = useState([]);
-//   const location = useLocation();
-
-//   useEffect(() => {
-//     const params = new URLSearchParams(location.search);
-//     const zip = params.get("zip");
-//     fetchVenuesByZip(zip);
-//   }, [location]);
-
-//   const fetchVenuesByZip = async (zip) => {
-//     try {
-//       const response = await api.get(`api/venues/?zip=${zip}`);
-//       setVenues(response.data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       {venues.map((ev, idx) => (
-//         <VenueCard key={idx} ev={ev} />
-//       ))}
-//     </div>
-//   );
-// };
