@@ -95,12 +95,3 @@
     padding: 20px;
     margin: 20px;
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .profile-container {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .profile, .profile-b

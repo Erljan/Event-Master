@@ -25,13 +25,8 @@ export const Home = () => {
   const navigate = useNavigate();
   const [musicEvents, setMusicEvents] = useState([]);
   const [sportsEvents, setSportsEvents] = useState([]);
-  const [searchText, setSearchText] = useState("");
-  const [searchType, setSearchType] = useState("events");
-  const [page, setPage] = useState({
-    near: 1,
-    sports: 1,
-    music: 1,
-  });
+  const [searchText, setSearchText] = useState('');
+  const [searchType, setSearchType] = useState('events');
 
   useEffect(() => {
     const fetchZipcode = async () => {
