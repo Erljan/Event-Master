@@ -97,7 +97,7 @@ ul li a {
 
 .navbar-dropdown{
   background-color:rgb(242, 188, 88);
-  border: 1px solid black; 
+  border: none; 
   border-radius: 6px;
   /* border: solid #4b4b4b 1px; */
   color: white;
@@ -132,14 +132,15 @@ ul li a {
   width: 35vw;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
-  border: solid black 2px;
+  border:none;
+  box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   font-size: large;
   background-color: rgb(255, 255, 255, .8)
   }
 
 .search-container button {
   width: 2vw;
-  border: solid black 2px;
+  border: none;
   border-left: 0px;
 }
 
@@ -156,13 +157,65 @@ ul li a {
   margin-right: 1vw;
   font-size: large;
   font-weight: bold;
-  border: solid black 2px;
+  border: none;
 }
 
 .search-container select option {
   border-radius: 0;
 }
 
+/* =====EventCard=====*/
+
+.event-card{
+  /* border: 1px solid black; */
+  background-image: url("../images/flyer_background.jpg");
+  box-shadow: 1px 1px 10px rgb(142, 142, 141);
+  height: inherit;
+  width: 400px;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.event-card img{
+  height: 200px;
+  width: 300px;
+  border-radius: 5px;
+}
+
+.event-card h5{
+  /* border: 1px solid black; */
+  height: 50px;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.event-card span {
+  background: transparent;
+  
+}
+
+.event-card a {
+  background: transparent;
+}
+
+.event-card .see-more{
+  margin-left: .9vw;
+  border-radius: 4px;
+  background-color: rgb(255, 255, 255, .50);
+  border: 1px solid #888;
+}
+
+.add-location-btn{
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.add-location-btn:hover{
+  /* border: 1px solid black; */
+  color: white;
+  background-color: black;
+  border-radius: 5px;
+}
 
 /* =====Loading Spinner===== */
 .spinner {
