@@ -5,11 +5,13 @@ import "../styles/MyEvents.css";
 import axios from "axios";
 import EventCard from "../components/EventCard";
 import { throttle } from "lodash";
+// import { AddEventModal } from "../components/AddEventModal";
 
 export const MyEvents = () => {
   const [myEvents, setMyEvents] = useState([]);
   const [listEvents, setListEvents] = useState([]);
   const [loading, setLoading] = useState(false);
+  // const [addEventModalOpen, setAddEventModalOpen] = useState(false)
   const navigate = useNavigate();
   const apikey = import.meta.env.VITE_API_KEY;
 
@@ -58,23 +60,26 @@ export const MyEvents = () => {
 
   const handleRemoveEvent = async (id) => {
     try {
-      await api.delete(`api/my-events/${id}/`)
+      await api.delete(`api/my-events/${id}/`);
       // setAdded(false)
     } catch (error) {
-      console.log("Error removing event", error)
+      console.log("Error removing event", error);
     }
-    getMyEvents()
-  }
+    getMyEvents();
+  };
 
-  if(!myEvents.length){
-    return <div>
-      <h3>No events</h3>
-      <button onClick={()=>navigate("/")}>Add Events</button>
+  if (!myEvents.length) {
+    return (
+      <div>
+        <h3>No events</h3>
+        <button onClick={() => navigate("/")}>Add Events</button>
       </div>
-  } 
+    );
+  }
 
   return (
     <div>
+
       {loading ? (
         <div className="spinner"></div>
       ) : (
@@ -98,18 +103,17 @@ export const MyEvents = () => {
               {event.dates.timezone || "N/A"}
             </p>
 
-            <button onClick={() => navigate(`/event/${event.id}`)} className="see-more">
-        See more
-      </button>
-      <button onClick={()=>handleRemoveEvent(event.id)}>Remove event</button>
+            <button
+              onClick={() => navigate(`/event/${event.id}`)}
+              className="see-more"
+            >
+              See more
+            </button>
+            <button onClick={() => handleRemoveEvent(event.id)}>
+              Remove event
+            </button>
           </div>
-          // <EventCard
-          //   key={idx}
-          //   eve={event}
-          //   formatDate={formatDate}
-          //   className={"event-card"}
-          //   navigate={() => navigate(`/event/${event.id}`)}
-          // />
+
         ))
       )}
     </div>
