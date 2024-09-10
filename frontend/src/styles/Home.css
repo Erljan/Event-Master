@@ -53,7 +53,7 @@
 .each-slide-container{
   display:flex;
   flex-direction: row;
-  border: solid ;
+  border: solid rgb(221, 221, 221, .20);
   padding: .8vw;
 }
 
@@ -88,6 +88,20 @@
   height: 50px;
   overflow: hidden;
   background-color: transparent;
+}
+
+.event-card span {
+  background: transparent;
+  
+}
+
+.event-card a {
+  background: transparent;
+}
+
+.event-card .see-more{
+  margin-left: .9vw;
+  border-radius: 4px;
 }
 
 .add-location-btn{
