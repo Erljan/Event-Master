@@ -31,10 +31,6 @@
     font-size:x-large;
   }
   
-  .button:hover {
-    background-color: #d3a21a;
-  }
-  
   .profile-bio {
     background-color: #eee ;
     width: 60%;

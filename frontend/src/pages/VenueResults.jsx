@@ -19,6 +19,7 @@ const VenueResults = () => {
   const fetchVenues = async (keyword) => {
     try {
       const response = await axios.get(`https://app.ticketmaster.com/discovery/v2/venues.json?apikey=${apikey}&keyword=${keyword}&size=50`);
+      console.log('Venue search response:', response.data._links.self.href); // Log the response data
       setResults(response.data._embedded.venues);
     } catch (error) {
       console.error("Error fetching venues", error);
