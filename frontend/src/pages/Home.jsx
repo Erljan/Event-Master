@@ -6,6 +6,7 @@ import axios from "axios";
 import "../styles/Home.css";
 import EventCard from "../components/EventCard";
 
+
 export const Home = () => {
   const [loading, setLoading] = useState({
     near: false,
@@ -27,6 +28,7 @@ export const Home = () => {
   const [sportsEvents, setSportsEvents] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [searchType, setSearchType] = useState('events');
+
 
   useEffect(() => {
     const fetchZipcode = async () => {
@@ -158,20 +160,14 @@ export const Home = () => {
     }
   };
 
-  // const SearchBar = () => {
-  //
-  // }
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchType === "events") {
-      navigate(
-        `https://app.ticketmaster.com/discovery/v2/events.json?keyword=${searchText}`
-      );
+      navigate(`/eventresults?query=${searchText}`);
+
     } else if (searchType === "venues") {
-      navigate(
-        `https://app.ticketmaster.com/discovery/v2/venues.json?keyword=${searchText}`
-      );
+      navigate(`/venueresults?query=${searchText}`);
     }
   };
 
@@ -181,6 +177,12 @@ export const Home = () => {
 
   const scrollRight = (ref) => {
     ref.current.scrollBy({ left: 1000, behavior: "smooth" });
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(e);
+    }
   };
 
   const formatDate = (dateString) => {
@@ -194,8 +196,7 @@ export const Home = () => {
       <div className="search-container">
         <select
           value={searchType}
-          onChange={(e) => setSearchType(e.target.value)}
-        >
+          onChange={(e) => setSearchType(e.target.value)}>
           <option value="events">Search Events</option>
           <option value="venues">Search Venues</option>
         </select>
@@ -203,10 +204,11 @@ export const Home = () => {
           type="text"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
+          onKeyDown={handleKeyPress}
           placeholder="Enter search text..."
         />
         <button onClick={handleSearch}>
-          <img src="./src/images/search.png" />
+          <img src="./src/images/search.png" alt="Search"/>
         </button>
       </div>
       {zipCode ? <h1>Events near you</h1> : <h1>Events near Chicago</h1>}

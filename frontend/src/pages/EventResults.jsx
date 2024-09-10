@@ -2,20 +2,40 @@ import "../styles/EventResults.css"
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import EventCard from "../components/EventCard";
-import { api } from "../api";
+import axios from 'axios'
+
 
 const EventResults = () => {
   const [results, setResults] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
+  const [searchText, setSearchText] = useState('');
+  const apikey = import.meta.env.VITE_API_KEY; 
   const query = new URLSearchParams(location.search).get('query');
 
   useEffect(() => {
-    // Fetch event results based on the query
-    fetch(`/api/events?query=${query}`)
-      .then(response => response.json())
-      .then(data => setResults(data));
+    fetchEvents(query);
   }, [query]);
+
+  const fetchEvents = async (keyword) => {
+    try {
+      const response = await axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apikey}&keyword=${keyword}&size=50`);
+      setResults(response.data._embedded.events);
+    } catch (error) {
+      console.error("Error fetching events", error);
+    }
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    fetchEvents(searchText);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(e);
+    }
+  };
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -24,6 +44,17 @@ const EventResults = () => {
 
   return (
     <div>
+      <div className="search-container">
+        <input
+          type="text"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          onKeyDown={handleKeyPress}
+          placeholder="Enter search text..."/>
+        <button onClick={handleSearch}>
+          <img src="./src/images/search.png" alt="Search"/>
+        </button> 
+      </div>
       <h1>Event Results</h1>
       <div className="results-container">
         {results.map(event => (
@@ -37,35 +68,6 @@ const EventResults = () => {
       </div>
     </div>
   );
-};
+ };
 
 export default EventResults;
-
-
-// export const EventsPage = () => {
-//   const [events, setEvents] = useState([]);
-//   const location = useLocation();
-
-//   useEffect(() => {
-//     const params = new URLSearchParams(location.search);
-//     const zip = params.get("zip");
-//     fetchEventsByZip(zip);
-//   }, [location]);
-
-//   const fetchEventsByZip = async (zip) => {
-//     try {
-//       const response = await api.get(`api/events/?zip=${zip}`);
-//       setEvents(response.data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       {events.map((ev, idx) => (
-//         <EventCard key={idx} ev={ev} />
-//       ))}
-//     </div>
-//   );
-// };

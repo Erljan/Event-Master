@@ -15,6 +15,8 @@ import ArtsTheatre from "./pages/ArtsTheatre";
 import Film from "./pages/Film";
 import Misc from "./pages/Misc";
 import { add, set } from "lodash";
+import EventResults from "./pages/EventResults";
+import VenueResults from "./pages/VenueResults";
 
 function Logout() {
   localStorage.clear();
@@ -55,6 +57,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/eventresults" element={<EventResults />} />
+          <Route path="/venueresults" element={<VenueResults />} />
           <Route path="/sports" element={<Sports />} />
           <Route path="/music" element={<Music />} />
           <Route path="/arts" element={<ArtsTheatre />} />

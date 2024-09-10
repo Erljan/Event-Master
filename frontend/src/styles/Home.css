@@ -17,17 +17,18 @@
   padding: .5vw;
 }
 
-.search-container{
+.search-container {
   height: 3vw;
+  min-height: 20px;
   width: 95vw;
   justify-content: center;
   display: flex;
   flex-direction: row;
 }
 
-.search-container .img{
-  height: auto;
-  width: auto;
+.search-container .img {
+  height: 20px;
+  width: 20px;
 }
 /* .item {
   padding: 1vw;
@@ -80,6 +81,7 @@
  cursor: pointer;
  border: solid #ccc 1px;
  border-radius: 8px;
+ margin: .5vw;
 }
 
 /* .scroll-arrow .left {
@@ -127,7 +129,7 @@
   /* border: 1px solid black; */
   display: flex;
   height: 4%vw;
-  width: 98%;
+  width: 95%;
   /* width: 500px; */
   overflow: hidden;
   margin-bottom: 20px;
