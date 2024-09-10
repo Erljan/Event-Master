@@ -39,3 +39,17 @@ class MyEventList(generics.ListAPIView):
     def get_queryset(self):
         # Return the events saved by the authenticated user
         return MyEvents.objects.filter(owner=self.request.user)
+    
+
+class RemoveEvent(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, eventId):
+        event = MyEvents.objects.filter(eventId=eventId, owner=self.request.user).first()
+
+        if not event:
+            return Response({"error": "Event not found or you don't have permission to delete this event"}, status=HTTP_404_NOT_FOUND)
+
+        event.delete()
+
+        return Response({"message": "Event successfully removed"}, status=HTTP_200_OK)
