@@ -194,20 +194,20 @@ export const Home = () => {
   return (
     <div className="homepage">
       <div className="search-container">
-        <select
+        <select className="select"
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}>
-          <option value="events">Search Events</option>
-          <option value="venues">Search Venues</option>
+          <option className="option" value="events">Search Events</option>
+          <option className="option" value="venues">Search Venues</option>
         </select>
-        <input
+        <input className="input"
           type="text"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           onKeyDown={handleKeyPress}
           placeholder="Enter search text..."
         />
-        <button onClick={handleSearch}>
+        <button className="button" onClick={handleSearch}>
           <img src="./src/images/search.png" alt="Search"/>
         </button>
       </div>
