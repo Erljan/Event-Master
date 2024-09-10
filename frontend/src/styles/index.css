@@ -24,7 +24,9 @@
 
 .title {
   background: rgba(0, 121, 138, 0.80);
-
+  display: flex;
+  flex-direction: row;
+  
 
 }
 
