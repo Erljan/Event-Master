@@ -113,11 +113,13 @@ ul li a {
 
 /* ===== Search Bar ===== */
 .search-container {
+  background-color: transparent;
   height: 2vw;
   width: 95vw;
-  justify-content: center;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+
 }
 
 .search-container input {
@@ -144,7 +146,7 @@ ul li a {
   background-color:#F2BC58;
   color: white;
   border-radius: 4px;
-  margin-right: .5vw;
+  margin-right: 1vw;
   font-size: large;
   font-weight: bold;
   border: solid black 2px;
