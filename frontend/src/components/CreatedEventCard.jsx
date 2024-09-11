@@ -24,12 +24,11 @@ export default function CreatedEventCard({ event, fetchEventsCreated }) {
       />
       <div className="card-body">
         <p>
-          Venue: {event.venue}
-          <br />
-          City: {event.city}
-          <br />
-          Time: {event.time}
+          <span>
+            {event.venue},{event.city}
+          </span>
         </p>
+        <p>Time: {event.time}</p>
         <button onClick={() => deleteEventBtn(event.id)} className="remove-btn">
           Delete event
         </button>

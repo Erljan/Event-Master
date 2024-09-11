@@ -132,32 +132,38 @@ export const Profile = () => {
           </div>
         )}
       </div>
-      <div className="header2">
-        <p>Your Events</p>
-      </div>
-      <AddEventModal />
+
       <div className="events-box">
-        <p>Interests</p>
+        <h1>Interests</h1>
         <div className="interests">
           <p>Hiking</p>
           <p>Biking</p>
           <p>Classical Music</p>
         </div>
+      </div>
 
-        <p>Upcoming Events You've Joined</p>
-        <div className="interests">
+      <div className="header2">
+        <h1>Your Events</h1>
+      </div>
+      <AddEventModal />
+      <br />
+      <div className="events-box">
+        <h1>Upcoming Events You've Joined</h1>
+        <div className="events">
           <ProfileEvents />
         </div>
 
-        <p>Events You're Running</p>
-        <div className="youre-running">
-          {eventsCreated
-            ? eventsCreated.map((event, idx) => (
-                <>
-                  <CreatedEventCard event={event} />
-                </>
-              ))
-            : null}
+        <h1>Events You're Running</h1>
+        <div className="events">
+          <div className="youre-running">
+            {eventsCreated
+              ? eventsCreated.map((event, idx) => (
+                  <>
+                    <CreatedEventCard event={event} />
+                  </>
+                ))
+              : null}
+          </div>
         </div>
       </div>
     </div>

@@ -73,7 +73,6 @@ export const ProfileEvents = () => {
 
   return (
     <div className="homepage">
-      <h1>My Events</h1>
       <div className="each-slide-container1">
         {loading ? (
           <div className="spinner"></div>
