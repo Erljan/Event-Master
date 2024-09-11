@@ -6,6 +6,7 @@ import "../styles/Profile.css";
 import { UpdateProfileModal } from "../components/UpdateProfileModal";
 import AddEventModal from "../components/AddEventModal";
 import CreatedEventCard from "../components/CreatedEventCard";
+import { ProfileEvents } from "../components/ProfileEvents";
 
 export const Profile = () => {
   const [username, setUsername] = useState("");
@@ -143,9 +144,9 @@ export const Profile = () => {
           <p>Classical Music</p>
         </div>
 
-        <p>Upcoming Events</p>
+        <p>Upcoming Events You've Joined</p>
         <div className="interests">
-          <p>Empty</p>
+          <ProfileEvents />
         </div>
 
         <p>Events You're Running</p>
