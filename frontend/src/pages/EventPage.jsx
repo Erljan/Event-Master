@@ -5,7 +5,7 @@ import "../styles/EventPage.css";
 import React from "react";
 import axios from "axios";
 
-export default function EventPage() {
+export default function EventPage({username}) {
   const { id } = useParams();
   const [aEvent, setAEvent] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -15,6 +15,7 @@ export default function EventPage() {
   useEffect(() => {
     fetchEvent();
     checkIfEventAdded()
+    console.log(username)
   }, [id]);
   
 
@@ -115,13 +116,13 @@ export default function EventPage() {
             Buy Ticket
           </a>
         )}
-
         {added ? (
           <button className="remove-btn" onClick={() => handleRemoveEvent()}>
             Remove from events
           </button>
         ) : (
-          <button className="add-btn" onClick={handleAddToMyEvents}>
+          
+          <button className={username ? "add-btn" : "add-btn disabled"} onClick={handleAddToMyEvents} disabled={username ? false: true}>
             Add to my events
           </button>
         )}
