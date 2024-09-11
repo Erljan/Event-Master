@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Profile.css";
 import { UpdateProfileModal } from "../components/UpdateProfileModal";
-import { AddEventModal } from "../components/AddEventModal";
+import AddEventModal from "../components/AddEventModal";
 
 export const Profile = () => {
   const [username, setUsername] = useState("");
@@ -134,17 +134,7 @@ export const Profile = () => {
       <div className="header2">
         <p>Your Events</p>
       </div>
-
-      <div className="create-event-btn">
-        <button className="button" onClick={() => setAddEventModalOpen(true)}>
-          Create Event
-        </button>
-        <AddEventModal
-          isOpen={addEventModalOpen}
-          cancelBtn={() => setAddEventModalOpen(false)}
-        />
-      </div>
-
+      <AddEventModal />
       <div className="created-events">
         {eventsCreated
           ? eventsCreated.map((event, idx) => (

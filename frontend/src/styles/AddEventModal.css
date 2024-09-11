@@ -1,0 +1,92 @@
+/* Style for the modal form container */
+.modal-body {
+  padding: 20px;
+}
+
+.center-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-header h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Styling for input fields */
+.modal-body input,
+.modal-body select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.modal-body input[type="radio"] {
+  width: auto;
+  margin: 0 10px 0 5px;
+}
+
+/* Style for the labels */
+.modal-body label {
+  margin-right: 10px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Style for the error message */
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+/* Buttons */
+.btn {
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.btn-primary {
+  text-align: center;
+  background-color: rgb(242, 188, 88) !important;
+  border: none !important;
+  color: black !important;
+}
+
+.btn-primary:hover {
+  background-color: rgb(242, 188, 88);
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: ease-in;
+  color: black;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #6c757d;
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: ease-in;
+  color: black;
+}
+
+/* Modal footer spacing */
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border-top: 1px solid #e9ecef;
+}
