@@ -100,7 +100,7 @@ export default function EventPage({ added, setAdded }) {
         )}
 
         {added ? (
-          <button className="add-btn" onClick={() => handleRemoveEvent()}>
+          <button className="remove-btn" onClick={() => handleRemoveEvent()}>
             Remove from events
           </button>
         ) : (
