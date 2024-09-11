@@ -1,4 +1,3 @@
-/* Style for the modal form container */
 .modal-body {
   padding: 20px;
 }
@@ -14,30 +13,29 @@
   margin-bottom: 10px;
 }
 
-/* Styling for input fields */
 .modal-body input,
-.modal-body select {
+.modal-body select,
+.modal-body textarea {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
-.modal-body input[type="radio"] {
-  width: auto;
-  margin: 0 10px 0 5px;
+.modal-body textarea {
+  resize: none;
+  height: 100px;
 }
 
-/* Style for the labels */
 .modal-body label {
   margin-right: 10px;
   font-weight: 500;
   font-size: 14px;
 }
 
-/* Style for the error message */
 .alert-danger {
   color: #721c24;
   background-color: #f8d7da;
@@ -47,11 +45,14 @@
   border-radius: 5px;
 }
 
-/* Buttons */
 .btn {
   padding: 10px 15px;
   border-radius: 5px;
   font-size: 14px;
+}
+
+.modal-footer .btn + .btn {
+  margin-left: 10px;
 }
 
 .btn-primary {
@@ -83,7 +84,6 @@
   color: black;
 }
 
-/* Modal footer spacing */
 .modal-footer {
   display: flex;
   justify-content: space-between;
