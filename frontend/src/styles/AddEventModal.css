@@ -57,8 +57,8 @@
 .btn-primary {
   text-align: center;
   background-color: rgb(242, 188, 88) !important;
-  border: none;
-  color: black;
+  border: none !important;
+  color: black !important;
 }
 
 .btn-primary:hover {
