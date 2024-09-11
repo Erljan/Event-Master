@@ -130,7 +130,7 @@
 
   .created-events{
     display: flex;
-    overflow: scroll;
+    flex-wrap: wrap;
     margin: 20px;
   }
 
