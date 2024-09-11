@@ -17,6 +17,7 @@ import Misc from "./pages/Misc";
 import { add, set } from "lodash";
 import EventResults from "./pages/EventResults";
 import VenueResults from "./pages/VenueResults";
+import Footer from "./components/Footer";
 
 function Logout() {
   localStorage.clear();
@@ -25,10 +26,7 @@ function Logout() {
 
 function App() {
   const [username, setUsername] = useState("");
-  const [added, setAdded] = useState(false)
-
-
-  
+  const [added, setAdded] = useState(false);
 
   return (
     <>
@@ -48,7 +46,7 @@ function App() {
             path="/myevents"
             element={
               <ProtectedRoute>
-                <MyEvents setAdded={setAdded}/>
+                <MyEvents setAdded={setAdded} />
               </ProtectedRoute>
             }
           />
@@ -67,7 +65,16 @@ function App() {
           <Route path="/arts" element={<ArtsTheatre />} />
           <Route path="/film" element={<Film />} />
           <Route path="/misc" element={<Misc />} />
-          <Route path="/event/:id" element={<EventPage added={added} setAdded={setAdded} username={username}/>} />
+          <Route
+            path="/event/:id"
+            element={
+              <EventPage
+                added={added}
+                setAdded={setAdded}
+                username={username}
+              />
+            }
+          />
           <Route
             path="/login"
             element={<LoginForm setUsername={setUsername} />}
@@ -75,6 +82,7 @@ function App() {
           <Route path="/signup" element={<RegisterForm />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );
