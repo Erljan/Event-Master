@@ -14,6 +14,7 @@ export default function CreatedEventCard({ event, fetchEventsCreated }) {
 
   return (
     <div className="card" style={{ width: "18rem" }}>
+      <h5 className="card-title">{event.event_name}</h5>
       <img
         className="card-img-top"
         src={
@@ -22,7 +23,6 @@ export default function CreatedEventCard({ event, fetchEventsCreated }) {
         alt="Card image cap"
       />
       <div className="card-body">
-        <h5 className="card-title">{event.event_name}</h5>
         <p>
           Venue: {event.venue}
           <br />
