@@ -3,10 +3,10 @@ import { api } from "../api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Profile.css";
-import { UpdateProfileModal } from "../components/UpdateProfileModal";
 import AddEventModal from "../components/AddEventModal";
 import CreatedEventCard from "../components/CreatedEventCard";
 import { ProfileEvents } from "../components/ProfileEvents";
+import UpdatedProfileModal from "../components/UpdatedProfileModal";
 
 export const Profile = () => {
   const [username, setUsername] = useState("");
@@ -66,6 +66,7 @@ export const Profile = () => {
       }
 
       fetchProfileInfo();
+      setIsModalOpen(false);
     } catch (error) {
       console.log(error);
     }
@@ -114,19 +115,19 @@ export const Profile = () => {
 
         {isModalOpen && (
           <div className="profile-modal">
-            <UpdateProfileModal
+            <UpdatedProfileModal
               onSubmit={updateProfile}
-              onClose={() => setIsModalOpen(false)}
               isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
               newLname={newLname}
+              setNewLname={setNewLname}
               newFname={newFname}
+              setNewFname={setNewFname}
               newEmail={newEmail}
-              zipcode={zipcode}
+              setNewEmail={setNewEmail}
               newBio={newBio}
               setNewBio={setNewBio}
-              setNewEmail={setNewEmail}
-              setNewFname={setNewFname}
-              setNewLname={setNewLname}
+              newZipcode={newZipcode}
               setNewZipcode={setNewZipcode}
             />
           </div>
