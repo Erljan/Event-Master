@@ -28,7 +28,7 @@ export const Profile = () => {
   useEffect(() => {
     fetchProfileInfo();
     fetchEventsCreated();
-  }, []);
+  }, [eventsCreated]);
 
   const fetchProfileInfo = async () => {
     try {
