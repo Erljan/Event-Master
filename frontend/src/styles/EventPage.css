@@ -24,15 +24,42 @@
   }
 
   .add-btn{
-    background-color: rgb(100, 182, 250);
-    color: white;
-    border: none;
+    color: rgb(100, 182, 250);
+    border: 1px solid rgb(100, 182, 250);
     border-radius: 5px;
-    height: 40px;
-    width: 150px;
+    height: 30px;
     margin: 10px;
+    padding: 2px 6px;
   }
 
+  .add-btn:hover{
+    background-color: rgb(100, 182, 250);
+    color: white;
+  }
+
+  .disabled{
+    color: gray;
+    border: 1px solid gray;
+  }
+
+  .disabled:hover{
+    background-color: transparent;
+    color: gray;
+  }
+  
+  .remove-btn{
+    color: rgb(250, 100, 100);
+    border: 1px solid rgb(250, 100, 100);
+    border-radius: 5px;
+    height: 30px;
+    margin: 10px;
+    padding: 2px 6px;
+  }
+  
+  .remove-btn:hover{
+    background-color: rgb(250, 100, 100);
+    color: white;
+  }
 
 
 

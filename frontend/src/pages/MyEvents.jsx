@@ -109,7 +109,7 @@ export const MyEvents = () => {
             >
               See more
             </button>
-            <button onClick={() => handleRemoveEvent(event.id)}>
+            <button onClick={() => handleRemoveEvent(event.id)} className="remove-btn">
               Remove event
             </button>
           </div>
