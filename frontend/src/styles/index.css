@@ -1,12 +1,12 @@
-*{
+* {
   background-color: white;
   color: rgb(0, 0, 0);
-  font-family: 'Manrope';
+  font-family: "Manrope";
 }
 
-.button{
+.button {
   text-align: center;
-  background-color: #F2BC58;
+  background-color: #f2bc58;
   color: #000;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -18,7 +18,7 @@
 }
 
 .title {
-  background: #F2BC58;
+  background: #f2bc58;
   display: flex;
   flex-direction: row;
 }
@@ -27,16 +27,15 @@ h1 {
   text-align: left;
   color: #111;
   border-bottom: solid #111 3px;
-  font-size:xx-large;
+  font-size: xx-large;
   margin-top: 0;
   margin-bottom: 0;
-  padding-left:1%;
+  padding-left: 1%;
   background: transparent;
 }
 
-
 /* ======LOGO====== */
-.titletext img{
+.titletext img {
   /* font: xx-large;
   font-weight: bolder;
   color: #f2bc58;
@@ -56,21 +55,20 @@ ul li a {
 
 .input-forms {
   background-color: #d9d9d9;
-  color:#000;
+  color: #000;
 }
 
 /* ========NAVBAR======= */
-.navbar{
-
+.navbar {
   /* box-shadow: 1px 1px 10px rgb(163, 162, 159); */
   background-color: #6a6a6a;
-  position: initial; 
+  position: initial;
   top: 0;
   width: 100%;
   z-index: 1000;
 }
 
-.me-auto{
+.me-auto {
   /* border: 1px solid white; */
   width: 100%;
   display: flex;
@@ -78,26 +76,26 @@ ul li a {
   background-color: rgb(106, 106, 106);
 }
 
-.navbar-brand{
+.navbar-brand {
   background-color: rgb(106, 106, 106);
   /* visibility: ; */
 }
 
-.nav-options{
+.nav-options {
   display: flex;
   background-color: rgb(106, 106, 106);
 }
 
-.navbar-container{
+.navbar-container {
   background-color: rgb(106, 106, 106);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.navbar-dropdown{
-  background-color:rgb(242, 188, 88);
-  border: none; 
+.navbar-dropdown {
+  background-color: rgb(242, 188, 88);
+  border: none;
   border-radius: 6px;
   /* border: solid #4b4b4b 1px; */
   color: white;
@@ -115,7 +113,6 @@ ul li a {
   font-weight: bold;
 }
 
-
 /* ===== Search Bar ===== */
 .search-container {
   background-color: transparent;
@@ -125,21 +122,21 @@ ul li a {
   flex-direction: row;
   justify-content: center;
   min-height: 20px;
-  padding: .4vw;
+  padding: 0.4vw;
 }
 
 .search-container input {
   width: 35vw;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
-  border:none;
+  border: none;
   box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
   font-size: large;
-  background-color: rgb(255, 255, 255, .8);
+  background-color: rgb(255, 255, 255, 0.8);
   padding: 0 10px;
   outline: none;
   height: 40px;
-  }
+}
 
 .search-container button {
   width: 2vw;
@@ -155,7 +152,7 @@ ul li a {
 }
 
 .search-container select {
-  background-color:#F2BC58;
+  background-color: #f2bc58;
   color: white;
   border-radius: 4px;
   margin-right: 1vw;
@@ -171,25 +168,30 @@ ul li a {
 
 /* =====EventCard=====*/
 
-.event-card{
+.event-card {
   /* border: 1px solid black; */
   /* background-image: url("../images/paper.jpg"); */
-  background-color: rgb(153, 153, 153, .20);
+  background-color: rgb(153, 153, 153, 0.2);
   box-shadow: 1px 1px 10px rgb(142, 142, 141);
   height: inherit;
   width: 400px;
   margin: 10px;
   padding: 10px;
   text-align: center;
+  transition: transform 0.2s ease-in-out;
 }
 
-.event-card img{
+.event-card:hover {
+  transform: scale(1.02);
+}
+
+.event-card img {
   height: 200px;
   width: 300px;
   border-radius: 5px;
 }
 
-.event-card h5{
+.event-card h5 {
   /* border: 1px solid black; */
   height: 50px;
   overflow: hidden;
@@ -198,24 +200,23 @@ ul li a {
 
 .event-card span {
   background: transparent;
-  
 }
 
 .event-card a {
   background: transparent;
 }
 
-.event-card .see-more{
-  margin-left: .9vw;
+.event-card .see-more {
+  margin-left: 0.9vw;
   height: 1.5vw;
   border-radius: 4px;
-  background-color: rgb(255, 255, 255, .50);
+  background-color: rgb(255, 255, 255, 0.5);
   border: 1px solid #888;
   height: 30px;
   text-decoration: none;
 }
 
-.see-more:hover{
+.see-more:hover {
   background-color: black;
   color: white;
 }
@@ -224,7 +225,7 @@ ul li a {
   padding: 2px 6px;
   height: 30px;
   border-radius: 4px;
-  background-color: rgb(255, 255, 255, .50);
+  background-color: rgb(255, 255, 255, 0.5);
   border: 1px solid #888;
   text-decoration: none;
   color: black;
@@ -234,28 +235,27 @@ ul li a {
   padding: 2px 6px;
   height: 30px;
   border-radius: 4px;
-  background-color: rgb(255, 255, 255, .50);
+  background-color: rgb(255, 255, 255, 0.5);
   border: 1px solid #888;
   text-decoration: none;
   color: black;
 }
 
-.buy-ticket-btn:hover{
+.buy-ticket-btn:hover {
   background-color: black;
   color: white;
 }
 
-.add-location-btn{
+.add-location-btn {
   border: 1px solid black;
   border-radius: 5px;
 }
-.add-location-btn:hover{
+.add-location-btn:hover {
   /* border: 1px solid black; */
   color: white;
   background-color: black;
   border-radius: 5px;
 }
-
 
 /* =====Loading Spinner===== */
 .spinner {

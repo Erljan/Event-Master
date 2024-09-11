@@ -1,7 +1,7 @@
-/* General card styles */
 .card {
   background-color: rgba(153, 153, 153, 0.2) !important;
   box-shadow: 1px 1px 10px rgb(142, 142, 141);
+  height: inherit;
   width: 400px;
   margin: 10px;
   padding: 10px;
@@ -14,8 +14,11 @@
   transform: scale(1.02);
 }
 
-/* Card body */
 .card-body {
+  background-color: transparent !important;
+}
+
+.card-body span {
   background-color: transparent !important;
 }
 
@@ -25,14 +28,6 @@
   margin-bottom: 10px;
 }
 
-/* Text and venue/city info */
-.card-body p {
-  font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 15px;
-}
-
-/* Delete button styles */
 .remove-btn {
   margin-top: 10px;
   padding: 10px 20px;
@@ -46,7 +41,6 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Hover effect for delete button */
 .remove-btn:hover {
   background-color: black;
   color: white;
