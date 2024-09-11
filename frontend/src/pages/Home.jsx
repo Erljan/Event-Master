@@ -33,7 +33,7 @@ export const Home = () => {
       try {
         const response = await api.get("api/profile/");
         setZipCode(Number(response.data.location));
-        console.log(Number(response.data.location));
+        // console.log(Number(response.data.location));
         localStorage.setItem("zipCode", Number(response.data.location));
         getCoordinateFromZip(zipCode);
       } catch (error) {
@@ -55,7 +55,7 @@ export const Home = () => {
         }&key=${geocodeKey}`
       );
 
-      console.log(zipCode);
+      // console.log(zipCode);
       const { lat, lng } = response.data.results[0].geometry;
       return { lat, lng };
     } catch (error) {
@@ -148,9 +148,9 @@ export const Home = () => {
       setMusicEvents(musicUniqueEvents);
       setSportsEvents(sportsUniqueEvents);
       setNearEvents(nearUniqueEvents);
-      console.log(musicUniqueEvents);
-      console.log(nearUniqueEvents);
-      console.log(sportsUniqueEvents);
+      // console.log(musicUniqueEvents);
+      // console.log(nearUniqueEvents);
+      // console.log(sportsUniqueEvents);
     } catch (error) {
       console.log(error);
     } finally {

@@ -36,6 +36,16 @@
     background-color: rgb(100, 182, 250);
     color: white;
   }
+
+  .disabled{
+    color: gray;
+    border: 1px solid gray;
+  }
+
+  .disabled:hover{
+    background-color: transparent;
+    color: gray;
+  }
   
   .remove-btn{
     color: rgb(250, 100, 100);
