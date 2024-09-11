@@ -25,10 +25,14 @@ export const Profile = () => {
   const [newZipcode, setNewZipcode] = useState("")
 
 
+  const [eventsCreated, setEventsCreated] = useState([])
+
+
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     fetchProfileInfo()
+    fetchEventsCreated()
   }, [])
 
   const fetchProfileInfo = async() => {
@@ -76,6 +80,28 @@ export const Profile = () => {
   }
 
 
+  const fetchEventsCreated = async () => {
+    try {
+      const response = await api.get('api/events/user-events/')
+      setEventsCreated(response.data)
+      console.log(response.data)
+    } catch (error) {
+      console.log("Error fetching events created", error)
+    }
+  }
+
+
+  const deleteEventBtn = async (id) => {
+    try {
+      await api.delete(`/api/events/${id}/delete/`)
+      fetchEventsCreated()
+    } catch (error) {
+      console.log("Error deleting event", error)
+      
+    }
+  }
+
+
   return (
     <div className="profile-page">
     <div className="profile-container">
@@ -118,6 +144,25 @@ export const Profile = () => {
     </div>
     
     <AddEventModal isOpen={addEventModalOpen} cancelBtn={() => setAddEventModalOpen(false)} />
+
+      <div className="created-events">
+        {eventsCreated ? 
+        eventsCreated.map((event, idx) => (
+          <div key={idx}>
+            <h5>{event.event_name}</h5>
+            <img src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHXX6GrLiyiN5oDkH8Badn80xAnC5oAumGmchxXoF-b4H9ZDDOJ_iexVov_mSiLU9UCI0&usqp=CAU"} alt="" />
+            <p>Venue: {event.venue}</p>
+            <p>City: {event.city}</p>
+            {/* <p>Date: Oct 1, 2024</p> */}
+            <p>Time: {event.time}</p>
+
+            <button onClick={() => deleteEventBtn(event.id)} className="remove-btn">Delete event</button>
+          </div>
+        ))  
+        :
+        null
+      }
+      </div>
     <div className="events-box">
       <button className="button" onClick={()=> setAddEventModalOpen(true)}>Create Event</button>
         <p>Interests</p>

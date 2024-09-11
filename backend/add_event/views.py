@@ -42,3 +42,19 @@ class GetAnEvent(generics.RetrieveAPIView):
     queryset = CreateEvent.objects.all()
     serializer_class = CreateEventSerializer
     lookup_field = 'id'
+
+class DeleteEvent(APIView):
+    # serializer_class = CreateEventSerializer
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, id):
+        event = CreateEvent.objects.filter(creator=self.request.user, id=id)
+
+        if not event:
+            return Response({"error":"No event to get"}, status=HTTP_400_BAD_REQUEST)
+
+        # serializer = CreateEventSerializer(event)
+
+        event.delete()
+
+        return Response("Event deleted", status=HTTP_204_NO_CONTENT)

@@ -1,0 +1,8 @@
+.each-slide-container1 {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping onto the next line */
+  gap: 20px; /* Space between each card */
+  justify-content:space-around; /* Spreads spacing evenly across the whole page */
+  padding: 20px;
+  width: 100%;
+}
