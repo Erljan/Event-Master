@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Profile.css";
 import { UpdateProfileModal } from "../components/UpdateProfileModal";
 import AddEventModal from "../components/AddEventModal";
+import CreatedEventCard from "../components/CreatedEventCard";
 
 export const Profile = () => {
   const [username, setUsername] = useState("");
@@ -73,7 +74,6 @@ export const Profile = () => {
     try {
       const response = await api.get("api/events/user-events/");
       setEventsCreated(response.data);
-      console.log(response.data);
     } catch (error) {
       console.log("Error fetching events created", error);
     }
@@ -135,32 +135,6 @@ export const Profile = () => {
         <p>Your Events</p>
       </div>
       <AddEventModal />
-      <div className="created-events">
-        {eventsCreated
-          ? eventsCreated.map((event, idx) => (
-              <div key={idx} className="each-event">
-                <h5>{event.event_name}</h5>
-                <img
-                  src={
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHXX6GrLiyiN5oDkH8Badn80xAnC5oAumGmchxXoF-b4H9ZDDOJ_iexVov_mSiLU9UCI0&usqp=CAU"
-                  }
-                  alt=""
-                />
-                <p>Venue: {event.venue}</p>
-                <p>City: {event.city}</p>
-                {/* <p>Date: Oct 1, 2024</p> */}
-                <p>Time: {event.time}</p>
-
-                <button
-                  onClick={() => deleteEventBtn(event.id)}
-                  className="remove-btn"
-                >
-                  Delete event
-                </button>
-              </div>
-            ))
-          : null}
-      </div>
       <div className="events-box">
         <p>Interests</p>
         <div className="interests">
@@ -175,8 +149,14 @@ export const Profile = () => {
         </div>
 
         <p>Events You're Running</p>
-        <div className="interests">
-          <p>Empty</p>
+        <div className="youre-running">
+          {eventsCreated
+            ? eventsCreated.map((event, idx) => (
+                <>
+                  <CreatedEventCard event={event} />
+                </>
+              ))
+            : null}
         </div>
       </div>
     </div>
