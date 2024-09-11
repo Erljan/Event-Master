@@ -104,7 +104,10 @@ export const Profile = () => {
           <h5>@{username}</h5>
           <p className="profile-info">{email}</p>
           <p>{zipcode ? zipcode : "No current zipcode"}</p>
-          <button className="button" onClick={() => setIsModalOpen(true)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => setIsModalOpen(true)}
+          >
             Update Profile
           </button>
         </div>
@@ -144,7 +147,7 @@ export const Profile = () => {
       </div>
 
       <div className="header2">
-        <h1>Your Events</h1>
+        <h1>Events</h1>
       </div>
       <AddEventModal />
       <br />
@@ -154,16 +157,24 @@ export const Profile = () => {
           <ProfileEvents />
         </div>
 
-        <h1>Events You're Running</h1>
+        <h1>Events You're Hosting</h1>
         <div className="events">
           <div className="youre-running">
-            {eventsCreated
-              ? eventsCreated.map((event, idx) => (
-                  <>
-                    <CreatedEventCard event={event} />
-                  </>
-                ))
-              : null}
+            {eventsCreated.length ? (
+              eventsCreated.map((event, idx) => (
+                <>
+                  <CreatedEventCard event={event} />
+                </>
+              ))
+            ) : (
+              <>
+                Host an event!
+                <br />
+                <div>
+                  <AddEventModal />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
