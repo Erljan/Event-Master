@@ -10,16 +10,16 @@ const VenueCard = ({ venue, navigate, apikey }) => {
 
   return (
     <div className="card" style={{ width: "18rem" }}>
+      <h5 className="card-title">{venue.name}</h5>
       <img className="card-img-top" src={backgroundImage} alt={venue.name} />
       <div className="card-body">
-        <h5 className="card-title">{venue.name}</h5>
         <p className="card-text">
           {" "}
           {venue.address ? venue.address.line1 : "No address added"},{" "}
           {venue.country ? venue.country.name : "No country added"}
         </p>
-        <Link to={venue.url} target="_blank">
-          Buy Ticket
+        <Link to={venue.url} target="_blank" className="buy-tickets">
+          Buy Tickets
         </Link>
       </div>
     </div>

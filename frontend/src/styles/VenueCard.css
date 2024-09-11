@@ -1,10 +1,39 @@
 .card {
-  text-align: center;
-  background-size: cover;
-  background-position: center;
-  color: white;
-  padding: 20px;
+  background-color: rgba(153, 153, 153, 0.2) !important; /* Changed to rgba */
+  box-shadow: 1px 1px 10px rgb(142, 142, 141);
+  height: inherit;
+  width: 400px;
   margin: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  text-align: center;
+}
+
+.card h5 {
+  height: 50px;
+  overflow: hidden;
+  background-color: transparent !important;
+}
+
+.card-body {
+  background-color: transparent !important;
+}
+
+.card-text {
+  background: transparent !important;
+}
+
+.card .buy-tickets {
+  margin-left: 0.9vw;
+  height: 1.5vw;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid #888;
+  height: 30px;
+  text-decoration: none;
+  color: black;
+}
+
+.buy-tickets:hover {
+  background-color: black;
+  color: white;
 }
