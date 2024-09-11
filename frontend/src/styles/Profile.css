@@ -127,3 +127,37 @@
   .created-events img{
     height: 100px;
   }
+
+  .created-events{
+    display: flex;
+    overflow: scroll;
+    margin: 20px;
+  }
+
+  .each-event{
+    margin: 10px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px rgb(200, 199, 199, 0.4);
+    padding: 0 20px;
+    padding-top: 10px;
+    text-align: center;
+    /* width: 100px; */
+  }
+
+  .create-event-btn{
+    text-align: center;
+    height: 50px;
+  }
+  .create-event-btn button {
+    height: 50px;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    color: rgb(66, 66, 66);
+  }
+
+  .create-event-btn button:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: ease-in;
+  }
