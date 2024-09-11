@@ -5,6 +5,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import MyEvents
 from rest_framework.exceptions import NotFound
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST
 
@@ -31,6 +32,20 @@ class AddToMyEvents(generics.ListCreateAPIView):
             return Response({"error": "Event ID is required"}, status=HTTP_400_BAD_REQUEST)
         
         return self.create(request, *args, **kwargs)
+    
+
+class GetSingleEvent(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, eventId):
+        event = MyEvents.objects.filter(owner=self.request.user, eventId=eventId).first()
+        
+        if not event:
+            return Response({"error": "Event not found or you don't have permission to access this event"}, status=HTTP_404_NOT_FOUND)
+        
+        serializer = MyEventSerializer(event)
+
+        return Response(serializer.data, status=HTTP_200_OK)
     
 
 class RemoveEvent(generics.DestroyAPIView):

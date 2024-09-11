@@ -5,16 +5,18 @@ import "../styles/EventPage.css";
 import React from "react";
 import axios from "axios";
 
-export default function EventPage({ added, setAdded }) {
+export default function EventPage() {
   const { id } = useParams();
   const [aEvent, setAEvent] = useState(null);
   const [loading, setLoading] = useState(false);
-  // const [added, setAdded] = useState(false);
+  const [added, setAdded] = useState(false);
   const apiKey = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     fetchEvent();
+    checkIfEventAdded()
   }, [id]);
+  
 
   const fetchEvent = async () => {
     setLoading(true);
@@ -24,7 +26,7 @@ export default function EventPage({ added, setAdded }) {
       );
 
       setAEvent(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -55,6 +57,21 @@ export default function EventPage({ added, setAdded }) {
       console.log("Error removing event", error);
     }
   };
+
+
+  const checkIfEventAdded = async () => {
+    try {
+      const response = await api.get(`api/my-event/${id}/`)
+      console.log(response.data)
+      if(response.data){
+        setAdded(true)
+      } else {
+        setAdded(false)
+      }
+    } catch (error) {
+      console.log("Error event call", error);
+    }
+  }
 
   if (!aEvent) return <div>Loading...</div>;
 
