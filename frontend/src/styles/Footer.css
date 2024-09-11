@@ -17,3 +17,12 @@
 .text {
   color: white;
 }
+
+.github-link {
+  color: rgb(242, 188, 88);
+  background-color: transparent;
+}
+
+.gh-logo {
+  background-color: transparent;
+}
