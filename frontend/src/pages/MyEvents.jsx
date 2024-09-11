@@ -34,7 +34,7 @@ export const MyEvents = () => {
     } finally {
       setLoading(false);
     }
-  }, 1000); // Throttle for 1 second
+  }, 2000); // Throttle for 1 second
 
   useEffect(() => {
     if (myEvents.length > 0) {
