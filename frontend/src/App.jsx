@@ -27,6 +27,9 @@ function App() {
   const [username, setUsername] = useState("");
   const [added, setAdded] = useState(false)
 
+
+  
+
   return (
     <>
       <BrowserRouter>
@@ -49,14 +52,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/events/:id"
             element={
               <ProtectedRoute>
-                <EventPage />
+                <EventPage username={username}/>
               </ProtectedRoute>
             }
-          />
+          /> */}
           <Route path="/eventresults" element={<EventResults />} />
           <Route path="/venueresults" element={<VenueResults />} />
           <Route path="/sports" element={<Sports />} />
@@ -64,7 +67,7 @@ function App() {
           <Route path="/arts" element={<ArtsTheatre />} />
           <Route path="/film" element={<Film />} />
           <Route path="/misc" element={<Misc />} />
-          <Route path="/event/:id" element={<EventPage added={added} setAdded={setAdded}/>} />
+          <Route path="/event/:id" element={<EventPage added={added} setAdded={setAdded} username={username}/>} />
           <Route
             path="/login"
             element={<LoginForm setUsername={setUsername} />}

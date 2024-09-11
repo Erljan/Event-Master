@@ -5,16 +5,19 @@ import "../styles/EventPage.css";
 import React from "react";
 import axios from "axios";
 
-export default function EventPage({ added, setAdded }) {
+export default function EventPage({username}) {
   const { id } = useParams();
   const [aEvent, setAEvent] = useState(null);
   const [loading, setLoading] = useState(false);
-  // const [added, setAdded] = useState(false);
+  const [added, setAdded] = useState(false);
   const apiKey = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     fetchEvent();
+    checkIfEventAdded()
+    console.log(username)
   }, [id]);
+  
 
   const fetchEvent = async () => {
     setLoading(true);
@@ -24,7 +27,7 @@ export default function EventPage({ added, setAdded }) {
       );
 
       setAEvent(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -55,6 +58,21 @@ export default function EventPage({ added, setAdded }) {
       console.log("Error removing event", error);
     }
   };
+
+
+  const checkIfEventAdded = async () => {
+    try {
+      const response = await api.get(`api/my-event/${id}/`)
+      console.log(response.data)
+      if(response.data){
+        setAdded(true)
+      } else {
+        setAdded(false)
+      }
+    } catch (error) {
+      console.log("Error event call", error);
+    }
+  }
 
   if (!aEvent) return <div>Loading...</div>;
 
@@ -98,13 +116,13 @@ export default function EventPage({ added, setAdded }) {
             Buy Ticket
           </a>
         )}
-
         {added ? (
-          <button className="add-btn" onClick={() => handleRemoveEvent()}>
+          <button className="remove-btn" onClick={() => handleRemoveEvent()}>
             Remove from events
           </button>
         ) : (
-          <button className="add-btn" onClick={handleAddToMyEvents}>
+          
+          <button className={username ? "add-btn" : "add-btn disabled"} onClick={handleAddToMyEvents} disabled={username ? false: true}>
             Add to my events
           </button>
         )}
