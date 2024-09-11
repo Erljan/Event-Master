@@ -113,7 +113,15 @@ export const Profile = () => {
         </div>
 
         <div className="profile-bio">
+          <h2>Bio</h2>
+          <br />
           <p className="profile-info">{bio ? bio : "No Bio"}</p>
+          <br />
+          <h2>Interests</h2>
+          <br />
+          <p className="profile-info">Hiking</p>
+          <p className="profile-info">Biking</p>
+          <p className="profile-info">Classical Music</p>
         </div>
 
         {isModalOpen && (
@@ -135,15 +143,6 @@ export const Profile = () => {
             />
           </div>
         )}
-      </div>
-
-      <div className="events-box">
-        <h1>Interests</h1>
-        <div className="interests">
-          <p>Hiking</p>
-          <p>Biking</p>
-          <p>Classical Music</p>
-        </div>
       </div>
 
       <div className="header2">
