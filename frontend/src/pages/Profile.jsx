@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Profile.css";
 import { UpdateProfileModal } from "../components/UpdateProfileModal";
 import AddEventModal from "../components/AddEventModal";
+import CreatedEventCard from "../components/CreatedEventCard";
+import { ProfileEvents } from "../components/ProfileEvents";
 
 export const Profile = () => {
   const [username, setUsername] = useState("");
@@ -28,7 +30,7 @@ export const Profile = () => {
   useEffect(() => {
     fetchProfileInfo();
     fetchEventsCreated();
-  }, []);
+  }, [eventsCreated]);
 
   const fetchProfileInfo = async () => {
     try {
@@ -73,7 +75,6 @@ export const Profile = () => {
     try {
       const response = await api.get("api/events/user-events/");
       setEventsCreated(response.data);
-      console.log(response.data);
     } catch (error) {
       console.log("Error fetching events created", error);
     }
@@ -131,52 +132,38 @@ export const Profile = () => {
           </div>
         )}
       </div>
-      <div className="header2">
-        <p>Your Events</p>
-      </div>
-      <AddEventModal />
-      <div className="created-events">
-        {eventsCreated
-          ? eventsCreated.map((event, idx) => (
-              <div key={idx} className="each-event">
-                <h5>{event.event_name}</h5>
-                <img
-                  src={
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHXX6GrLiyiN5oDkH8Badn80xAnC5oAumGmchxXoF-b4H9ZDDOJ_iexVov_mSiLU9UCI0&usqp=CAU"
-                  }
-                  alt=""
-                />
-                <p>Venue: {event.venue}</p>
-                <p>City: {event.city}</p>
-                {/* <p>Date: Oct 1, 2024</p> */}
-                <p>Time: {event.time}</p>
 
-                <button
-                  onClick={() => deleteEventBtn(event.id)}
-                  className="remove-btn"
-                >
-                  Delete event
-                </button>
-              </div>
-            ))
-          : null}
-      </div>
       <div className="events-box">
-        <p>Interests</p>
+        <h1>Interests</h1>
         <div className="interests">
           <p>Hiking</p>
           <p>Biking</p>
           <p>Classical Music</p>
         </div>
+      </div>
 
-        <p>Upcoming Events</p>
-        <div className="interests">
-          <p>Empty</p>
+      <div className="header2">
+        <h1>Your Events</h1>
+      </div>
+      <AddEventModal />
+      <br />
+      <div className="events-box">
+        <h1>Upcoming Events You've Joined</h1>
+        <div className="events">
+          <ProfileEvents />
         </div>
 
-        <p>Events You're Running</p>
-        <div className="interests">
-          <p>Empty</p>
+        <h1>Events You're Running</h1>
+        <div className="events">
+          <div className="youre-running">
+            {eventsCreated
+              ? eventsCreated.map((event, idx) => (
+                  <>
+                    <CreatedEventCard event={event} />
+                  </>
+                ))
+              : null}
+          </div>
         </div>
       </div>
     </div>
