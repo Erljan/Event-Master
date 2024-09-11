@@ -70,7 +70,8 @@ export const MyEvents = () => {
 
   if (!myEvents.length) {
     return (
-      <div>
+      <div className="homepage">
+        <h1>My Events</h1>
         <h3>No events</h3>
         <button onClick={() => navigate("/")}>Add Events</button>
       </div>
@@ -78,8 +79,9 @@ export const MyEvents = () => {
   }
 
   return (
-    <div>
-
+    <div className="homepage">
+      <h1>My Events</h1>
+      <div className="each-slide-container">
       {loading ? (
         <div className="spinner"></div>
       ) : (
@@ -113,9 +115,9 @@ export const MyEvents = () => {
               Remove event
             </button>
           </div>
-
         ))
       )}
+      </div>
     </div>
   );
 };
