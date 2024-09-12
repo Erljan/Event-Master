@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../api";
 import { useNavigate } from "react-router-dom";
-import "../styles/MyEvents.css";
+import "../styles/index.css";
 import axios from "axios";
 import EventCard from "../components/EventCard";
 import { throttle } from "lodash";
@@ -80,9 +80,9 @@ export const ProfileEvents = () => {
           <div className="event-card" key={idx}>
             <h5>{event.name}</h5>
             <img src={event.images[0].url} alt={event.name} />
-            <p>
+            <p className="profile-text">
               {event._embedded && event._embedded.venues ? (
-                <span>
+                <span className="profile-text">
                   {event._embedded.venues[0].name},{" "}
                   {event._embedded.venues[0].city.name}
                 </span>

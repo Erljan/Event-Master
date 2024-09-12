@@ -12,9 +12,15 @@ export default function CreatedEventCard({ event, fetchEventsCreated }) {
     }
   };
 
+  const dateStr = event.date;
+  const date = new Date(dateStr);
+
+  const options = { year: "numeric", month: "short", day: "numeric" };
+  const formattedDate = date.toLocaleDateString("en-US", options);
+
   return (
     <div className="card" style={{ width: "18rem" }}>
-      <h5 className="card-title">{event.event_name}</h5>
+      <h5>{event.event_name}</h5>
       <img
         className="card-img-top"
         src={
@@ -28,6 +34,7 @@ export default function CreatedEventCard({ event, fetchEventsCreated }) {
             {event.venue},{event.city}
           </span>
         </p>
+        <p>{formattedDate}</p>
         <p>Time: {event.time}</p>
         <button onClick={() => deleteEventBtn(event.id)} className="remove-btn">
           Delete event

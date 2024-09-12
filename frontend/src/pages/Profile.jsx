@@ -155,7 +155,7 @@ export const Profile = () => {
         <div className="events">
           <ProfileEvents />
         </div>
-
+        <br />
         <h1>Events You're Hosting</h1>
         <div className="events">
           <div className="youre-running">

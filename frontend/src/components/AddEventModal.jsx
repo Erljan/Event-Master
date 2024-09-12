@@ -8,6 +8,7 @@ export default function AddEventModal() {
   const [city, setCity] = useState("");
   const [category, setCategory] = useState("");
   const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
   const [amPm, setAmPm] = useState("AM");
   const [timezone, setTimezone] = useState("EST");
   const [indoor, setIndoor] = useState(true); // Default is indoor
@@ -22,6 +23,7 @@ export default function AddEventModal() {
         venue: venue,
         city: city,
         category: category,
+        date: date,
         time: fullTime,
         indoor: indoor,
       });
@@ -32,6 +34,7 @@ export default function AddEventModal() {
       setCity("");
       setCategory("");
       setTime("");
+      setDate("");
       setAmPm("AM");
       setTimezone("EST");
       setIndoor(true); // Reset to default (indoor)
@@ -122,6 +125,12 @@ export default function AddEventModal() {
                   required
                 />
                 <br />
+                <input
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  required
+                />
 
                 <input
                   type="time"
