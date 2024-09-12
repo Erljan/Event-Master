@@ -185,6 +185,10 @@ ul li a {
   transform: scale(1.02);
 }
 
+.event-card profile-text {
+  font-weight: normal;
+}
+
 .event-card img {
   height: 200px;
   width: 300px;

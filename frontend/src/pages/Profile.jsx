@@ -104,13 +104,24 @@ export const Profile = () => {
           <h5>@{username}</h5>
           <p className="profile-info">{email}</p>
           <p>{zipcode ? zipcode : "No current zipcode"}</p>
-          <button className="button" onClick={() => setIsModalOpen(true)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => setIsModalOpen(true)}
+          >
             Update Profile
           </button>
         </div>
 
         <div className="profile-bio">
+          <h2>Bio</h2>
+          <br />
           <p className="profile-info">{bio ? bio : "No Bio"}</p>
+          <br />
+          <h2>Interests</h2>
+          <br />
+          <p className="profile-info">Hiking</p>
+          <p className="profile-info">Biking</p>
+          <p className="profile-info">Classical Music</p>
         </div>
 
         {isModalOpen && (
@@ -134,17 +145,8 @@ export const Profile = () => {
         )}
       </div>
 
-      <div className="events-box">
-        <h1>Interests</h1>
-        <div className="interests">
-          <p>Hiking</p>
-          <p>Biking</p>
-          <p>Classical Music</p>
-        </div>
-      </div>
-
       <div className="header2">
-        <h1>Your Events</h1>
+        <h1>Events</h1>
       </div>
       <AddEventModal />
       <br />
@@ -153,17 +155,25 @@ export const Profile = () => {
         <div className="events">
           <ProfileEvents />
         </div>
-
-        <h1>Events You're Running</h1>
+        <br />
+        <h1>Events You're Hosting</h1>
         <div className="events">
           <div className="youre-running">
-            {eventsCreated
-              ? eventsCreated.map((event, idx) => (
-                  <>
-                    <CreatedEventCard event={event} />
-                  </>
-                ))
-              : null}
+            {eventsCreated.length ? (
+              eventsCreated.map((event, idx) => (
+                <>
+                  <CreatedEventCard event={event} />
+                </>
+              ))
+            ) : (
+              <>
+                Host an event!
+                <br />
+                <div>
+                  <AddEventModal />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

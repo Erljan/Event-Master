@@ -60,13 +60,15 @@
   background-color: rgb(242, 188, 88) !important;
   border: none !important;
   color: black !important;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
 .btn-primary:hover {
   background-color: rgb(242, 188, 88);
   cursor: pointer;
   transform: scale(1.05);
-  transition: ease-in;
+  transition: transform 0.2s ease-in;
   color: black;
 }
 
@@ -79,8 +81,8 @@
 .btn-secondary:hover {
   background-color: #6c757d;
   cursor: pointer;
-  transform: scale(1.05);
-  transition: ease-in;
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in;
   color: black;
 }
 

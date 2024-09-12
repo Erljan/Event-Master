@@ -8,22 +8,14 @@ export default function AddEventModal() {
   const [city, setCity] = useState("");
   const [category, setCategory] = useState("");
   const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
   const [amPm, setAmPm] = useState("AM");
   const [timezone, setTimezone] = useState("EST");
-  const [indoor, setIndoor] = useState(true);
+  const [indoor, setIndoor] = useState(true); // Default is indoor
   const [errorMessage, setErrorMessage] = useState("");
 
   const addEvent = async () => {
     const fullTime = `${time} ${amPm} ${timezone}`;
-
-    console.log({
-      event_name: eventName,
-      venue: venue,
-      city: city,
-      category: category,
-      time: fullTime,
-      indoor: indoor,
-    });
 
     try {
       const response = await api.post("api/events/", {
@@ -31,11 +23,10 @@ export default function AddEventModal() {
         venue: venue,
         city: city,
         category: category,
+        date: date,
         time: fullTime,
         indoor: indoor,
       });
-
-      console.log("API response: ", response);
 
       // Clear form fields upon successful submission
       setEventName("");
@@ -43,9 +34,10 @@ export default function AddEventModal() {
       setCity("");
       setCategory("");
       setTime("");
+      setDate("");
       setAmPm("AM");
       setTimezone("EST");
-      setIndoor(true);
+      setIndoor(true); // Reset to default (indoor)
       setErrorMessage("");
 
       const modalElement = document.getElementById("exampleModal");
@@ -133,12 +125,17 @@ export default function AddEventModal() {
                   required
                 />
                 <br />
+                <input
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  required
+                />
 
                 <input
                   type="time"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
-                  placeholder="Time"
                   required
                 />
                 <select
@@ -165,20 +162,18 @@ export default function AddEventModal() {
                 <label htmlFor="indoor">Indoor</label>
                 <input
                   type="radio"
-                  name="indoor"
-                  value={true}
-                  checked={indoor === true}
-                  onChange={() => setIndoor(true)}
-                  required
+                  name="indoorOutdoor"
+                  value="indoor"
+                  checked={indoor === true} // Select this if indoor is true
+                  onChange={() => setIndoor(true)} // Set indoor to true
                 />
                 <label htmlFor="outdoor">Outdoor</label>
                 <input
                   type="radio"
-                  name="indoor"
-                  value={false}
-                  checked={indoor === false}
-                  onChange={() => setIndoor(false)}
-                  required
+                  name="indoorOutdoor"
+                  value="outdoor"
+                  checked={indoor === false} // Select this if indoor is false
+                  onChange={() => setIndoor(false)} // Set indoor to false
                 />
               </div>
             </div>

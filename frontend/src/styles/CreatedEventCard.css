@@ -22,10 +22,16 @@
   background-color: transparent !important;
 }
 
+.card h5 {
+  height: 50px;
+  overflow: hidden;
+  background-color: transparent;
+}
+
 .card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
+  height: 50px;
+  overflow: hidden;
+  background-color: transparent;
 }
 
 .remove-btn {
@@ -39,6 +45,24 @@
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.see-more-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid #888;
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.see-more-btn:hover {
+  background-color: black;
+  color: white;
 }
 
 .remove-btn:hover {

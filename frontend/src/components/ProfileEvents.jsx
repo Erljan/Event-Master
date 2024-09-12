@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../api";
 import { useNavigate } from "react-router-dom";
-import "../styles/MyEvents.css";
+import "../styles/index.css";
 import axios from "axios";
 import EventCard from "../components/EventCard";
 import { throttle } from "lodash";
@@ -68,51 +68,46 @@ export const ProfileEvents = () => {
   };
 
   if (!myEvents.length) {
-    return <>Empty</>;
+    return <>No Events</>;
   }
 
   return (
-    <div className="homepage">
-      <div className="each-slide-container1">
-        {loading ? (
-          <div className="spinner"></div>
-        ) : (
-          listEvents.map((event, idx) => (
-            <div className="event-card" key={idx}>
-              <h5>{event.name}</h5>
-              <img src={event.images[0].url} alt={event.name} />
-              <p>
-                {event._embedded && event._embedded.venues ? (
-                  <span>
-                    {event._embedded.venues[0].name},{" "}
-                    {event._embedded.venues[0].city.name}
-                  </span>
-                ) : (
-                  "Venue information not available"
-                )}
-              </p>
-              <p>{formatDate(event.dates.start.localDate)}</p>
-              <p>
-                Time: {event.dates?.start?.localTime || "N/A"},{" "}
-                {event.dates.timezone || "N/A"}
-              </p>
+    <div className="each-slide-container1">
+      {loading ? (
+        <div className="spinner"></div>
+      ) : (
+        listEvents.map((event, idx) => (
+          <div className="event-card" key={idx}>
+            <h5>{event.name}</h5>
+            <img src={event.images[0].url} alt={event.name} />
+            <p className="profile-text">
+              {event._embedded && event._embedded.venues ? (
+                <span className="profile-text">
+                  {event._embedded.venues[0].name},{" "}
+                  {event._embedded.venues[0].city.name}
+                </span>
+              ) : (
+                "Venue information not available"
+              )}
+            </p>
+            <p>{formatDate(event.dates.start.localDate)}</p>
+            <p>Time: {event.dates?.start?.localTime}</p>
 
-              <button
-                onClick={() => navigate(`/event/${event.id}`)}
-                className="see-more"
-              >
-                See more
-              </button>
-              <button
-                onClick={() => handleRemoveEvent(event.id)}
-                className="remove-btn"
-              >
-                Remove event
-              </button>
-            </div>
-          ))
-        )}
-      </div>
+            <button
+              onClick={() => navigate(`/event/${event.id}`)}
+              className="see-more-btn"
+            >
+              See more
+            </button>
+            <button
+              onClick={() => handleRemoveEvent(event.id)}
+              className="remove-btn"
+            >
+              Remove event
+            </button>
+          </div>
+        ))
+      )}
     </div>
   );
 };
